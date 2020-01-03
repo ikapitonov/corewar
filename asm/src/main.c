@@ -31,12 +31,12 @@ int				main(int ac, char *av[])
 	main = init();
 	while (get_next_line(ch, &line) > 0)
 	{
-		parser(main, line);
+		parser(main, &line, ch);
 		ft_memdel((void**)&line);
 	}
-	if (!main->name)
-		die(ft_strjoin("Can't read source file ", av[0]));
-	common(main);
+	// if (!main->name)
+	// 	die(ft_strjoin("Can't read source file ", av[0]));
 	close(ch);
+	common(main);
 	return 0;
 }

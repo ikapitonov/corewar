@@ -15,12 +15,12 @@
 
 # define BUFF_SIZE 64
 # include <unistd.h>
-# include "libft/includes/libft.h"
-# include "../includes/op.h"
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include "libft/includes/libft.h"
+# include "../includes/op.h"
 
 int		get_next_line(const int fd, char **line);
 

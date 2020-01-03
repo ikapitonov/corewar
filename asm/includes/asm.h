@@ -17,6 +17,7 @@
 
 typedef struct		s_main
 {
+	int				lines;
 	char			*name;
 	char			*comment;
 	struct s_token	*token;
@@ -43,11 +44,25 @@ typedef struct		s_mark
 	int i;
 }					t_mark;
 
+typedef struct		s_pars
+{
+	t_main			*main;
+	int				ch;
+	char			**line;
+}					t_pars;
+
 void				die(const char *reason);
 void				*smart_malloc(size_t how_much);
+void				error_position(char *first, char *second,
+									int i, int j);
 
 void				*init();
 
-void				parser(t_main *main, char *line);
+void				parser(t_main *main, char **line, int ch);
 
+void				name_or_comment(t_pars *pars, int i);
+void				full_string(char *new, t_pars *pars, int *i, int len);
+
+void				trim_str(char *str, int *i);
+void p(void);
 #endif

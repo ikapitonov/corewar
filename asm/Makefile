@@ -19,6 +19,8 @@ CFLAGS			= -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
 SRC				= src/main.c \
 				  src/init.c \
 				  src/parser/parser.c \
+				  src/parser/reader/functions.c \
+				  src/parser/components/name_or_comment/name_or_comment.c \
 				  ../gnl/get_next_line.c
 
 LIB = ../gnl/libft/libft.a
