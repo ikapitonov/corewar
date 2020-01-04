@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
-
+void p(void) {printf("HELLO\n");}
 static	void	common(t_main *main)
 {
 	return ;
@@ -28,15 +28,9 @@ int				main(int ac, char *av[])
 	if ((ch = open(av[1], O_RDONLY)) == -1)
 		die(ft_strjoin("Can't read source file ", av[0]));
 	line = NULL;
-	main = init();
-	while (get_next_line(ch, &line) > 0)
-	{
-		parser(main, &line, ch);
-		ft_memdel((void**)&line);
-	}
-	// if (!main->name)
-	// 	die(ft_strjoin("Can't read source file ", av[0]));
+	main = init(ch);
 	close(ch);
+	parser(main);
 	common(main);
 	return 0;
 }

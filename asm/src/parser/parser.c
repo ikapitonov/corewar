@@ -12,25 +12,30 @@
 
 #include "../../includes/asm.h"
 
-void			parser(t_main *main, char **str, int ch)
+void			parser(t_main *main)
 {
-	t_pars	parsing;
+	t_read	*reader;
 	char	*line;
 	int		i;
+	int		tmp;
 
-	line = *str;
-	main->lines += 1;
-	parsing.main = main;
-	parsing.ch = ch;
-	parsing.line = str;
-	i = 0;
-	while (line[i])
+	reader = main->reader;
+	while (reader->i < reader->count)
 	{
-		trim_str(line, &i);
-		if (line[i] == COMMENT_CHAR || line[i] == ALT_COMMENT_CHAR || !line[i])
-			return ;
-		if (line[i] == '.')
-			return (name_or_comment(&parsing, i));
-		i += 1;
+		reader->j = 0;
+		i = reader->i;
+		line = reader->arr[i];
+		trim_str(line, &reader->j);
+		if (line[reader->j] == COMMENT_CHAR ||
+			line[reader->j] == ALT_COMMENT_CHAR ||
+			!line[reader->j])
+			;
+		else if (line[reader->j] == '.')
+			name_or_comment(main);
+		else if ((tmp = int_strchr(line + reader->j)))
+			token(main, reader, tmp, line + reader->j);
+		// else if (is_mark(line, reader->j))
+		// 	p();
+		reader->i += 1;
 	}
 }

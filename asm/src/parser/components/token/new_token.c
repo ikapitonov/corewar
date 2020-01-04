@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.c                                        :+:      :+:    :+:   */
+/*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjamie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/03 19:44:17 by sjamie            #+#    #+#             */
-/*   Updated: 2020/01/03 19:44:18 by sjamie           ###   ########.fr       */
+/*   Created: 2020/01/04 21:48:50 by sjamie            #+#    #+#             */
+/*   Updated: 2020/01/04 21:48:52 by sjamie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/asm.h"	
+#include "../../../../includes/asm.h"
 
-int				int_strchr(char *str)
+static	void	new_token_null(t_token *token)
 {
 	int		i;
 
 	i = 0;
-	while (str[i] && ft_isalpha(str[i]))
-		++i;
-	return (str[i] ? i : 0);
-}
-
-int				is_empty(int c)
-{
-	return (c == '\t' || c == ' ' || (c >= 9 && c <= 13) ? 1 : 0);
-}
-
-void			trim_str(char *str, int *i)
-{
-	while (is_empty(str[*i]))
+	while (i < 3)
 	{
-		*i += 1;
+		token->type[i] = 0;
+		token->arg[i] = 0;
+		++i;
 	}
+}
+
+void			*new_token(int index)
+{
+	t_token	*token;
+
+	token = (t_token*)smart_malloc(sizeof(t_token));
+    token->len = 0;
+    token->pos = 0;
+	token->instruct = index;
+	new_token_null(token);
+//	token->marks = NULL;
+	token->next = NULL;
+	return ((void*)token);
 }

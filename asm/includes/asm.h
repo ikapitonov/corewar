@@ -14,42 +14,51 @@
 # define ASM_H
 # include "../../gnl/get_next_line.h"
 # include <stdio.h>
+# define COUNT_TOKENS 16
+extern t_op g_instr[];
 
 typedef struct		s_main
 {
-	int				lines;
 	char			*name;
 	char			*comment;
+	struct s_read	*reader;
 	struct s_token	*token;
 	struct s_mark	*mark;
 }					t_main;
 
-typedef struct		s_token
+typedef struct		s_read
 {
-	int				len;
-	int				sub;
-	int				instruct;
-	char			type_1;
-	char			type_2;
-	char			type_3;
-	int				val_1;
-	int				val_2;
-	int				val_3;
-	char			*marks[3];
-	struct s_token	*next;
-}					t_token;
+	char			*str;
+	char			**arr;
+	int				count;
+	int				i;
+	int				j;
+}					t_read;
 
-typedef struct		s_mark
+typedef struct      s_token
 {
-	int i;
-}					t_mark;
+    int             len;
+    int             pos;
+    int             instruct;
+    char            type[3];
+    int             arg[3];
+    char            *marks[3];
+    struct s_token  *next;
+}                   t_token;
 
-typedef struct		s_pars
+typedef struct      s_mark
 {
-	t_main			*main;
-	int				ch;
-	char			**line;
-}					t_pars;
+    char            *name;
+    struct s_token  *token;
+    struct s_mark   *next;
+}                   t_mark;
+
+typedef struct		s_join
+{
+	char			*str;
+	size_t			length;
+	struct s_join	*next;
+}					t_join;
 
 void				die(const char *reason);
 void				*smart_malloc(size_t how_much);
@@ -58,11 +67,21 @@ void				error_position(char *first, char *second,
 
 void				*init();
 
-void				parser(t_main *main, char **line, int ch);
+void				name_or_comment(t_main *main);
+char				*full_string(t_main *main, t_read *reader,
+									int length, int flag);
 
-void				name_or_comment(t_pars *pars, int i);
-void				full_string(char *new, t_pars *pars, int *i, int len);
+void				token(t_main *main, t_read *reader, int tmp, char *line);
+void				*new_token(int index);
 
+int					is_mark(char *line, int i);
+
+char            	*file_get_contents(int ch);
+void				parser(t_main *main);
 void				trim_str(char *str, int *i);
+int					int_strchr(char *str);
+int					is_empty(int c);
+
+
 void p(void);
 #endif

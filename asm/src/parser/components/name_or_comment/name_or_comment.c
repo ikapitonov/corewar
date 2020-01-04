@@ -22,58 +22,51 @@ static	void	double_error(int flag, int j, int i)
 	error_position("Invalid instruction at token [TOKEN]", str, j, i);	
 }
 
-static	void	get_string(t_pars *pars, int *i, int len, int flag)
-{
-	char	new[len + 1];
-	int		j;
-
-	j = 0;
-	// if (!full_string(new, pars, *i, len))
-	// {
-	// 	error_position("Syntax error at token [TOKEN]", " END \"(null)\"",
-	// 					pars->main->lines, *i);
-	// }
-	// if (flag)
-	// 	pars->main->comment = ft_strdup(str);
-	// else
-	// 	pars->main->name = ft_strdup(str);
-}
-
-static	void	parse_string(int flag, t_pars *pars, int i)
+static	void	parse_string(t_main *main, t_read *reader, int flag)
 {
 	char	*line;
+	char	*str;
 
-	line = *pars->line;
-	trim_str(line, &i);
-	if (*(line + i) != '"')
+	line = reader->arr[reader->i];
+	trim_str(line, &reader->j);
+	if (line[reader->j] != '"')
 	{
-		if (*(line + i) != 0)
-			error_position("Lexical error at ", "", pars->main->lines, i);
-		error_position("Syntax error at token [TOKEN]", " ENDLINE", pars->main->lines, i);
+		if (line[reader->j] != 0)
+			error_position("Lexical error at ", "", reader->i, reader->j);
+		error_position("Syntax error at token [TOKEN]", " ENDLINE", reader->i, reader->j);
 	}
-	i += 1;
-	get_string(pars, &i, !flag ? PROG_NAME_LENGTH : COMMENT_LENGTH, flag);
+	reader->j += 1;
+	str = full_string(main, reader, flag ? COMMENT_LENGTH : PROG_NAME_LENGTH, flag);
+	if (flag)
+		main->comment = str;
+	else
+		main->name = str;
+	// валидация в конце строки
 }
 
-void			name_or_comment(t_pars *pars, int i)
+void			name_or_comment(t_main *main)
 {
+	t_read	*reader;
 	char	*line;
 	int		len;
 
-	line = *pars->line;
+	reader = main->reader;
+	line = reader->arr[reader->i] + reader->j;
 	len = (int) ft_strlen(NAME_CMD_STRING);
-	if (ft_strnequ(line + i, NAME_CMD_STRING, len))
+	if (ft_strnequ(line, NAME_CMD_STRING, len))
 	{
-		if (pars->main->name)
-			double_error(0, pars->main->lines, i);
-		return (parse_string(0, pars, i + len));
+		if (main->name)
+			double_error(0, reader->i, reader->j);
+		reader->j += len;
+		return (parse_string(main, reader, 0));
 	}
 	len = (int) ft_strlen(COMMENT_CMD_STRING);
-	if (ft_strnequ(line + i, COMMENT_CMD_STRING, len))
+	if (ft_strnequ(line, COMMENT_CMD_STRING, len))
 	{
-		if (pars->main->comment)
-			double_error(1, pars->main->lines, i);
-		return (parse_string(1, pars, i + len));
+		if (main->comment)
+			double_error(1, reader->i, reader->j);
+		reader->j += len;
+		return (parse_string(main, reader, 1));
 	}
-	error_position("Lexical error at ", "", pars->main->lines, i);
+	error_position("Lexical error at ", "", reader->i, reader->j);
 }

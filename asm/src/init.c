@@ -12,7 +12,7 @@
 
 #include "../includes/asm.h"
 
-t_op	g_instr[17] =
+t_op	g_instr[COUNT_TOKENS + 1] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -38,47 +38,6 @@ t_op	g_instr[17] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
-     void p(void) {printf("HELLO\n");}
-
-void			error_position(char *first, char *second, int i, int j)
-{
-	int		fd;
-	int		tmp;
-
-	fd = 1;
-	write(fd, first, ft_strlen(first));
-	write(fd, "[", 1);
-	tmp = 100;
-	while (tmp / 10 && tmp > i)
-	{
-		write(fd, "0", 1);
-		tmp /= 10;
-	}
-	ft_putnbr_fd(i, fd);
-	write(fd, ":", 1);
-	tmp = 100;
-	while (tmp / 10 && tmp > j)
-	{
-		write(fd, "0", 1);
-		tmp /= 10;
-	}
-	ft_putnbr_fd(j, fd);
-	write(fd, "]", 1);
-	if (second && second[0])
-		write(fd, second, ft_strlen(second));
-	write(fd, "\n", 1);
-	exit(1);
-}
-
-void			die(const char *reason)
-{
-	int		fd;
-
-	fd = 1;
-	write(fd, reason, ft_strlen(reason));
-	write(fd, "\n", 1);
-	exit(1);
-}
 
 void			*smart_malloc(size_t how_much)
 {
@@ -86,18 +45,34 @@ void			*smart_malloc(size_t how_much)
 
 	if (!(new = malloc(how_much)))
 	{
-		ft_putstr("malloc() does not work");
+		ft_putstr("malloc() does not work\n");
 		exit(1);	
 	}
 	return (new);
 }
 
-void			*init()
+static	void	init_reader(t_read *reader, int ch)
+{
+	int		i;
+
+	i = 0;
+	if (!(reader->str = file_get_contents(ch)))
+		die("Empty file");
+	reader->arr = ft_strsplit(reader->str, '\n');
+	while (reader->arr[i])
+		++i;
+	reader->count = i;
+	reader->i = 0;
+	reader->j = 0;
+}
+
+void			*init(int ch)
 {
 	t_main	*main;
 
 	main = (t_main*)smart_malloc(sizeof(t_main));
-	main->lines = 0;
+	main->reader = (t_read*)smart_malloc(sizeof(t_read));
+	init_reader(main->reader, ch);
 	main->name = NULL;
 	main->comment = NULL;
 	main->token = NULL;

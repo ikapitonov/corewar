@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.c                                        :+:      :+:    :+:   */
+/*   is_mark.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjamie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/03 19:44:17 by sjamie            #+#    #+#             */
-/*   Updated: 2020/01/03 19:44:18 by sjamie           ###   ########.fr       */
+/*   Created: 2020/01/04 19:10:31 by sjamie            #+#    #+#             */
+/*   Updated: 2020/01/04 19:10:32 by sjamie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/asm.h"	
+#include "../../../../includes/asm.h"
 
-int				int_strchr(char *str)
+int				is_mark(char *line, int i)
 {
-	int		i;
-
-	i = 0;
-	while (str[i] && ft_isalpha(str[i]))
-		++i;
-	return (str[i] ? i : 0);
-}
-
-int				is_empty(int c)
-{
-	return (c == '\t' || c == ' ' || (c >= 9 && c <= 13) ? 1 : 0);
-}
-
-void			trim_str(char *str, int *i)
-{
-	while (is_empty(str[*i]))
+	while (line[i])
 	{
-		*i += 1;
+		if (line[i] == LABEL_CHAR)
+			return (1);
+		if (!ft_strchr(LABEL_CHARS, line[i]))
+			die("Lexical error at mark");
+		++i;
 	}
+	return (0);
 }
