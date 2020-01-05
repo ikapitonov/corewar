@@ -14,23 +14,33 @@
 void p(void) {printf("HELLO\n");}
 static	void	common(t_main *main)
 {
-	return ;
+	parser(main);
+	calc(main);
 }
 
 int				main(int ac, char *av[])
 {
 	t_main	*main;
+	int		res;
 	int		ch;
-	char	*line;
 
-	if (ac < 2)
-		die("Usage: lalala");
-	if ((ch = open(av[1], O_RDONLY)) == -1)
-		die(ft_strjoin("Can't read source file ", av[0]));
-	line = NULL;
+	if (ac < 2 || ac > 3 || !(res = check_args(ac, av)))
+	{
+		die("Usage: ./asm [-a] <your_sourcefile.s>");
+	}
+	if ((ch = open(av[res], O_RDONLY)) == -1)
+	{
+		die(ft_strjoin("Can't read source file ", av[res]));
+	}
 	main = init(ch);
-	close(ch);
-	parser(main);
+	if (ac > 2)
+		main->a_flag = 1;
+	else
+		main->filename = get_filename(av[res]);
+	if (close(ch) == -1)
+	{
+		die(ft_strjoin("Can't close source file ", av[res]));
+	}
 	common(main);
-	return 0;
+	return (0);
 }

@@ -16,16 +16,17 @@ static	char	*join_exec(t_join *list, size_t length)
 {
 	t_join	*tmp;
 	char	*content;
+	size_t	all;
 
 	if (!length)
-	{
 		return (NULL);
-	}
+	all = 0;
 	content = (char*)smart_malloc(length + 1);
 	while (list)
 	{
 		tmp = list->next;
-		ft_strncpy(content, list->str, list->length);
+		ft_strncpy(content + all, list->str, list->length);
+		all += list->length;
 		free(list->str);
 		free(list);
 		list = tmp;

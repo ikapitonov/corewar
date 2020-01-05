@@ -28,54 +28,60 @@ static	int		is_token(char *line, int position)
     return (-1);
 }
 
-static	int		help_func(int c)
+static	void	clean_after_arg(t_read *reader)
 {
-	return (c != SEPARATOR_CHAR && c != COMMENT_CHAR &&
-			c != ALT_COMMENT_CHAR && c && !is_empty(c) ? 1 : 0);
-}
+	char	*line;
 
-static	void	clean_after_arg(t_read *reader, char *line)
-{
-	while (help_func(line[reader->j]))
-		reader->j += 1;
+	line = reader->arr[reader->i];
+	trim_str(reader->arr[reader->i], &reader->j);
+	// while (args_exception(line[reader->j]))
+	// 	reader->j += 1;
 	if (line[reader->j] == SEPARATOR_CHAR)
 		reader->j += 1;
 }
 
-static  void    token_info(t_main *main, t_read *reader, char *line, int index)
+static  void    token_info(t_main *main, t_read *reader, int index, t_token *token)
 {
-	int		arr[3];
+	char	*line;
     int     i;
 
 	i = 0;
 	while (i < g_instr[index].count_args)
 	{
-		printf("%s\n", line);
-        trim_str(line, &reader->j);
-        line += reader->j;
+		trim_str(reader->arr[reader->i], &reader->j);
+		line = reader->arr[reader->i] + reader->j;
         if (*line == 'r')
-            p();
-        else if (ft_isdigit(*line))
-            p();
-        else if ((*line == '+' || *line == '-') && ft_isdigit(line[1]))
-            p();
+			save_registr(reader, token, i, index);
+        else if ((*line == '-' && ft_isdigit(line[1])) || ft_isdigit(*line))
+        	save_indirect(reader, token, i, index);
         else if (*line == DIRECT_CHAR)
-            p();
+            save_direct(reader, token, i, index);
         else
+		{
+			printf("%s\n", line);
             die("Invalid token");
-		clean_after_arg(reader, line);
+		}
+		clean_after_arg(reader);
         ++i;
 	}
 }
 
-void			token(t_main *main, t_read *reader, int tmp, char *line)
+void			get_token(t_main *main, t_read *reader, int tmp)
 {
 	t_token	*token;
     int     index;
 
-    if ((index = is_token(line, tmp)) == -1)
+    if ((index = is_token(reader->arr[reader->i] + reader->j, tmp)) == -1)
         return ;
 	token = new_token(index);
     reader->j += tmp;
-    token_info(main, reader, line, index);
+    token_info(main, reader, index, token);
+	if (main->last_token)
+	{
+		main->last_token->next = token;
+		main->last_token = token;
+		return ;
+	}
+	main->token = token;
+	main->last_token = token;
 }

@@ -15,15 +15,21 @@
 # include "../../gnl/get_next_line.h"
 # include <stdio.h>
 # define COUNT_TOKENS 16
+# define MAX_INT 2147483647
+# define MAX_SHORT 32767
 extern t_op g_instr[];
 
 typedef struct		s_main
 {
 	char			*name;
 	char			*comment;
+	char			a_flag;
+	char			*filename;
 	struct s_read	*reader;
+	struct s_token	*last_token;
 	struct s_token	*token;
 	struct s_mark	*mark;
+	struct s_mark	*last_mark;
 }					t_main;
 
 typedef struct		s_read
@@ -43,6 +49,7 @@ typedef struct      s_token
     char            type[3];
     int             arg[3];
     char            *marks[3];
+	int				set_index;
     struct s_token  *next;
 }                   t_token;
 
@@ -65,23 +72,33 @@ void				*smart_malloc(size_t how_much);
 void				error_position(char *first, char *second,
 									int i, int j);
 
-void				*init();
+void				*init(int ch);
+int					check_args(int ac, char *av[]);
+char				*get_filename(char *filename);
 
 void				name_or_comment(t_main *main);
 char				*full_string(t_main *main, t_read *reader,
 									int length, int flag);
 
-void				token(t_main *main, t_read *reader, int tmp, char *line);
+void				get_token(t_main *main, t_read *reader, int tmp);
 void				*new_token(int index);
+void				validate_arg(int index, int i, int needle, t_read *reader);
+void				token_push(t_token *token, char type, int arg, char *mark);
+void				save_registr(t_read *reader, t_token *token, int i, int index);
+void				save_direct(t_read *reader, t_token *token, int i, int index);
+void				save_indirect(t_read *reader, t_token *token, int i, int index);
 
-int					is_mark(char *line, int i);
+int					is_mark(char *line);
+void				get_mark(t_main *main, t_read *reader, int tmp);
 
 char            	*file_get_contents(int ch);
 void				parser(t_main *main);
 void				trim_str(char *str, int *i);
 int					int_strchr(char *str);
 int					is_empty(int c);
+int					args_exception(int c);
 
+void				calc(t_main *main);
 
 void p(void);
 #endif

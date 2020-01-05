@@ -12,29 +12,46 @@
 
 #include "../../../../includes/asm.h"
 
-static	void	new_token_null(t_token *token)
+void			validate_arg(int index, int i, int needle, t_read *reader)
+{
+	if (i >= g_instr[index].count_args)
+	{
+		die("Too much args");
+	}
+	if (!(g_instr[index].args[i] & needle))
+	{
+		die("Not found this arg");
+	}
+}
+
+void			token_push(t_token *token, char type, int arg, char *mark)
 {
 	int		i;
 
-	i = 0;
-	while (i < 3)
-	{
-		token->type[i] = 0;
-		token->arg[i] = 0;
-		++i;
-	}
+	i = token->set_index;
+	token->type[i] = type;
+	token->arg[i] = arg;
+	token->marks[i] = mark;
 }
 
 void			*new_token(int index)
 {
 	t_token	*token;
+	int		i;
 
+	i = 0;
 	token = (t_token*)smart_malloc(sizeof(t_token));
     token->len = 0;
     token->pos = 0;
 	token->instruct = index;
-	new_token_null(token);
-//	token->marks = NULL;
 	token->next = NULL;
+	token->set_index = 0;
+	while (i < 3)
+	{
+		token->type[i] = 0;
+		token->marks[i] = NULL;
+		token->arg[i] = 0;
+		++i;
+	}
 	return ((void*)token);
 }

@@ -16,15 +16,13 @@ void			parser(t_main *main)
 {
 	t_read	*reader;
 	char	*line;
-	int		i;
 	int		tmp;
 
 	reader = main->reader;
 	while (reader->i < reader->count)
 	{
 		reader->j = 0;
-		i = reader->i;
-		line = reader->arr[i];
+		line = reader->arr[reader->i];
 		trim_str(line, &reader->j);
 		if (line[reader->j] == COMMENT_CHAR ||
 			line[reader->j] == ALT_COMMENT_CHAR ||
@@ -33,9 +31,11 @@ void			parser(t_main *main)
 		else if (line[reader->j] == '.')
 			name_or_comment(main);
 		else if ((tmp = int_strchr(line + reader->j)))
-			token(main, reader, tmp, line + reader->j);
-		// else if (is_mark(line, reader->j))
-		// 	p();
+			get_token(main, reader, tmp);
+		else if ((tmp = is_mark(line + reader->j)))
+			get_mark(main, reader, tmp);
+		else
+			die("Error >parser");
 		reader->i += 1;
 	}
 }
