@@ -84,6 +84,6 @@ typedef struct		s_op
 	int				id;
 	int				cost;
 	char			*description;
-	int				_1;
-	int				_2;
+	int				is_code_type;
+	int				size_dir;
 }			    	t_op;
