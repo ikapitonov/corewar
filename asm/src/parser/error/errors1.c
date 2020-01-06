@@ -12,33 +12,17 @@
 
 #include "../../../includes/asm.h"
 
-void			error_position(char *first, char *second, int i, int j)
+void			pars_error(const char *str, t_read *reader)
 {
 	int		fd;
-	int		tmp;
 
 	fd = 1;
-	write(fd, first, ft_strlen(first));
-	write(fd, "[", 1);
-	tmp = 100;
-	while (tmp / 10 && tmp > i)
-	{
-		write(fd, "0", 1);
-		tmp /= 10;
-	}
-	ft_putnbr_fd(i, fd);
+	write(fd, str, ft_strlen(str));
+	write(fd, " [", ft_strlen(" ["));
+	ft_putnbr_fd(reader->i + 1, fd);
 	write(fd, ":", 1);
-	tmp = 100;
-	while (tmp / 10 && tmp > j)
-	{
-		write(fd, "0", 1);
-		tmp /= 10;
-	}
-	ft_putnbr_fd(j, fd);
-	write(fd, "]", 1);
-	if (second && second[0])
-		write(fd, second, ft_strlen(second));
-	write(fd, "\n", 1);
+	ft_putnbr_fd(reader->j + 1, fd);
+	write(fd, "]\n", ft_strlen("]\n"));
 	exit(1);
 }
 
@@ -47,7 +31,8 @@ void			die(const char *reason)
 	int		fd;
 
 	fd = 1;
-	write(fd, reason, ft_strlen(reason));
+	if (reason && reason[0])
+		write(fd, reason, ft_strlen(reason));
 	write(fd, "\n", 1);
 	exit(1);
 }

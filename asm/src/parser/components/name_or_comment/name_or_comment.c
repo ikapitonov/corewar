@@ -12,14 +12,15 @@
 
 #include "../../../../includes/asm.h"
 
-static	void	double_error(int flag, int j, int i)
+static	void	double_error(int flag, t_read *reader)
 {
 	char	*str;
 
-	str = " COMMAND_NAME \".name\"";
 	if (flag)
-		str = " COMMAND_NAME \".comment\"";
-	error_position("Invalid instruction at token [TOKEN]", str, j, i);	
+		str = "\".comment\"";
+	else
+		str = "\".name\"";
+	pars_error(ft_strjoin(str, " already been announced"), reader);
 }
 
 static	void	parse_string(t_main *main, t_read *reader, int flag)
@@ -30,18 +31,15 @@ static	void	parse_string(t_main *main, t_read *reader, int flag)
 	line = reader->arr[reader->i];
 	trim_str(line, &reader->j);
 	if (line[reader->j] != '"')
-	{
-		if (line[reader->j] != 0)
-			error_position("Lexical error at ", "", reader->i, reader->j);
-		error_position("Syntax error at token [TOKEN]", " ENDLINE", reader->i, reader->j);
-	}
+		pars_error("Invalid command name", reader);
 	reader->j += 1;
-	str = full_string(main, reader, flag ? COMMENT_LENGTH : PROG_NAME_LENGTH, flag);
+	str = full_string(main, reader, flag ? COMMENT_LENGTH
+										: PROG_NAME_LENGTH, flag);
 	if (flag)
 		main->comment = str;
 	else
 		main->name = str;
-	// валидация в конце строки
+	valid_endline(reader);
 }
 
 void			name_or_comment(t_main *main)
@@ -56,7 +54,7 @@ void			name_or_comment(t_main *main)
 	if (ft_strnequ(line, NAME_CMD_STRING, len))
 	{
 		if (main->name)
-			double_error(0, reader->i, reader->j);
+			double_error(0, reader);
 		reader->j += len;
 		return (parse_string(main, reader, 0));
 	}
@@ -64,9 +62,9 @@ void			name_or_comment(t_main *main)
 	if (ft_strnequ(line, COMMENT_CMD_STRING, len))
 	{
 		if (main->comment)
-			double_error(1, reader->i, reader->j);
+			double_error(1, reader);
 		reader->j += len;
 		return (parse_string(main, reader, 1));
 	}
-	error_position("Lexical error at ", "", reader->i, reader->j);
+	pars_error("Invalid command", reader);
 }

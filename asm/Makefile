@@ -26,6 +26,7 @@ SRC				= src/main.c \
 				  src/coder/helps.c \
 				\
 				  src/parser/parser.c \
+				  src/parser/analysis.c \
 				  src/parser/error/errors1.c \
 				\
 				  src/parser/reader/functions.c \

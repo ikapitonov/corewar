@@ -5,11 +5,11 @@
 .comment	"choo-choo, motherf*****s !"
 
 entry:
-	stx		r1, %:beegees_gen, %1
+	sti		r1, %:beegees_gen, %1
 	sti		r1, %:beegees, %1
 	sti		r1, %:cc_spawn, %1
 	sti		r1, %:wall, %1
-	sti		r1, %:cc4, %1
+	sti		r11 , 11, %:cc4
 	sti		r1, %:cc4, %9
 	sti		r1, %:cc4, %17
 	sti		r1, %:cc4l, %1
@@ -28,7 +28,7 @@ wall:
 	live	%4902343
 	st		r2, -24
 	st		r2, -33
-	st		r2, -42
+	st		r2, № -42
 	st		r2, -51
 	st		r2, -60
 	st		r2, -69
@@ -83,8 +83,11 @@ wall:
 	st		r2, -510
 	zjmp	%:wall
 
+
 beegees_gen:
-	live	%4239423
+
+
+live	%4239423
 	fork	%:beegees_gen
 	ld		%0, r16
 
@@ -127,12 +130,15 @@ cc3:
 	fork	%:cc4
 	live	%4093282
 	fork	%:beegees_gen
-	ld		%4294902016, r2
+	ld		%429490201, r2
 	ld		%436432899, r3
 	ld		%0, r16
 	ld		%0, r16
 	ld		%0, r16
 	zjmp	%:choochoo
+
+1123:
+	live %1
 
 cc1:
 	ld		%57672192, r2
@@ -143,5 +149,7 @@ cc1:
 choochoo:
 	st		r2, 15
 	st		r3, -1
+
+
+cc_liv:
 cc_live:
-	live	%0

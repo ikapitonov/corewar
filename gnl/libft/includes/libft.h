@@ -84,5 +84,6 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstcutelem(t_list *list, t_list **first);
+char				**ft_explode(char *str, char c);
 
 #endif

@@ -12,23 +12,29 @@
 
 #include "../../../../includes/asm.h"
 
-static	void	needle_token(t_read *reader)
+static	int		needle_token(t_read *reader, int start)
 {
 	char	*line;
 
 	line = reader->arr[reader->i];
 	while (is_empty(line[reader->j]))
-	{
 		reader->j += 1;
-	}
+	if (is_comment(line[reader->j]) && (reader->i += 1))
+		return (needle_token(reader, start));
 	if (!line[reader->j])
 	{
 		reader->j = 0;
 		reader->i += 1;
 		if (reader->i == reader->count)
-			die("End >needle_token");
-		return (needle_token(reader));
+		{
+			reader->i -= 1;
+			if (!(start == reader->i))
+				return (1);
+			pars_error("Not found new line (rule)", reader);
+		}
+		return (needle_token(reader, start));
 	}
+	return (ligth_is_mark(reader->arr[reader->i] + reader->j) ? 2 : 0);
 }
 
 static	void	*new_mark(t_main *main, char *line, int len)
@@ -42,7 +48,13 @@ static	void	*new_mark(t_main *main, char *line, int len)
 	str[len] = 0;
 	mark->name = str;
 	mark->token = NULL;
+	mark->mark = NULL;
 	mark->next = NULL;
+	if (main->mark_flag)
+	{
+		main->last_mark->mark = mark;
+		main->mark_flag = 0;
+	}
 	if (main->last_mark)
 	{
 		main->last_mark->next = mark;
@@ -60,13 +72,22 @@ void			get_mark(t_main *main, t_read *reader, int tmp)
 	char	*line;
 	int		res;
 
+	if (!main->name || !main->comment)
+		pars_error("Undefined Champion name or comment", reader);
 	mark = (t_mark*)new_mark(main, reader->arr[reader->i] + reader->j, tmp);
 	reader->j += tmp + 1;
-	needle_token(reader);
+	if ((res = needle_token(reader, reader->i)) == 1)
+		return ;
+	else if (res == 2)
+	{
+		main->mark_flag = 1;
+		reader->i -= 1;
+		return ;
+	}
 	line = reader->arr[reader->i];
 	if (!(res = int_strchr(line + reader->j)))
 	{
-		die("Error > get_mark");
+		pars_error("Invalid instruction after label", reader);
 	}
 	get_token(main, reader, res);
 	mark->token = main->last_token;

@@ -24,14 +24,14 @@ static	int		direct_label_len(t_read *reader)
 		if (!ft_strchr(LABEL_CHARS, line[reader->j]))
 		{
 			if (args_exception(line[reader->j]))
-				die("Syntax error at direct_label_len");
+				pars_error("Invalid char in LABEL (argument)", reader);
 			break ;
 		}
 		i += 1;
 		reader->j += 1;
 	}
 	if (!i)
-		die("Syntax error at direct_label_len");
+		pars_error("Invalid char in LABEL (empty)", reader);
 	return (i);
 }
 
@@ -41,7 +41,7 @@ static	char	*direct_label_char(t_read *reader)
 	char	*new;
 	int		len;
 	int		i;
-	
+
 	line = reader->arr[reader->i];
 	len = direct_label_len(reader);
 	new = (char*)smart_malloc((len + 1) * sizeof(char));
@@ -76,14 +76,15 @@ static	int		direct_int(t_read *reader, long long max)
 		num = (num * 10) + (line[reader->j] - '0');
 		reader->j += 1;
 		if ((tmp > 0 && num > max) || (tmp < 0 && num + 1 > max + 1))
-			die("Value too much");
+			pars_error("Argument \"T_DIR\": Value too much", reader);
 	}
 	if (args_exception(line[reader->j]))
-		die("Syntax error at registr_atoi");
+		pars_error("Argument \"T_DIR\" must be a number", reader);
 	return (num * tmp);
 }
 
-void			save_direct(t_read *reader, t_token *token, int i, int index)
+void			save_direct(t_read *reader, t_token *token,
+							int i, int index)
 {
 	char	*line;
 	char	*c_res;
@@ -99,8 +100,11 @@ void			save_direct(t_read *reader, t_token *token, int i, int index)
 		reader->j += 1;
 		c_res = direct_label_char(reader);
 	}
+	else if (ft_isdigit(line[reader->j]) || line[reader->j] == '-')
+		res = direct_int(reader, g_instr[index].size_dir ? MAX_SHORT
+														: MAX_INT);
 	else
-		res = direct_int(reader, g_instr[index].size_dir ? MAX_SHORT : MAX_INT);
+		pars_error("Argument \"T_DIR\": incorrectly value", reader);
 	token->set_index = i;
 	token_push(token, T_DIR, res, c_res);
 }

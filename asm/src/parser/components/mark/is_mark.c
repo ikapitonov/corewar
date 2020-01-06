@@ -12,7 +12,7 @@
 
 #include "../../../../includes/asm.h"
 
-int				is_mark(char *line)
+int				ligth_is_mark(char *line)
 {
 	int		i;
 
@@ -22,7 +22,23 @@ int				is_mark(char *line)
 		if (line[i] == LABEL_CHAR)
 			return (i);
 		if (!ft_strchr(LABEL_CHARS, line[i]))
-			die("Lexical error at mark");
+			return (0);
+		++i;
+	}
+	return (0);
+}
+
+int				is_mark(char *line, t_read *reader)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == LABEL_CHAR)
+			return (i);
+		if (!ft_strchr(LABEL_CHARS, line[i]))
+			pars_error("Invalid char in LABEL (argument)", reader);
 		++i;
 	}
 	return (0);

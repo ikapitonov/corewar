@@ -20,16 +20,17 @@ static	int		registr_atoi(t_read *reader)
 	num = 0;
 	line = reader->arr[reader->i];
 	if (!ft_isdigit(line[reader->j]))
-		die("Syntax error at registr_atoi");
+		pars_error("Argument \"r\" must be a number", reader);
 	while (line[reader->j] >= '0' && line[reader->j] <= '9')
 	{
 		num = (num * 10) + (long long int)(line[reader->j] - '0');
 		reader->j += 1;
 	}
 	if (args_exception(line[reader->j]))
-		die("Syntax error at registr_atoi");
+		pars_error("Argument \"r\" must be a number", reader);
 	if (num < 1 || num > REG_NUMBER)
-		die("Syntax error at registr_atoi");
+		pars_error(ft_strjoin("Argument \"r\" is number: > 0 && <=",
+						ft_itoa(REG_NUMBER)), reader);
 	return (num);
 }
 

@@ -52,7 +52,7 @@ static	void	init_reader(t_read *reader, int ch)
 	i = 0;
 	if (!(reader->str = file_get_contents(ch)))
 		die("Empty file");
-	reader->arr = ft_strsplit(reader->str, '\n');
+	reader->arr = ft_explode(reader->str, '\n');
 	while (reader->arr[i])
 		++i;
 	reader->count = i;
@@ -72,6 +72,7 @@ void			*init(int ch)
 	main->comment = NULL;
 	main->token = NULL;
 	main->mark = NULL;
+	main->mark_flag = 0;
 	main->last_mark = NULL;
 	main->a_flag = 0;
 	main->filename = NULL;

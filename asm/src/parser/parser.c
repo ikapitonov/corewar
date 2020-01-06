@@ -32,10 +32,11 @@ void			parser(t_main *main)
 			name_or_comment(main);
 		else if ((tmp = int_strchr(line + reader->j)))
 			get_token(main, reader, tmp);
-		else if ((tmp = is_mark(line + reader->j)))
+		else if ((tmp = is_mark(line + reader->j, reader)))
 			get_mark(main, reader, tmp);
 		else
-			die("Error >parser");
+			pars_error("Invalid command", reader);
 		reader->i += 1;
 	}
+	analysis(main);
 }

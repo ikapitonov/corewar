@@ -22,6 +22,11 @@ int				int_strchr(char *str)
 	return (str[i] && is_empty(str[i]) ? i : 0);
 }
 
+int				is_comment(int c)
+{
+	return (c == COMMENT_CHAR || c == ALT_COMMENT_CHAR ? 1 : 0);
+}
+
 int				is_empty(int c)
 {
 	return (c == '\t' || c == ' ' || (c >= 9 && c <= 13) ? 1 : 0);

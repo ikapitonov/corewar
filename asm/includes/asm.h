@@ -32,6 +32,7 @@ typedef struct		s_main
 	char			*comment;
 	char			a_flag;
 	char			*filename;
+	int				mark_flag;
 	struct s_read	*reader;
 	struct s_token	*last_token;
 	struct s_token	*token;
@@ -65,6 +66,7 @@ typedef struct      s_mark
 {
     char            *name;
     struct s_token  *token;
+	struct s_mark	*mark;
     struct s_mark   *next;
 }                   t_mark;
 
@@ -77,8 +79,7 @@ typedef struct		s_join
 
 void				die(const char *reason);
 void				*smart_malloc(size_t how_much);
-void				error_position(char *first, char *second,
-									int i, int j);
+void				pars_error(const char *str, t_read *reader);
 
 void				*init(int ch);
 int					check_args(int ac, char *av[]);
@@ -96,14 +97,20 @@ void				save_registr(t_read *reader, t_token *token, int i, int index);
 void				save_direct(t_read *reader, t_token *token, int i, int index);
 void				save_indirect(t_read *reader, t_token *token, int i, int index);
 
-int					is_mark(char *line);
+int					is_mark(char *line, t_read *reader);
+int					ligth_is_mark(char *line);
 void				get_mark(t_main *main, t_read *reader, int tmp);
 
 char            	*file_get_contents(int ch);
+
 void				parser(t_main *main);
+void				valid_endline(t_read *reader);
+void				analysis(t_main *main);
+
 void				trim_str(char *str, int *i);
 int					int_strchr(char *str);
 int					is_empty(int c);
+int					is_comment(int c);
 int					args_exception(int c);
 
 void				calc(t_main *main);

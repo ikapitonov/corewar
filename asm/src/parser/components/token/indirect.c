@@ -31,14 +31,15 @@ static	int		indirect_int(t_read *reader, long long max)
 		num = (num * 10) + (line[reader->j] - '0');
 		reader->j += 1;
 		if ((tmp > 0 && num > max) || (tmp < 0 && num + 1 > max + 1))
-			die("Value too much");
+			pars_error("Argument \"T_IND\": Value too much", reader);
 	}
 	if (args_exception(line[reader->j]))
-		die("Syntax error at registr_atoi");
+		pars_error("Argument \"T_IND\" must be a number", reader);
 	return (num * tmp);
 }
 
-void			save_indirect(t_read *reader, t_token *token, int i, int index)
+void			save_indirect(t_read *reader, t_token *token,
+								int i, int index)
 {
 	char	*line;
 	int		res;

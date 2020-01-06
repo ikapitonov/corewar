@@ -15,8 +15,9 @@ void p(void) {printf("HELLO\n");}
 static	void	common(t_main *main)
 {
 	parser(main);
-	calc(main);
-	coder(main);
+	printf("%s\n%s\n", main->name, main->comment);
+	// calc(main);
+	// coder(main);
 }
 
 int				main(int ac, char *av[])

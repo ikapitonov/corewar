@@ -16,11 +16,11 @@ void			validate_arg(int index, int i, int needle, t_read *reader)
 {
 	if (i >= g_instr[index].count_args)
 	{
-		die("Too much args");
+		pars_error("Too much args", reader);
 	}
 	if (!(g_instr[index].args[i] & needle))
 	{
-		die("Not found this arg");
+		pars_error("Not found this arg", reader);
 	}
 }
 

@@ -19,7 +19,7 @@ static	int		is_token(char *line, int position)
     i = 0;
     while (i < COUNT_TOKENS)
     {
-        if (ft_strnequ(line, g_instr[i].name, position))
+        if (!ft_strncmp(line, g_instr[i].name, position))
         {
             return (i);
         }
@@ -57,13 +57,12 @@ static  void    token_info(t_main *main, t_read *reader, int index, t_token *tok
         else if (*line == DIRECT_CHAR)
             save_direct(reader, token, i, index);
         else
-		{
-			printf("%s\n", line);
-            die("Invalid token");
-		}
+            pars_error("Invalid argument", reader);
 		clean_after_arg(reader);
         ++i;
 	}
+	if (i != g_instr[index].count_args)
+		pars_error("Few arguments", reader);
 }
 
 void			get_token(t_main *main, t_read *reader, int tmp)
@@ -71,11 +70,18 @@ void			get_token(t_main *main, t_read *reader, int tmp)
 	t_token	*token;
     int     index;
 
+	if (!main->name || !main->comment)
+		pars_error("Undefined Champion name or comment", reader);
     if ((index = is_token(reader->arr[reader->i] + reader->j, tmp)) == -1)
-        return ;
+	{
+		(reader->arr[reader->i] + reader->j)[tmp] = 0;
+        pars_error(ft_strjoin("Invalid instruction: ",
+					reader->arr[reader->i] + reader->j), reader);
+	}
 	token = new_token(index);
     reader->j += tmp;
     token_info(main, reader, index, token);
+	valid_endline(reader);
 	if (main->last_token)
 	{
 		main->last_token->next = token;
