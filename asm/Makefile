@@ -20,8 +20,14 @@ SRC				= src/main.c \
 				  src/init.c \
 				  src/open.c \
 				  src/calc/calc.c \
+				\
+				  src/coder/coder.c \
+				  src/coder/buffer.c \
+				  src/coder/helps.c \
+				\
 				  src/parser/parser.c \
 				  src/parser/error/errors1.c \
+				\
 				  src/parser/reader/functions.c \
 				  src/parser/reader/file_get_contents.c \
 				\

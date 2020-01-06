@@ -75,5 +75,6 @@ void			*init(int ch)
 	main->last_mark = NULL;
 	main->a_flag = 0;
 	main->filename = NULL;
+	buffer_init(&main->buffer, 100);
 	return ((void*)main);
 }

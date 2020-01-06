@@ -19,6 +19,13 @@
 # define MAX_SHORT 32767
 extern t_op g_instr[];
 
+typedef struct		s_buffer
+{
+	char			*buff;
+	int				used;
+	int				size;
+}					t_buffer;
+
 typedef struct		s_main
 {
 	char			*name;
@@ -30,6 +37,7 @@ typedef struct		s_main
 	struct s_token	*token;
 	struct s_mark	*mark;
 	struct s_mark	*last_mark;
+	struct s_buffer buffer;
 }					t_main;
 
 typedef struct		s_read
@@ -99,6 +107,10 @@ int					is_empty(int c);
 int					args_exception(int c);
 
 void				calc(t_main *main);
+
+void				buffer_init(t_buffer *buffer, int size);
+void				buffer_add(t_buffer	*buffer, char *str, int size);
+void				coder(t_main *main);
 
 void p(void);
 #endif

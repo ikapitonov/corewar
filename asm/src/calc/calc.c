@@ -51,4 +51,11 @@ void			calc(t_main *main)
 		prev = token;
 		token = token->next;
 	}
+
+	// token = main->token;
+	// while (token)
+	// {
+	// 	printf("%d  (%d)\n", token->pos, token->len);
+	// 	token = token->next;
+	// }
 }
