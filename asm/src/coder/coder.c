@@ -89,7 +89,7 @@ int		set_args(int arg, void *pos, int command, int type)
 void		coder(t_main *main)
 {
 	t_token		*token;
-	char		command[10];
+	char		command[12];
 	int			i;
 	int			pos;
 
