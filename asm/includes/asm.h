@@ -12,7 +12,8 @@
 
 #ifndef ASM_H
 # define ASM_H
-# include "../../gnl/get_next_line.h"
+# include "../../libft/includes/libft.h"
+# include "../../includes/op.h"
 # include <stdio.h>
 # define COUNT_TOKENS 16
 # define MAX_INT 2147483647

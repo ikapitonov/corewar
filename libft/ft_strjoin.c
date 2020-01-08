@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matruman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/27 16:32:43 by matruman          #+#    #+#             */
-/*   Updated: 2019/09/27 21:00:32 by matruman         ###   ########.fr       */
+/*   Created: 2019/09/16 16:55:58 by matruman          #+#    #+#             */
+/*   Updated: 2019/09/20 17:58:24 by matruman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include <stdlib.h>
+#include "libft.h"
 
-# define BUFF_SIZE 64
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "libft/includes/libft.h"
-# include "../includes/op.h"
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		len1;
+	int		len2;
+	char	*res;
 
-int		get_next_line(const int fd, char **line);
-
-#endif
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	res = (s1 && s2) ? (char *)malloc(len1 + len2 + 1) : (char *)NULL;
+	if (res)
+	{
+		ft_strncpy(res, s1, len1);
+		ft_strncpy(res + len1, s2, len2);
+		res[len1 + len2] = 0;
+	}
+	return (res);
+}

@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fstrncpy.c                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matruman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/29 15:55:12 by matruman          #+#    #+#             */
-/*   Updated: 2019/11/29 15:55:18 by matruman         ###   ########.fr       */
+/*   Created: 2020/01/06 18:54:31 by matruman          #+#    #+#             */
+/*   Updated: 2020/01/06 18:54:33 by matruman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-void	ft_fstrncpy(char *dst, const char *src, size_t len)
-{
-	size_t		i;
-	long long	*lsrc;
-	long long	*ldst;
+int     ft_printf(const char *format, ...);
 
-	i = 0;
-	lsrc = (long long *)src;
-	ldst = (long long *)dst;
-	while (i < len / sizeof(long long))
-	{
-		ldst[i] = lsrc[i];
-		i++;
-	}
-	i = i * sizeof(long long);
-	while (i < len)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-}
+#endif

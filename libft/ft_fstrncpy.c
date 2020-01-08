@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_fstrncpy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matruman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/16 16:55:58 by matruman          #+#    #+#             */
-/*   Updated: 2019/09/20 17:58:24 by matruman         ###   ########.fr       */
+/*   Created: 2019/11/29 15:55:12 by matruman          #+#    #+#             */
+/*   Updated: 2019/11/29 15:55:18 by matruman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdio.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_fstrncpy(char *dst, const char *src, size_t len)
 {
-	int		len1;
-	int		len2;
-	char	*res;
+	size_t i;
 
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	res = (s1 && s2) ? (char *)malloc(len1 + len2 + 1) : (char *)NULL;
-	if (res)
+	i = 0;
+	while (i < len && src[i])
 	{
-		ft_fstrncpy(res, s1, len1);
-		ft_fstrncpy(res + len1, s2, len2);
-		res[len1 + len2] = 0;
+		dst[i] = src[i];
+		i++;
 	}
-	return (res);
+	dst[i] = 0;
 }

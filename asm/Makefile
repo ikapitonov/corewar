@@ -42,29 +42,27 @@ SRC				= src/main.c \
 				  src/parser/components/token/new_token.c \
 				  src/parser/components/token/registr.c \
 				  src/parser/components/token/direct.c \
-				  src/parser/components/token/indirect.c \
-				  ../gnl/get_next_line.c
+				  src/parser/components/token/indirect.c
 
-LIB = ../gnl/libft/libft.a
+LIB =			  ../libft/libft.a
+
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
-all: lib $(NAME)
+all: $(LIB) $(NAME)
 
 $(NAME): $(OBJ) $(LIB)
-	$(CC) -o $(NAME) $(OBJ) $(CFLAGS) -L ../gnl/libft -lft
+	$(CC) -o $(NAME) $(OBJ) $(CFLAGS) -L ../libft -lft
 
 $(LIB):
-
-lib:
-	make -C ../gnl/libft
+	make -C ../libft
 
 clean:
 	/bin/rm -f $(OBJ)
-	make -C ../gnl/libft clean
+	make -C ../libft clean
 
 fclean: clean
 	/bin/rm -f $(NAME)
-	make -C ../gnl/libft fclean
+	make -C ../libft fclean
 
 re: fclean all
 

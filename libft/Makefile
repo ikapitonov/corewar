@@ -26,7 +26,29 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
 		  ft_putnbr_fd.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c\
 		  ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_lstcutelem.c\
-		  ft_putstrn.c ft_fstrncpy.c ft_explode.c
+		  ft_putstrn.c ft_fstrncpy.c\
+		  ft_explode.c\
+		  gnl/get_next_line.c\
+		  \
+		  ft_printf/src/ft_itoa_base.c\
+		  ft_printf/src/ft_printf.c\
+		  ft_printf/src/get_format.c\
+		  ft_printf/src/get_format_list.c\
+		  ft_printf/src/pf_helps.c\
+		  ft_printf/src/pf_helps1.c\
+		  ft_printf/src/print_conv_di.c\
+		  ft_printf/src/print_format.c\
+		  ft_printf/src/print_conv_pouxx.c\
+		  ft_printf/src/print_conv_cp.c\
+		  ft_printf/src/print_conv_s.c\
+		  ft_printf/src/get_fl.c\
+		  ft_printf/src/print_conv_float.c\
+		  ft_printf/src/buffer.c\
+		  ft_printf/src/long_arithmetic/big_int_print.c\
+		  ft_printf/src/long_arithmetic/la_helps.c\
+		  ft_printf/src/long_arithmetic/multiplication.c\
+		  ft_printf/src/long_arithmetic/pow_mult.c\
+		  ft_printf/src/long_arithmetic/read_long_long.c
 
 CC = gcc
 HEADER = includes/
