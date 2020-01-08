@@ -21,12 +21,16 @@ int		find_mark(t_main *main, char *need, int pos)
 		mark = mark->next;
 	if (!mark)
 		die("Mark error");
-	return (mark->token->pos - pos);
+	 while (mark->mark)
+	 	mark = mark->mark;
+	if (mark->token)
+		return (mark->token->pos - pos);
+	return (main->last_token->pos + main->last_token->len - pos);
 }
 
 void	get_marked_args(t_main *main, t_token *token)
 {
-	int		i;int j;
+	int		i;
 
 	i = 0;
 	while (i < 3)
@@ -34,23 +38,6 @@ void	get_marked_args(t_main *main, t_token *token)
 		if (token->marks[i])
 			token->arg[i] = find_mark(main, token->marks[i], token->pos);
 		i++;
-	}
-}
-
-void	rev_endian(void *val, int size)
-{
-	char	*p;
-	char	tmp;
-	int		i;
-
-	p = (char *)val;
-	i = 0;
-	while (i < size / 2)
-	{
-		tmp = p[size - i - 1];
-		p[size - i - 1] = p[i];
-		p[i] = tmp;
-		i++; 
 	}
 }
 
@@ -106,19 +93,22 @@ void		coder(t_main *main)
 	int			i;
 	int			pos;
 
+	set_header(main);
 	token = main->token;
 	while (token)
 	{
 		pos = 1;
 		get_marked_args(main, token);
-		command[0] = token->instruct;
-		if (g_instr[command[0]].is_code_type && pos++)
+		command[0] = token->instruct + 1;
+		if (g_instr[token->instruct].is_code_type && pos++)
 			command[1] = set_arg_types(token->type);
 		i = -1;
-		while (++i < g_instr[command[0]].count_args)
+		while (++i < g_instr[token->instruct].count_args)
 			pos += set_args(token->arg[i], command + pos,
 			command[0], token->type[i]);
 		buffer_add(&main->buffer, command, pos);
+		if (!token->next)
+			set_prog_size(main, token->pos + token->len);
 		token = token->next;
 	}
 }

@@ -117,6 +117,10 @@ void				calc(t_main *main);
 
 void				buffer_init(t_buffer *buffer, int size);
 void				buffer_add(t_buffer	*buffer, char *str, int size);
+void				rev_endian(void *val, int size);
+void				set_header(t_main *main);
+void				set_prog_size(t_main *main, int size);
+void				write_to_file(t_main *main);
 void				coder(t_main *main);
 
 void p(void);
