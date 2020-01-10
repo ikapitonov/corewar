@@ -48,20 +48,22 @@ LIB =			  ../libft/libft.a
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
-all: $(LIB) $(NAME)
+all: lib $(NAME)
 
 $(NAME): $(OBJ) $(LIB)
 	$(CC) -o $(NAME) $(OBJ) $(CFLAGS) -L ../libft -lft
 
 $(LIB):
+
+lib:
 	make -C ../libft
 
 clean:
-	/bin/rm -f $(OBJ)
+	rm -f $(OBJ)
 	make -C ../libft clean
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	rm -f $(NAME)
 	make -C ../libft fclean
 
 re: fclean all
