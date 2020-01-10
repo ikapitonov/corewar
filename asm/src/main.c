@@ -19,7 +19,8 @@ static	void	common(t_main *main)
 	calc(main);
 	coder(main);
 	if (!main->a_flag)
-		write_to_file(main);
+		return (write_to_file(main));
+	print_code_info(main);
 }
 
 int				main(int ac, char *av[])

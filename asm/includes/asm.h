@@ -122,6 +122,7 @@ void				rev_endian(void *val, int size);
 void				set_header(t_main *main);
 void				set_prog_size(t_main *main, int size);
 void				write_to_file(t_main *main);
+void				print_code_info(t_main *main);
 void				coder(t_main *main);
 
 void p(void);
