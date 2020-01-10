@@ -14,14 +14,14 @@
 
 void		pf_buffer_init(t_buffer *buffer, int size)
 {
-	buffer->buff = (char *)malloc(size);
+	buffer->buff = (char *)malloc(size + 1);
 	buffer->used = 0;
 	buffer->size = size;
 }
 
 static void		buffer_resize(t_buffer *buffer)
 {
-	buffer->buff = (char *)realloc(buffer->buff, (buffer->size * 3) / 2);
+	buffer->buff = (char *)realloc(buffer->buff, (buffer->size * 3) / 2 + 1);
 	buffer->size = (buffer->size * 3) / 2;
 }
 
