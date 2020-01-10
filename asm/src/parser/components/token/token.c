@@ -52,7 +52,8 @@ static  void    token_info(t_main *main, t_read *reader, int index, t_token *tok
 		line = reader->arr[reader->i] + reader->j;
         if (*line == 'r')
 			save_registr(reader, token, i, index);
-        else if ((*line == '-' && ft_isdigit(line[1])) || ft_isdigit(*line))
+        else if ((*line == '-' && ft_isdigit(line[1]))
+			|| ft_isdigit(*line) || *line == LABEL_CHAR)
         	save_indirect(reader, token, i, index);
         else if (*line == DIRECT_CHAR)
             save_direct(reader, token, i, index);

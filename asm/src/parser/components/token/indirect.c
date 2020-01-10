@@ -43,12 +43,19 @@ void			save_indirect(t_read *reader, t_token *token,
 {
 	char	*line;
 	int		res;
+	char	*c_res;
 
 	res = 0;
+	c_res = NULL;
 	validate_arg(index, i, T_IND, reader);
 	line = reader->arr[reader->i];
-	reader->j += 1;
-	res = indirect_int(reader, MAX_INT);
+	if (line[reader->j] == LABEL_CHAR)
+	{
+		reader->j += 1;
+		c_res = get_label(reader);
+	}
+	else
+		res = indirect_int(reader, MAX_INT);
 	token->set_index = i;
-	token_push(token, T_IND, res, NULL);
+	token_push(token, T_IND, res, c_res);
 }
