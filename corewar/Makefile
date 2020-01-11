@@ -20,7 +20,8 @@ SRC				= src/main.c \
 				  src/init.c \
 				  src/reader/params.c \
 				  src/reader/is_valid.c \
-				  src/reader/player.c
+				  src/reader/player.c \
+				  src/reader/check_file_content.c
 
 LIB =			  ../libft/libft.a
 

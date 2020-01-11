@@ -24,8 +24,8 @@ void    print_marks(int pos, t_token *token, t_mark **marks)
 	int		i;
 
 	i = 0;
-	while ((marks[i] && marks[i]->token != token) ||
-	(!token && marks[i]->mark))
+	while (marks[i] && (marks[i]->token != token ||
+	(!token && marks[i]->mark)))
 		i++;
 	if (!marks[i])
 		return ;

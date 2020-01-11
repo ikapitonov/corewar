@@ -59,7 +59,7 @@ static	void	insert_flag(t_main *main, int count_args,
 
 static	void	analysis(t_main *main)
 {
-	if (MIN_PLAYERS < main->players)
+	if (MIN_PLAYERS >= main->players)
 		help();
 	calc_ids(main);
 }

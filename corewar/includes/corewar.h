@@ -32,6 +32,8 @@ typedef struct		s_player
 	int				file_size;
 	int				code_size;
 	int				id;
+	char			*name;
+	char			*comment;
 }					t_player;
 
 typedef struct		s_main
@@ -63,6 +65,20 @@ int					is_number(int count_args, char *params[], int i);
 void				help(void);
 void				valid_filename(char *filename);
 void				valid_file_size(char *str, int size);
+
+void				memory_read(char *area, int pos, void *dst, int size);
+void				memory_write(char *area, int pos, void *src, int size);
+
+
+
+
+
+
+void				check_file_content(t_main *main, t_read *reader);
+# define START_NAME 4
+# define START_COMMENT (4 + PROG_NAME_LENGTH + 8)
+# define CODE_SIZE_FILE 4
+# define NULL_SIZE 4
 
 void p(void);
 #endif
