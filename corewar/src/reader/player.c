@@ -14,5 +14,7 @@
 
 void			init_player(t_main *main, int ch, int n)
 {
-	p();
+	t_read	*reader;
+
+	file_get_content(reader);
 }

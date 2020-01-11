@@ -49,6 +49,12 @@ typedef struct		s_cursor
 	int				carry;
 }					t_cursor;
 
+typedef struct		s_read
+{
+	char			*str;
+	size_t			size;
+}					t_read;
+
 void				*init();
 void				init_player(t_main *main, int ch, int n);
 void				die(const char *reason);

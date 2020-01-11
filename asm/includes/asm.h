@@ -71,12 +71,12 @@ typedef struct      s_mark
     struct s_mark   *next;
 }                   t_mark;
 
-typedef struct		s_join
-{
-	char			*str;
-	size_t			length;
-	struct s_join	*next;
-}					t_join;
+// typedef struct		s_join
+// {
+// 	char			*str;
+// 	size_t			length;
+// 	struct s_join	*next;
+// }					t_join;
 
 void				die(const char *reason);
 void				*smart_malloc(size_t how_much);

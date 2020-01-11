@@ -36,3 +36,8 @@ void			valid_filename(char *filename)
 	if (ft_strcmp(filename + (len - 4), ".cor"))
 		help();
 }
+
+void			valid_filesize(char *str)
+{
+	
+}
