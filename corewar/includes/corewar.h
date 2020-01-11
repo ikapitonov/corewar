@@ -22,6 +22,8 @@
 
 # define DUMP "dump"
 # define DUMP_LEN 4
+# define HEADER_VAR 16
+# define MIN_PLAYERS 2
 extern t_op g_instr[];
 
 typedef struct		s_player
@@ -50,14 +52,17 @@ typedef struct		s_cursor
 }					t_cursor;
 
 void				*init();
-void				init_player(t_main *main, int ch, int n);
 void				die(const char *reason);
+
+void				init_player(t_main *main, int ch, int n);
+void				calc_ids(t_main *main);
 
 void				insert_params(t_main *main, int count_args, char *params[]);
 int					valid_number(char *str);
 int					is_number(int count_args, char *params[], int i);
 void				help(void);
 void				valid_filename(char *filename);
+void				valid_file_size(char *str, int size);
 
 void p(void);
 #endif

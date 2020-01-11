@@ -21,6 +21,8 @@ static	void	insert_player(t_main *main, char *player, int n)
 {
 	int		ch;
 
+	if (main->players >= MAX_PLAYERS)
+		help();
 	valid_filename(player);
 	if ((ch = open(player, O_RDONLY)) == -1)
 	{
@@ -47,13 +49,19 @@ static	void	insert_flag(t_main *main, int count_args,
 	else if (*(params[i] + 1) == 'n' && !params[i][2]
 		&& is_number(count_args, params, i) && i + 2 < count_args)
 	{
-		res = valid_number(params[i + 1]);
+		if ((res = valid_number(params[i + 1])) > MAX_PLAYERS)
+			help();
 		insert_player(main, params[i + 2], res);
 	}
 	else
-	{
 		help();
-	}
+}
+
+static	void	analysis(t_main *main)
+{
+	if (MIN_PLAYERS < main->players)
+		help();
+	calc_ids(main);
 }
 
 void			insert_params(t_main *main, int count_args, char *params[])
@@ -76,4 +84,5 @@ void			insert_params(t_main *main, int count_args, char *params[])
 		}
 		++i;
 	}
+	analysis(main);
 }
