@@ -6,7 +6,7 @@
 /*   By: sjamie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 20:06:53 by sjamie            #+#    #+#             */
-/*   Updated: 2020/01/09 20:06:54 by sjamie           ###   ########.fr       */
+/*   Updated: 2020/01/11 21:32:38 by bpole            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "../../libft/includes/libft.h"
 # include "../../includes/op.h"
 # include <stdio.h>
+# include "matruman.h"
+# include "sjamie.h"
+# include "bpole.h"
 # define COUNT_TOKENS 16
 # define MAX_INT 2147483647
 # define MAX_SHORT 32767
@@ -50,6 +53,8 @@ typedef struct		s_cursor
 	int				pos;
 	int				carry;
 }					t_cursor;
+
+typedef void	(*t_op_func) (t_main *main, t_cursor *cursor, char *area);
 
 void				*init();
 void				die(const char *reason);
