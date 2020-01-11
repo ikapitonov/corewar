@@ -27,7 +27,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		  ft_putnbr_fd.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c\
 		  ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_lstcutelem.c\
 		  ft_putstrn.c ft_fstrncpy.c\
-		  ft_explode.c\
+		  ft_explode.c smart_malloc.c\
 		  gnl/get_next_line.c\
 		  \
 		  ft_printf/src/ft_itoa_base.c\

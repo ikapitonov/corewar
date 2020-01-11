@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjamie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/03 17:31:52 by sjamie            #+#    #+#             */
-/*   Updated: 2020/01/03 17:31:53 by sjamie           ###   ########.fr       */
+/*   Created: 2020/01/09 20:05:58 by sjamie            #+#    #+#             */
+/*   Updated: 2020/01/09 20:05:59 by sjamie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "../includes/corewar.h"
 
 t_op	g_instr[COUNT_TOKENS + 1] =
 {
@@ -33,37 +33,43 @@ t_op	g_instr[COUNT_TOKENS + 1] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-static	void	init_reader(t_read *reader, int ch)
+void			die(const char *reason)
+{
+	int		fd;
+
+	fd = 1;
+	if (reason && reason[0])
+		write(fd, reason, ft_strlen(reason));
+	write(fd, "\n", 1);
+	exit(1);
+}
+
+static	void	init_cursor(t_main *main)
 {
 	int		i;
 
 	i = 0;
-	if (!(reader->str = file_get_contents(ch)))
-		die("Empty file");
-	reader->arr = ft_explode(reader->str, '\n');
-	while (reader->arr[i])
+	while (i < MAX_PLAYERS)
+	{
+		main->player[i].content = NULL;
+		main->player[i].file_size = 0;
+		main->player[i].code_size = 0;
+		main->player[i].id = 0;
 		++i;
-	reader->count = i;
-	reader->i = 0;
-	reader->j = 0;
+	}
 }
 
-void			*init(int ch)
+void			*init()
 {
 	t_main	*main;
 
 	main = (t_main*)smart_malloc(sizeof(t_main));
-	main->reader = (t_read*)smart_malloc(sizeof(t_read));
-	init_reader(main->reader, ch);
-	main->name = NULL;
-	main->last_token = NULL;
-	main->comment = NULL;
-	main->token = NULL;
-	main->mark = NULL;
-	main->mark_flag = 0;
-	main->last_mark = NULL;
-	main->a_flag = 0;
-	main->filename = NULL;
-	buffer_init(&main->buffer, 100);
+	main->players = 0;
+	main->cursor = NULL;
+	main->last_cursor = NULL;
+	main->area = (char*)malloc(sizeof(char) * (MEM_SIZE + 1));
+	main->area[MEM_SIZE] = 0;
+	main->dump = 0;
+	init_cursor(main);
 	return ((void*)main);
 }
