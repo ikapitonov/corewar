@@ -27,9 +27,9 @@ static	void	push_stack(t_main *main, int *stack)
 
 void			calc_ids(t_main *main)
 {
-	// int		stack[MAX_PLAYERS + 1];
+	int		stack[MAX_PLAYERS + 1];
 
-	// if (main->)
+	if (main->)
 }
 
 static	void	check_double(t_main *main, int n)
