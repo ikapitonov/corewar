@@ -122,7 +122,9 @@ void				buffer_add(t_buffer	*buffer, char *str, int size);
 void				rev_endian(void *val, int size);
 void				set_header(t_main *main);
 void				set_prog_size(t_main *main, int size);
+char				set_arg_types(char *type);
 void				write_to_file(t_main *main);
+void				print_code_info(t_main *main, t_token *token, t_mark **marks, int i);
 void				coder(t_main *main);
 
 void p(void);
