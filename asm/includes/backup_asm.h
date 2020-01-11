@@ -97,6 +97,7 @@ void				token_push(t_token *token, char type, int arg, char *mark);
 void				save_registr(t_read *reader, t_token *token, int i, int index);
 void				save_direct(t_read *reader, t_token *token, int i, int index);
 void				save_indirect(t_read *reader, t_token *token, int i, int index);
+char				*get_label(t_read *reader);
 
 int					is_mark(char *line, t_read *reader);
 int					ligth_is_mark(char *line);

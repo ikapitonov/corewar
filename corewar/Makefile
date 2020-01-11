@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= asm
+NAME			= corewar
 
 CC				= gcc
 HEADER			= includes/
@@ -18,53 +18,28 @@ CFLAGS			= -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
-				  src/open.c \
-				  src/calc/calc.c \
-				\
-				  src/coder/coder.c \
-				  src/coder/buffer.c \
-				  src/coder/helps.c \
-				  src/coder/print_code_info.c \
-				\
-				  src/parser/parser.c \
-				  src/parser/analysis.c \
-				  src/parser/error/errors1.c \
-				\
-				  src/parser/reader/functions.c \
-				  src/parser/reader/file_get_contents.c \
-				\
-				  src/parser/components/name_or_comment/name_or_comment.c \
-				  src/parser/components/name_or_comment/full_string.c \
-				\
-				  src/parser/components/mark/is_mark.c \
-				  src/parser/components/mark/mark.c \
-				\
-				  src/parser/components/token/token.c \
-				  src/parser/components/token/new_token.c \
-				  src/parser/components/token/registr.c \
-				  src/parser/components/token/direct.c \
-				  src/parser/components/token/indirect.c
+				  src/reader/params.c \
+				  src/reader/is_valid.c \
+				  src/reader/player.c
 
 LIB =			  ../libft/libft.a
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
-all: lib $(NAME)
+all: $(LIB) $(NAME)
 
 $(NAME): $(OBJ) $(LIB)
 	$(CC) -o $(NAME) $(OBJ) $(CFLAGS) -L ../libft -lft
 
 $(LIB):
-
-lib:
 	make -C ../libft
 
 clean:
-	rm -f $(OBJ)
+	/bin/rm -f $(OBJ)
 	make -C ../libft clean
 
 fclean: clean
-	rm -f $(NAME)
+	/bin/rm -f $(NAME)
 	make -C ../libft fclean
 
 re: fclean all
