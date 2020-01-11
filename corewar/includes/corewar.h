@@ -59,5 +59,8 @@ int					is_number(int count_args, char *params[], int i);
 void				help(void);
 void				valid_filename(char *filename);
 
+void				memory_read(char *area, int pos, void *dst, int size);
+void				memory_write(char *area, int pos, void *src, int size);
+
 void p(void);
 #endif
