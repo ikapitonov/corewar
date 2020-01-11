@@ -47,7 +47,6 @@ void			save_indirect(t_read *reader, t_token *token,
 	res = 0;
 	validate_arg(index, i, T_IND, reader);
 	line = reader->arr[reader->i];
-	reader->j += 1;
 	res = indirect_int(reader, MAX_INT);
 	token->set_index = i;
 	token_push(token, T_IND, res, NULL);

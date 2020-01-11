@@ -4,6 +4,9 @@
 .name		"helltrain"
 .comment	"choo-choo, motherf*****s !"
 
+label1:
+label2:
+label3:
 entry:
 	sti		r1, %:beegees_gen, %1
 	sti		r1, %:beegees, %1

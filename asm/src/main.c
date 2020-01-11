@@ -20,7 +20,11 @@ static	void	common(t_main *main)
 	coder(main);
 	if (!main->a_flag)
 		return (write_to_file(main));
-	print_code_info(main);
+	ft_printf("Dumping annotated program on standard output\n\
+Program size : %d bytes\nName : \"%s\"\nComment : \"%s\"\n\n",
+	main->last_token->pos + main->last_token->len,
+	main->name, main->comment);
+	print_code_info(main, 0, 0, 0);
 }
 
 int				main(int ac, char *av[])
