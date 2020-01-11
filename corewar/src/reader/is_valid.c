@@ -36,3 +36,14 @@ void			valid_filename(char *filename)
 	if (ft_strcmp(filename + (len - 4), ".cor"))
 		help();
 }
+
+void			valid_file_size(char *str, int size)
+{
+	int		res;
+
+	res = PROG_NAME_LENGTH + COMMENT_LENGTH + HEADER_VAR;
+	if (size < res)
+		die("Content from file so small");
+	if (size > res + CHAMP_MAX_SIZE)
+		die("Content from file too long");
+}

@@ -24,6 +24,19 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct		s_read
+{
+	char			*str;
+	size_t			size;
+}					t_read;
+
+typedef struct		s_join
+{
+	char			*str;
+	size_t			length;
+	struct s_join	*next;
+}					t_join;
+
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -88,5 +101,6 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstcutelem(t_list *list, t_list **first);
 void				*smart_malloc(size_t how_much);
+void				file_get_content(t_read *reader, int ch);
 
 #endif
