@@ -6,7 +6,7 @@
 #    By: sjamie <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/12 19:57:44 by sjamie            #+#    #+#              #
-#    Updated: 2019/11/12 19:57:45 by sjamie           ###   ########.fr        #
+#    Updated: 2020/01/12 18:22:09 by bpole            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ CFLAGS			= -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
+				  src/memory/memory_rw.c \
 				  src/reader/params.c \
 				  src/reader/is_valid.c \
-				  src/reader/player.c
+				  src/reader/player.c \
+				  src/reader/check_file_content.c
 
 LIB =			  ../libft/libft.a
 
