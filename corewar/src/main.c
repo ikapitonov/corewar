@@ -27,26 +27,26 @@ void			die(const char *reason)
 
 void			test(t_main *main)
 {
-	int i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		printf("%03d", main->area[i]);
-		if (!(i % 100))
-			printf("\n");
-		++i;
-	}
 	// int i;
-	// t_cursor *cursor;
 
 	// i = 0;
-	// cursor = main->cursor;
-	// while (cursor)
+	// while (i < MEM_SIZE)
 	// {
-	// 	printf("%d\n", cursor->registers[0]);
-	// 	cursor = cursor->next;
+	// 	printf("%03d", main->area[i]);
+	// 	if (!(i % 100))
+	// 		printf("\n");
+	// 	++i;
 	// }
+	int i;
+	t_cursor *cursor;
+
+	i = 0;
+	cursor = main->cursor;
+	while (cursor)
+	{
+		printf("%d\n", cursor->registers[0]);
+		cursor = cursor->next;
+	}
 }
 
 int				main(int ac, char *av[])

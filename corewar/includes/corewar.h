@@ -17,8 +17,8 @@
 # include "../../includes/op.h"
 # include <stdio.h>
 # include "matruman.h"
-# include "sjamie.h"
-# include "bpole.h"
+//# include "sjamie.h"
+//# include "bpole.h"
 # define COUNT_TOKENS 16
 # define MAX_INT 2147483647
 # define MAX_SHORT 32767
