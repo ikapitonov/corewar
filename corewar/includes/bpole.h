@@ -1,27 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fstrncpy.c                                      :+:      :+:    :+:   */
+/*   bpole.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matruman <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bpole <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/29 15:55:12 by matruman          #+#    #+#             */
-/*   Updated: 2020/01/12 18:15:15 by bpole            ###   ########.fr       */
+/*   Created: 2020/01/11 21:21:44 by bpole             #+#    #+#             */
+/*   Updated: 2020/01/11 21:30:40 by bpole            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#ifndef BPOLE_H
+# define BPOLE_H
 
-void	ft_fstrncpy(char *dst, const char *src, size_t len)
-{
-	size_t i;
 
-	i = 0;
-	while (i < len && src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = 0;
-}
+#endif
