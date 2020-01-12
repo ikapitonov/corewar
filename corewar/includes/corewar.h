@@ -44,6 +44,13 @@ typedef struct		s_main
 	struct s_cursor	*last_cursor;
 	char			*area;
 	int				dump;
+	int				cycle_to_die;
+	int				cycles_count;
+	int				last_cycle_to_die;
+	int				last_player_id;
+	int				lives_count;
+	int				cursors;
+	int				valids_count;
 }					t_main;
 
 typedef struct		s_cursor
@@ -51,6 +58,8 @@ typedef struct		s_cursor
 	int				registers[REG_NUMBER];
 	int				pos;
 	int				carry;
+	int				operation_code;
+	int				cycles_to_wait;
 	struct s_cursor	*next;
 }					t_cursor;
 

@@ -108,6 +108,13 @@ void			*init()
 		die("malloc() does not work");
 	main->area[MEM_SIZE] = 0;
 	main->dump = 0;
+	main->cycle_to_die = CYCLE_TO_DIE;
+	main->cycles_count = 0;
+	main->last_player_id = 0;
+	main->lives_count = 0;
+	main->cursors = 0;
+	main->valids_count = 0;
+	main->last_cycle_to_die = 0;
 	init_players(main);
 	return ((void*)main);
 }
