@@ -18,6 +18,7 @@ CFLAGS			= -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
+				  src/memory/memory_rw.c \
 				  src/reader/params.c \
 				  src/reader/is_valid.c \
 				  src/reader/player.c \

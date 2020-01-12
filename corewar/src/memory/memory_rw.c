@@ -37,3 +37,20 @@ void	memory_write(char *area, int pos, void *src, int size)
 		i++;
 	}
 }
+
+void	rev_endian(void *val, int size)
+{
+	char	*p;
+	char	tmp;
+	int		i;
+
+	p = (char *)val;
+	i = 0;
+	while (i < size / 2)
+	{
+		tmp = p[size - i - 1];
+		p[size - i - 1] = p[i];
+		p[i] = tmp;
+		i++; 
+	}
+}

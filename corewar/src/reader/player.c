@@ -78,7 +78,9 @@ static	void	check_double(t_main *main, int n)
 	while (i < MAX_PLAYERS - 1)
 	{
 		if (main->player[i].id == n)
+		{
 			help();
+		}
 		++i;
 	}
 }

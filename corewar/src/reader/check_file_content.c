@@ -12,57 +12,28 @@
 
 #include "../../includes/corewar.h"
 
-void	rev_endian(void *val, int size)
+static	void	check_magic_header(char *str)
 {
-	char	*p;
-	char	tmp;
-	int		i;
+	int32_t	res;
 
-	p = (char *)val;
-	i = 0;
-	while (i < size / 2)
-	{
-		tmp = p[size - i - 1];
-		p[size - i - 1] = p[i];
-		p[i] = tmp;
-		i++; 
-	}
+	memory_read(str, 0, &res, 4);
+	rev_endian(&res, 4);
+	if (res != COREWAR_EXEC_MAGIC)
+		die("Invalid constant \"COREWAR_EXEC_MAGIC\"");
 }
 
-void			check_magic_header(char *str)
+static	void	check_code_size(t_main *main, char *str, int size)
 {
-	return ;
-}
+	int32_t	res;
+	int		tmp;
 
-static	void	check_code_size(t_main *main, char *str)
-{
-	char	buff[CODE_SIZE_FILE + 1];
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
 	str += START_NAME + PROG_NAME_LENGTH + NULL_SIZE;
-	printf("%d\n", (int) str);
-	while (i < CODE_SIZE_FILE)
-	{
-		if (str[i])
-		{
-			buff[j++] = str[i];
-		//	ft_putnbr(buff[j- 1]);
-		}
-		++i;
-	}
-	buff[j] = 0;
-	j = 0;
-	while (buff[j])
-	{
-	//	printf("%d\n", buff[j]);
-		ft_putnbr(buff[j]);
-		printf("\n");
-		++j;
-	}
-	// printf("%d\n", ft_atoi(buff));
+	memory_read(str, 0, &res, 4);
+	rev_endian(&res, 4);
+	main->player[main->players].code_size = res;
+	tmp = size - START_COMMENT - COMMENT_LENGTH - NULL_SIZE;
+	if (tmp != res)
+		die("Invalid constant \"code size\"");
 }
 
 static	void	get_name_and_comment(t_main *main, char *str)
@@ -78,6 +49,21 @@ static	void	get_name_and_comment(t_main *main, char *str)
 	main->player[main->players].comment = ft_strdup(comment);
 }
 
+static	void	check_null(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (i < NULL_SIZE)
+	{
+		if (str[i])
+		{
+			die("Invalid constant \"NULL\"");
+		}
+		++i;
+	}
+}
+
 void			check_file_content(t_main *main, t_read *reader)
 {
 	char	*str;
@@ -85,5 +71,7 @@ void			check_file_content(t_main *main, t_read *reader)
 	str = reader->str;
 	check_magic_header(str);
 	get_name_and_comment(main, str);
-	check_code_size(main, str);
+	check_code_size(main, str, reader->size);
+	check_null(str + START_NAME + PROG_NAME_LENGTH);
+	check_null(str + START_COMMENT + COMMENT_LENGTH);
 }

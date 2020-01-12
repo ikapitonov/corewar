@@ -41,12 +41,12 @@ static	void	insert_flag(t_main *main, int count_args,
 {
 	int		res;
 
-	if (!ft_strncmp(params[i] + 1, DUMP, DUMP_LEN) && !params[i][5]
+	if (params[i][0] && !ft_strncmp(params[i] + 1, DUMP, DUMP_LEN) && !params[i][5]
 		&& is_number(count_args, params, i) && !main->dump)
 	{
 		main->dump = valid_number(params[i + 1]);
 	}
-	else if (*(params[i] + 1) == 'n' && !params[i][2]
+	else if (params[i][0] && *(params[i] + 1) == 'n' && !params[i][2]
 		&& is_number(count_args, params, i) && i + 2 < count_args)
 	{
 		if ((res = valid_number(params[i + 1])) > MAX_PLAYERS)
@@ -59,7 +59,7 @@ static	void	insert_flag(t_main *main, int count_args,
 
 static	void	analysis(t_main *main)
 {
-	if (MIN_PLAYERS >= main->players)
+	if (MIN_PLAYERS > main->players)
 		help();
 	calc_ids(main);
 }
