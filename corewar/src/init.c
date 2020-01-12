@@ -33,18 +33,55 @@ t_op	g_instr[COUNT_TOKENS + 1] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-void			die(const char *reason)
+void			init_area(t_main *main)
 {
-	int		fd;
+	int		constant;
+	int		start;
+	int		i;
 
-	fd = 1;
-	if (reason && reason[0])
-		write(fd, reason, ft_strlen(reason));
-	write(fd, "\n", 1);
-	exit(1);
+	constant = MEM_SIZE / main->players;
+	start = START_COMMENT + COMMENT_LENGTH + NULL_SIZE;
+	i = 0;
+	while (i < main->players)
+	{
+		if (main->player[i].code_size)
+		{
+			ft_memcpy(main->area + (i * constant),
+				main->player[i].content + start,
+				main->player[i].code_size);
+		}
+		++i;
+	}
 }
 
-static	void	init_cursor(t_main *main)
+void			init_cursors(t_main *main)
+{
+	t_cursor	*cursor;
+	int			constant;
+	int			i;
+	int			j;
+
+	i = 0;
+	constant = MEM_SIZE / main->players;
+	while (i < main->players)
+	{
+		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
+		cursor->pos = i * constant;
+		cursor->carry = 0;
+		cursor->registers[0] = main->player[i].id;
+		j = 1;
+		while (j < REG_NUMBER)
+		{
+			cursor->registers[j] = 0;
+			++j;
+		}
+		cursor->next = main->cursor;
+		main->cursor = cursor;
+		++i;
+	}
+}
+
+static	void	init_players(t_main *main)
 {
 	int		i;
 
@@ -67,9 +104,10 @@ void			*init()
 	main->players = 0;
 	main->cursor = NULL;
 	main->last_cursor = NULL;
-	main->area = (char*)malloc(sizeof(char) * (MEM_SIZE + 1));
+	if (!(main->area = (char*)ft_memalloc(sizeof(char) * (MEM_SIZE + 1))))
+		die("malloc() does not work");
 	main->area[MEM_SIZE] = 0;
 	main->dump = 0;
-	init_cursor(main);
+	init_players(main);
 	return ((void*)main);
 }

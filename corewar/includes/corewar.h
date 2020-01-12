@@ -35,6 +35,8 @@ typedef struct		s_player
 	int				file_size;
 	int				code_size;
 	int				id;
+	char			*name;
+	char			*comment;
 }					t_player;
 
 typedef struct		s_main
@@ -52,6 +54,7 @@ typedef struct		s_cursor
 	int				registers[REG_NUMBER];
 	int				pos;
 	int				carry;
+	struct s_cursor	*next;
 }					t_cursor;
 
 typedef void	(*t_op_func) (t_main *main, t_cursor *cursor, char *area);
@@ -71,6 +74,20 @@ void				valid_file_size(char *str, int size);
 
 void				memory_read(char *area, int pos, void *dst, int size);
 void				memory_write(char *area, int pos, void *src, int size);
+void				rev_endian(void *val, int size);
+
+
+
+
+
+
+void				check_file_content(t_main *main, t_read *reader);
+void				init_area(t_main *main);
+void				init_cursors(t_main *main);
+# define START_NAME 4
+# define START_COMMENT (4 + PROG_NAME_LENGTH + 8)
+# define CODE_SIZE_FILE 4
+# define NULL_SIZE 4
 
 void p(void);
 #endif
