@@ -27,16 +27,16 @@ void			die(const char *reason)
 
 void			test(t_main *main)
 {
-	// int i;
+	int i;
 
-	// i = 0;
-	// while (i < MEM_SIZE)
-	// {
-	// 	printf("%03d", main->area[i]);
-	// 	if (!(i % 100))
-	// 		printf("\n");
-	// 	++i;
-	// }
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		printf("%03d", main->area[i]);
+		if (!(i % 100))
+			printf("\n");
+		++i;
+	}
 	// int i;
 	// t_cursor *cursor;
 
@@ -57,6 +57,7 @@ int				main(int ac, char *av[])
 	insert_params(main, ac, av);
 	init_area(main);
 	init_cursors(main);
+//	game_exec(main);
 	test(main);
 	return (0);
 }
