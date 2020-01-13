@@ -44,7 +44,7 @@ void			test(t_main *main)
 	cursor = main->cursor;
 	while (cursor)
 	{
-		printf("%d\n", cursor->registers[0]);
+		printf("%d\n", cursor->reg[0]);
 		cursor = cursor->next;
 	}
 }

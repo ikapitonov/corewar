@@ -39,6 +39,8 @@ typedef struct		s_player
 	int				id;
 	char			*name;
 	char			*comment;
+	int				current_lives;
+	int				all_lives;
 }					t_player;
 
 typedef struct		s_main
@@ -53,7 +55,7 @@ typedef struct		s_main
 
 typedef struct		s_cursor
 {
-	int				registers[REG_NUMBER];
+	int				reg[REG_NUMBER];
 	int				pos;
 	int				command;
 	int				cycles;
