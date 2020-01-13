@@ -33,6 +33,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 		if (regnum > 16)
 			return ;
 		memory_read(area, cursor->pos + 2, &cursor->registers[regnum - 1], 4);
+		cursor->carry = !cursor->registers[regnum - 1];
 		return ;
 	}
 	memory_read(area, cursor->pos + 2, &addr, 2);
@@ -40,6 +41,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 4, &regnum, 1);
 	memory_read(area, cursor->pos + addr % IDX_MOD,
 	&cursor->registers[regnum - 1], 4);
+	cursor->carry = !cursor->registers[regnum - 1];
 }
 
 void	st(t_main *main, t_cursor *cursor, char *area)
@@ -52,13 +54,33 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	if (cursor->types[2] == T_REG_CODE)
 	{
 		memory_read(area, cursor->pos + 3, &regnum2, 1);
-		if (regnum1 > 16 || regnum2 > 16)
+		if (regnum1 > 16 || regnum2 > 16 || !regnum1 || !regnum2)
 			return ;
 		cursor->registers[regnum2 - 1] = cursor->registers[regnum1 - 1];
 		return ;
 	}
+	if (regnum1 > 16 ||	!regnum1)
+		return ;
 	memory_read(area, cursor->pos + 3, &addr, 2);
 	rev_endian(&addr, 2);
 	memory_write(area, cursor->pos + addr % IDX_MOD,
 	&cursor->registers[regnum1 - 1], 2);
+}
+
+void	add(t_main *main, t_cursor *cursor, char *area)
+{
+	uint32_t	val[2];
+	uint8_t		reg[3];
+
+	memory_read(area, cursor->pos + 1, reg, 3);
+	if (reg[0] > 16 || reg[1] > 16 || reg[2] > 16 ||
+	!reg[0] || !reg[1] || !reg[2])
+		return;
+	val[0] = cursor->registers[reg[0] - 1];
+	val[1] = cursor->registers[reg[1] - 1];
+	rev_endian(&val[0], REG_SIZE);
+	rev_endian(&val[1], REG_SIZE);
+	cursor->registers[reg[2] - 1] = val[0] + val[1];
+	rev_endian(&cursor->registers[reg[2] - 1], REG_SIZE);
+	cursor->carry = !cursor->registers[reg[2] - 1];
 }
