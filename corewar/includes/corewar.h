@@ -16,9 +16,6 @@
 # include "../../libft/includes/libft.h"
 # include "../../includes/op.h"
 # include <stdio.h>
-# include "matruman.h"
-//# include "sjamie.h"
-//# include "bpole.h"
 # define COUNT_TOKENS 16
 # define MAX_INT 2147483647
 # define MAX_SHORT 32767
@@ -27,6 +24,11 @@
 # define DUMP_LEN 4
 # define HEADER_VAR 16
 # define MIN_PLAYERS 2
+
+# define T_REG_CODE 1
+# define T_DIR_CODE 2
+# define T_IND_CODE 3
+
 extern t_op g_instr[];
 
 typedef struct		s_player
@@ -53,6 +55,9 @@ typedef struct		s_cursor
 {
 	int				registers[REG_NUMBER];
 	int				pos;
+	int				command;
+	int				cycles;
+	char			types[3];
 	int				carry;
 	struct s_cursor	*next;
 }					t_cursor;
@@ -75,6 +80,8 @@ void				valid_file_size(char *str, int size);
 void				memory_read(char *area, int pos, void *dst, int size);
 void				memory_write(char *area, int pos, void *src, int size);
 void				rev_endian(void *val, int size);
+void				get_arg_types(char *typesarr, char *area, int pos);
+int					check_arg_types(char *types, char command);
 
 
 
