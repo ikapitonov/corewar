@@ -68,11 +68,11 @@ void			init_cursors(t_main *main)
 		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
 		cursor->pos = i * constant;
 		cursor->carry = 0;
-		cursor->registers[0] = main->player[i].id;
+		cursor->reg[0] = main->player[i].id;
 		j = 1;
 		while (j < REG_NUMBER)
 		{
-			cursor->registers[j] = 0;
+			cursor->reg[j] = 0;
 			++j;
 		}
 		cursor->next = main->cursor;
@@ -114,7 +114,7 @@ void			*init()
 	main->lives_count = 0;
 	main->cursors = 0;
 	main->valids_count = 0;
-	main->last_cycle_to_die = 0;
+	main->current_cycle_to_die = CYCLE_TO_DIE;
 	init_players(main);
 	return ((void*)main);
 }

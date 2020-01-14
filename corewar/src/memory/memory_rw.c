@@ -12,33 +12,7 @@
 
 #include "corewar.h"
 
-void	memory_read(char *area, int pos, void *dst, int size)
-{
-	int		i;
-	char	*cdst;
-
-	cdst = (char *)dst;
-	while (i < size)
-	{
-		cdst[i] = area[(pos + i) % MEM_SIZE];
-		i++;
-	}
-}
-
-void	memory_write(char *area, int pos, void *src, int size)
-{
-	int		i;
-	char	*csrc;
-
-	csrc = (char *)src;
-	while (i < size)
-	{
-		area[(pos + i) % MEM_SIZE] = csrc[i];
-		i++;
-	}
-}
-
-void	rev_endian(void *val, int size)
+void		rev_endian(void *val, int size)
 {
 	char	*p;
 	char	tmp;
@@ -52,5 +26,43 @@ void	rev_endian(void *val, int size)
 		p[size - i - 1] = p[i];
 		p[i] = tmp;
 		i++; 
+	}
+}
+
+int32_t		memory_read_rev_endian(char *area, int pos, int size)
+{
+	int32_t	res;
+
+	res = 0;
+	memory_read(area, pos, &res, size);
+	rev_endian(&res, size);
+	return (res);
+}
+
+void		memory_read(char *area, int pos, void *dst, int size)
+{
+	int		i;
+	char	*cdst;
+
+	cdst = (char *)dst;
+	i = 0;
+	while (i < size)
+	{
+		cdst[i] = area[(pos + i) % MEM_SIZE];
+		i++;
+	}
+}
+
+void		memory_write(char *area, int pos, void *src, int size)
+{
+	int		i;
+	char	*csrc;
+
+	csrc = (char *)src;
+	i = 0;
+	while (i < size)
+	{
+		area[(pos + i) % MEM_SIZE] = csrc[i];
+		i++;
 	}
 }

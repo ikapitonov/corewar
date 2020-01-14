@@ -44,12 +44,12 @@ void			test(t_main *main)
 	cursor = main->cursor;
 	while (cursor)
 	{
-		printf("%d\n", cursor->registers[0]);
+		printf("%d\n", cursor->reg[0]);
 		cursor = cursor->next;
 	}
 }
 
-int				main(int ac, char *av[])
+int				main(int ac, char *av[]) 
 {
 	t_main	*main;
 
@@ -57,7 +57,13 @@ int				main(int ac, char *av[])
 	insert_params(main, ac, av);
 	init_area(main);
 	init_cursors(main);
-//	game_exec(main);
-	test(main);
+	int	i = 0;
+	while (main->cursor && main->cycle_to_die)
+	{
+		game_exec(main);
+		if (i++ > 5)
+			break ;
+	}
+//	test(main);
 	return (0);
 }
