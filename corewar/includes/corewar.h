@@ -51,6 +51,13 @@ typedef struct		s_main
 	struct s_cursor	*last_cursor;
 	char			*area;
 	int				dump;
+	int				cycle_to_die;
+	int				cycles_count;
+	int				current_cycle_to_die;
+	int				last_player_id;
+	int				lives_count;
+	int				cursors;
+	int				valids_count;
 }					t_main;
 
 typedef struct		s_cursor
@@ -61,6 +68,9 @@ typedef struct		s_cursor
 	int				cycles;
 	char			types[3];
 	int				carry;
+	int				last_live_cycle;
+	int				operation_code;
+	int				cycles_to_wait;
 	struct s_cursor	*next;
 }					t_cursor;
 
@@ -82,17 +92,19 @@ void				valid_file_size(char *str, int size);
 void				memory_read(char *area, int pos, void *dst, int size);
 void				memory_write(char *area, int pos, void *src, int size);
 void				rev_endian(void *val, int size);
+int32_t				memory_read_rev_endian(char *area, int pos, int size);
 void				get_arg_types(char *typesarr, char *area, int pos);
 int					check_arg_types(char *types, char command);
 
 
-
+void				game_exec(t_main *main);
 
 
 
 void				check_file_content(t_main *main, t_read *reader);
 void				init_area(t_main *main);
 void				init_cursors(t_main *main);
+
 # define START_NAME 4
 # define START_COMMENT (4 + PROG_NAME_LENGTH + 8)
 # define CODE_SIZE_FILE 4

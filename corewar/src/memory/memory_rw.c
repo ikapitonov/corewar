@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void	rev_endian(void *val, int size)
+void		rev_endian(void *val, int size)
 {
 	char	*p;
 	char	tmp;
@@ -29,7 +29,17 @@ void	rev_endian(void *val, int size)
 	}
 }
 
-void	memory_read(char *area, int pos, void *dst, int size)
+int32_t		memory_read_rev_endian(char *area, int pos, int size)
+{
+	int32_t	res;
+
+	res = 0;
+	memory_read(area, pos, &res, size);
+	rev_endian(&res, size);
+	return (res);
+}
+
+void		memory_read(char *area, int pos, void *dst, int size)
 {
 	int		i;
 	char	*cdst;
@@ -43,7 +53,7 @@ void	memory_read(char *area, int pos, void *dst, int size)
 	}
 }
 
-void	memory_write(char *area, int pos, void *src, int size)
+void		memory_write(char *area, int pos, void *src, int size)
 {
 	int		i;
 	char	*csrc;

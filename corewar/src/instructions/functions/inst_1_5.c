@@ -20,6 +20,7 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 	rev_endian(&val, 4);
 	if (-val <= main->players)
 		main->player[-val].current_lives++;
+	// last_live_cycle
 }
 
 void	ld(t_main *main, t_cursor *cursor, char *area)

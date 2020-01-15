@@ -68,6 +68,7 @@ void			init_cursors(t_main *main)
 		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
 		cursor->pos = i * constant;
 		cursor->carry = 0;
+		cursor->last_live_cycle = 0;
 		cursor->reg[0] = main->player[i].id;
 		j = 1;
 		while (j < REG_NUMBER)
@@ -108,6 +109,13 @@ void			*init()
 		die("malloc() does not work");
 	main->area[MEM_SIZE] = 0;
 	main->dump = 0;
+	main->cycle_to_die = CYCLE_TO_DIE;
+	main->cycles_count = 0;
+	main->last_player_id = 0;
+	main->lives_count = 0;
+	main->cursors = 0;
+	main->valids_count = 0;
+	main->current_cycle_to_die = CYCLE_TO_DIE;
 	init_players(main);
 	return ((void*)main);
 }
