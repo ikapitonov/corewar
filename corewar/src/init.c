@@ -33,6 +33,14 @@ t_op	g_instr[COUNT_TOKENS + 1] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
+t_op_func	op_arr[COUNT_TOKENS] = 
+{
+	live, ld, st, add,
+	sub, and, or, xor,
+	zjmp, ldi, sti, op_fork,
+	lld, lldi, lfork, aff
+};
+
 void			init_area(t_main *main)
 {
 	int		constant;

@@ -49,6 +49,7 @@ typedef struct		s_main
 	int				players;
 	struct s_cursor	*cursor;
 	struct s_cursor	*last_cursor;
+	char			flag_a;
 	char			*area;
 	int				dump;
 	int				cycle_to_die;
@@ -75,6 +76,7 @@ typedef struct		s_cursor
 }					t_cursor;
 
 typedef void	(*t_op_func) (t_main *main, t_cursor *cursor, char *area);
+extern 				t_op_func op_arr[];
 
 void				*init();
 void				die(const char *reason);
@@ -98,6 +100,23 @@ int					check_arg_types(char *types, char command);
 
 
 void				game_exec(t_main *main);
+
+void    			live(t_main *main, t_cursor *cursor, char *area);
+void    			ld(t_main *main, t_cursor *cursor, char *area);
+void    			st(t_main *main, t_cursor *cursor, char *area);
+void    			add(t_main *main, t_cursor *cursor, char *area);
+void    			sub(t_main *main, t_cursor *cursor, char *area);
+void    			and(t_main *main, t_cursor *cursor, char *area);
+void    			or(t_main *main, t_cursor *cursor, char *area);
+void    			xor(t_main *main, t_cursor *cursor, char *area);
+void    			zjmp(t_main *main, t_cursor *cursor, char *area);
+void    			ldi(t_main *main, t_cursor *cursor, char *area);
+void    			sti(t_main *main, t_cursor *cursor, char *area);
+void    			op_fork(t_main *main, t_cursor *cursor, char *area);
+void    			lld(t_main *main, t_cursor *cursor, char *area);
+void    			lldi(t_main *main, t_cursor *cursor, char *area);
+void    			lfork(t_main *main, t_cursor *cursor, char *area);
+void    			aff(t_main *main, t_cursor *cursor, char *area);
 
 
 

@@ -16,7 +16,9 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 {
 	// СЮДА ВСЕГДА ПРИДЕТ ПРАВИЛЬНЫЙ КОД ОПЕРАЦИИ (1 - 16)
 	// вызов функций ассембли  и мы ЗДЕСЬ ДВИГАЕМ ПОЗИЦИЮ КАРЕТКИ
-	// cursor->pos должен сдвинуться 
+	// cursor->pos должен сдвинуться
+	printf("%d\n", cursor->operation_code);
+	op_arr[cursor->operation_code - 1](main, cursor, main->area);
 	return ;
 }
  
