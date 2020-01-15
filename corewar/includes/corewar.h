@@ -97,7 +97,7 @@ void				get_arg_types(char *typesarr, char *area, int pos);
 int					check_arg_types(char *types, char command);
 
 
-
+void				game_exec(t_main *main);
 
 
 

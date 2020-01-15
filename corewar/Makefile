@@ -22,7 +22,9 @@ SRC				= src/main.c \
 				  src/reader/params.c \
 				  src/reader/is_valid.c \
 				  src/reader/player.c \
-				  src/reader/check_file_content.c
+				  src/reader/check_file_content.c \
+				  \
+				  src/game/game.c
 
 LIB =			  ../libft/libft.a
 

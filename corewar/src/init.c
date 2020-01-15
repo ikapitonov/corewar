@@ -68,6 +68,7 @@ void			init_cursors(t_main *main)
 		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
 		cursor->pos = i * constant;
 		cursor->carry = 0;
+		cursor->last_live_cycle = 0;
 		cursor->reg[0] = main->player[i].id;
 		j = 1;
 		while (j < REG_NUMBER)

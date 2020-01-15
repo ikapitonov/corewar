@@ -13,7 +13,7 @@
 #include "corewar.h"
 
 void	and_reg(t_cursor *cursor, char *area, char *mem)
-{
+{ 
 	if (cursor->types[1] == T_REG_CODE)
 		{
 			if (mem[1] > 16 || mem[2] > 16 || !mem[1] || !mem[2])

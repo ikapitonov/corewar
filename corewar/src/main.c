@@ -58,12 +58,15 @@ int				main(int ac, char *av[])
 	init_area(main);
 	init_cursors(main);
 	int	i = 0;
-	while (main->cursor && main->cycle_to_die)
-	{
+	while (main->cursor && main->cycle_to_die > 0)
 		game_exec(main);
-		if (i++ > 5)
-			break ;
-	}
+	// cursor = main->cursor;
+	// while (cursor)
+	// {
+	// 	p();
+	// 	cursor = cursor->next;
+	// }
+//	printf(">%d\n", i);
 //	test(main);
 	return (0);
 }
