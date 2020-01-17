@@ -122,7 +122,7 @@ typedef struct		s_cursor
 	struct s_cursor	*next;
 }					t_cursor;
 
-typedef void	(*t_op_func) (t_main *main, t_cursor *cursor, char *area);
+typedef void		(*t_op_func) (t_main *main, t_cursor *cursor, char *area);
 extern 				t_op_func op_arr[];
 
 void				*init();
@@ -139,10 +139,10 @@ void				valid_filename(char *filename);
 void				valid_file_size(char *str, int size);
 
 void				memory_read(char *area, int pos, void *dst, int size);
-void	memory_write(t_main *main, int player, char *area, int pos, void *src, int size);
+void				memory_write(t_main *main, int player, char *area, int pos, void *src, int size);
 void				rev_endian(void *val, int size);
 int32_t				memory_read_rev_endian(char *area, int pos, int size);
-void				get_arg_types(char *typesarr, char *area, int pos);
+int					get_arg_types(char command, char *arr, char *area, int pos);
 int					check_arg_types(char *types, char command);
 
 
@@ -171,12 +171,12 @@ void				check_file_content(t_main *main, t_read *reader);
 void				init_area(t_main *main);
 void				init_cursors(t_main *main);
 
-int				lem_hook_keydown(int key, t_main *main);
-int				lem_loop_key_hook(t_main *main);
-void			render(t_main *main);
-void			print_memory(const void *addr, size_t size);
-void			render_background_inst(t_main *main);
-void			render_inst(t_main *main);
+int					lem_hook_keydown(int key, t_main *main);
+int					lem_loop_key_hook(t_main *main);
+void				render(t_main *main);
+void				print_memory(const void *addr, size_t size);
+void				render_background_inst(t_main *main);
+void				render_inst(t_main *main);
 
 # define START_NAME 4
 # define START_COMMENT (4 + PROG_NAME_LENGTH + 8)

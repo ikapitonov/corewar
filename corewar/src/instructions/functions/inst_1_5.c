@@ -24,7 +24,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	if (cursor->types[0] == T_DIR_CODE)
 	{
 		memory_read(area, cursor->pos + 6, &regnum, 1);
-		if (regnum > 16)
+		if (!regnum || regnum > 16)
 			return ;
 		memory_read(area, cursor->pos + 2, &cursor->reg[regnum - 1], 4);
 		cursor->carry = !cursor->reg[regnum - 1];
@@ -34,6 +34,8 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 2, &addr, 2);
 	rev_endian(&addr, 2);
 	memory_read(area, cursor->pos + 4, &regnum, 1);
+	if (!regnum || regnum > 16)
+			return ;
 	memory_read(area, cursor->pos + addr % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];
@@ -47,10 +49,12 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	int16_t		addr;
 	
 	memory_read(area, cursor->pos + 2, &regnum1, 1);
+	if (!regnum1 || regnum1 > 16)
+			return ;
 	if (cursor->types[2] == T_REG_CODE)
 	{
 		memory_read(area, cursor->pos + 3, &regnum2, 1);
-		if (regnum1 > 16 || regnum2 > 16 || !regnum1 || !regnum2)
+		if (regnum2 > 16 || !regnum2)
 			return ;
 		cursor->reg[regnum2 - 1] = cursor->reg[regnum1 - 1];
 		main->move = 3;
