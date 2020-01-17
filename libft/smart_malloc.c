@@ -17,7 +17,7 @@ void			*smart_malloc(size_t how_much)
 {
 	void	*new;
 
-	if (!(new = malloc(how_much)))
+	if (!(new = ft_memalloc(how_much)))
 	{
 		ft_putstr("malloc() does not work\n");
 		exit(1);	

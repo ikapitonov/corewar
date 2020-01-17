@@ -41,12 +41,22 @@ t_op_func	op_arr[COUNT_TOKENS] =
 	lld, lldi, lfork, aff
 };
 
+void	put_player_in_sell(t_main *main, int start, int len, int player)
+{
+	while (len--)
+	{
+		main->cell[start].player = player;
+		start++;
+	}
+}
+
 void			init_area(t_main *main)
 {
 	int		constant;
 	int		start;
+	int 	size;
 	int		i;
-
+	
 	constant = MEM_SIZE / main->players;
 	start = START_COMMENT + COMMENT_LENGTH + NULL_SIZE;
 	i = 0;
@@ -54,9 +64,10 @@ void			init_area(t_main *main)
 	{
 		if (main->player[i].code_size)
 		{
+			size = main->player[i].code_size;
 			ft_memcpy(main->area + (i * constant),
-				main->player[i].content + start,
-				main->player[i].code_size);
+					  main->player[i].content + start, size);
+			put_player_in_sell(main, i * constant, size, i + 1);
 		}
 		++i;
 	}
@@ -67,23 +78,14 @@ void			init_cursors(t_main *main)
 	t_cursor	*cursor;
 	int			constant;
 	int			i;
-	int			j;
-
+	
 	i = 0;
 	constant = MEM_SIZE / main->players;
 	while (i < main->players)
 	{
 		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
 		cursor->pos = i * constant;
-		cursor->carry = 0;
-		cursor->last_live_cycle = 0;
 		cursor->reg[0] = main->player[i].id;
-		j = 1;
-		while (j < REG_NUMBER)
-		{
-			cursor->reg[j] = 0;
-			++j;
-		}
 		cursor->next = main->cursor;
 		main->cursor = cursor;
 		++i;
@@ -108,8 +110,12 @@ static	void	init_players(t_main *main)
 void			*init()
 {
 	t_main	*main;
-
+	
 	main = (t_main*)smart_malloc(sizeof(t_main));
+	
+	main->cycle_to_die = 50;   //	test
+	
+	main->cell = (t_cell*)smart_malloc(sizeof(t_cell) * MEM_SIZE);
 	main->players = 0;
 	main->cursor = NULL;
 	main->last_cursor = NULL;
@@ -117,13 +123,29 @@ void			*init()
 		die("malloc() does not work");
 	main->area[MEM_SIZE] = 0;
 	main->dump = 0;
-	main->cycle_to_die = CYCLE_TO_DIE;
-	main->cycles_count = 0;
-	main->last_player_id = 0;
-	main->lives_count = 0;
-	main->cursors = 0;
-	main->valids_count = 0;
-	main->current_cycle_to_die = CYCLE_TO_DIE;
 	init_players(main);
 	return ((void*)main);
 }
+
+//void			*init()
+//{
+//	t_main	*main;
+//
+//	main = (t_main*)smart_malloc(sizeof(t_main));
+//	main->players = 0;
+//	main->cursor = NULL;
+//	main->last_cursor = NULL;
+//	if (!(main->area = (char*)ft_memalloc(sizeof(char) * (MEM_SIZE + 1))))
+//		die("malloc() does not work");
+//	main->area[MEM_SIZE] = 0;
+//	main->dump = 0;
+//	main->cycle_to_die = CYCLE_TO_DIE;
+//	main->cycles_count = 0;
+//	main->last_player_id = 0;
+//	main->lives_count = 0;
+//	main->cursors = 0;
+//	main->valids_count = 0;
+//	main->current_cycle_to_die = CYCLE_TO_DIE;
+//	init_players(main);
+//	return ((void*)main);
+//}

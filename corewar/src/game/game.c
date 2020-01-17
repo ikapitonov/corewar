@@ -17,9 +17,11 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	// СЮДА ВСЕГДА ПРИДЕТ ПРАВИЛЬНЫЙ КОД ОПЕРАЦИИ (1 - 16)
 	// вызов функций ассембли  и мы ЗДЕСЬ ДВИГАЕМ ПОЗИЦИЮ КАРЕТКИ
 	// cursor->pos должен сдвинуться
-	printf("%d\n", cursor->operation_code);
-	op_arr[cursor->operation_code - 1](main, cursor, main->area);
-	return ;
+	main->move = 0;
+	if (cursor->operation_code > 0 && cursor->operation_code < 17)
+		op_arr[cursor->operation_code - 1](main, cursor, main->area);
+	cursor->pos = (cursor->pos + 1 + main->move) % MEM_SIZE;
+	cursor->operation_code = 0;
 }
  
 static	int		is_invalid_move(t_main *main, t_cursor *cursor, int32_t tmp)

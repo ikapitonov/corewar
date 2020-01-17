@@ -53,16 +53,17 @@ void		memory_read(char *area, int pos, void *dst, int size)
 	}
 }
 
-void		memory_write(char *area, int pos, void *src, int size)
+void	memory_write(t_main *main, int player, char *area, int pos, void *src, int size)
 {
 	int		i;
 	char	*csrc;
-
-	csrc = (char *)src;
+	
 	i = 0;
+	csrc = (char *)src;
 	while (i < size)
 	{
-		area[(pos + i) % MEM_SIZE] = csrc[i];
+		area[(pos + i) % MEM_SIZE] = 1;		//  csrc[i]
+		main->cell[(pos + i) % MEM_SIZE].player = player;
 		i++;
 	}
 }
