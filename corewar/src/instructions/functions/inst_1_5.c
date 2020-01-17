@@ -4,13 +4,14 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 {
 	int32_t	val;
 	
-	//ft_printf("1\n");
-	memory_read(area, cursor->pos + 1, &val, 4);
-	rev_endian(&val, 4);
-	//ft_printf("2\n");
-	//ft_printf("%d\n", val);
+	memory_read(area, cursor->pos + 1, &val, 4); 
+	rev_endian(&val, 4); 
 	if (-val <= main->players && -val >= 0)
-		main->player[-val].current_lives++;
+	{
+		main->player[-val].current_lives += 1;
+		cursor->last_live_cycle = main->cycles_count;
+		main->player[-val].all_lives = main->cycles_count;
+	}
 	main->move = 4;
 }
 
@@ -24,7 +25,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	if (cursor->types[0] == T_DIR_CODE)
 	{
 		memory_read(area, cursor->pos + 6, &regnum, 1);
-		if (regnum > 16)
+		if (!regnum || regnum > 16)
 			return ;
 		memory_read(area, cursor->pos + 2, &cursor->reg[regnum - 1], 4);
 		cursor->carry = !cursor->reg[regnum - 1];
@@ -34,6 +35,8 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 2, &addr, 2);
 	rev_endian(&addr, 2);
 	memory_read(area, cursor->pos + 4, &regnum, 1);
+	if (!regnum || regnum > 16)
+		return ;
 	memory_read(area, cursor->pos + addr % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];
@@ -47,17 +50,17 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	int16_t		addr;
 	
 	memory_read(area, cursor->pos + 2, &regnum1, 1);
+	if (regnum1 > 16 ||	!regnum1)
+		return ;
 	if (cursor->types[2] == T_REG_CODE)
 	{
 		memory_read(area, cursor->pos + 3, &regnum2, 1);
-		if (regnum1 > 16 || regnum2 > 16 || !regnum1 || !regnum2)
+		if (regnum2 > 16 || !regnum2)
 			return ;
 		cursor->reg[regnum2 - 1] = cursor->reg[regnum1 - 1];
 		main->move = 3;
 		return ;
 	}
-	if (regnum1 > 16 ||	!regnum1)
-		return ;
 	memory_read(area, cursor->pos + 3, &addr, 2);
 	rev_endian(&addr, 2);
 	memory_write(main, main->cell[cursor->pos].player, area, cursor->pos + addr % IDX_MOD,
