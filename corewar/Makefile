@@ -29,6 +29,7 @@ SRC				= src/main.c \
 				  src/instructions/functions/inst_6_8.c \
 				  src/instructions/functions/inst_9_12.c \
 				  src/instructions/functions/inst_13_16.c \
+				  src/instructions/helps.c \
 				  \
 				  src/visual/control.c \
 				  src/visual/corewar_loop.c \

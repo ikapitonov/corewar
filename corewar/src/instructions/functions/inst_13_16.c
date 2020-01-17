@@ -21,7 +21,7 @@ void	lld(t_main *main, t_cursor *cursor, char *area)
 	if (cursor->types[0] == T_DIR_CODE)
 	{
 		memory_read(area, cursor->pos + 6, &regnum, 1);
-		if (regnum > 16)
+		if (!regnum || regnum > 16)
 			return ;
 		memory_read(area, cursor->pos + 2, &cursor->reg[regnum - 1], 4);
 		cursor->carry = !cursor->reg[regnum - 1];
@@ -30,6 +30,8 @@ void	lld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 2, &addr, 2);
 	rev_endian(&addr, 2);
 	memory_read(area, cursor->pos + 4, &regnum, 1);
+	if (!regnum || regnum > 16)
+		return ;
 	memory_read(area, addr - cursor->pos,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];

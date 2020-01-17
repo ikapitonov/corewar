@@ -16,6 +16,8 @@ int		check_arg_types(char *types, char command)
 {
 	int		count;
 
+	if (!g_instr[command].is_code_type)
+		return (0);
 	count = 0;
 	while (types[count] && count < 4)
 		count++;
@@ -50,10 +52,10 @@ int		get_arg_types(char command, char *arr, char *area, int pos)
 	arr[0] = types & 192 >> 6;
 	arr[1] = (types & 48) >> 4;
 	arr[2] = (types & 12) >> 2;
-	i = 0;
-	while (i < 3)
+	i = -1;
+	while (++i < 3)
 		ret += get_arg_size(command, arr[i]);
-	if (!g_instr[command].is_code_type && !check_arg_types(arr, command))
+	if (!g_instr[command].is_code_type)
 		return (g_instr[command].size_dir ? 2 : 4);
 	return (ret);
 }
