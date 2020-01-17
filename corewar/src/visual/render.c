@@ -43,9 +43,9 @@ static void		render_plyer_info(t_main *main, int	i)
 	char 		*cycle_to_die;
 	int 		color[4] = {CELL_PLAY_1, CELL_PLAY_2, CELL_PLAY_3, CELL_PLAY_4};
 	
-	number = ft_itoa(i);
-	processes = ft_itoa(main->cursors);
-	cycle_to_die = ft_itoa(main->cycle_to_die);
+	number = ft_itoa(main->player[i].id);
+	processes = ft_itoa(main->player[i].all_lives);
+	cycle_to_die = ft_itoa(main->player[i].current_lives);
 	mlx_string_put(main->mlx, main->win, WIDTH - 450, 280 + i * 130,
 				   TEXT_COLOR, "Player ");
 	mlx_string_put(main->mlx, main->win, WIDTH - 450 + 70, 280 + i * 130,
