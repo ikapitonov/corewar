@@ -93,8 +93,8 @@ int				main(int ac, char *av[])
 		while (main->cursor && main->cycle_to_die > 0)
 		{
 			game_exec(main);
-			print_memory(main->area, MEM_SIZE);
-			ft_printf("\n");
+			//print_memory(main->area, MEM_SIZE);
+			//ft_printf("\n");
 		}
 	}
 	// cursor = main->cursor;

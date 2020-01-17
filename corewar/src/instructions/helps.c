@@ -23,8 +23,8 @@ int		check_arg_types(char *types, char command)
 		count++;
 	if (count != g_instr[command].count_args)
 		return (1);
-	count = 0;
-	while (count < 3)
+	count = -1;
+	while (++count < 3)
 		if (!(types[count] & g_instr[command].args[count]))
 			return (1);
 	return (0);

@@ -19,10 +19,12 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	// cursor->pos должен сдвинуться
 	int		len;
 
-	len = get_arg_types(cursor->operation_code, cursor->types, main->area, cursor->pos);
-	printf ("%d\n", len);
-	if (!check_arg_types(cursor->types, cursor->operation_code))
+	len = get_arg_types(cursor->operation_code - 1, cursor->types, main->area, cursor->pos);
+	printf ("%d\n", len); 
+	if (!check_arg_types(cursor->types, cursor->operation_code - 1))
 		op_arr[cursor->operation_code - 1](main, cursor, main->area);
+	if (!len)
+		++len;
 	cursor->pos = (cursor->pos + len) % MEM_SIZE;
 	cursor->operation_code = 0;
 }
