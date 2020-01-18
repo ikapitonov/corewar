@@ -68,7 +68,7 @@ void	memory_write(t_main *main, int player, char *area, int pos, void *src, int 
 	i = 0;
 	while (i < size)
 	{
-		area[(pos + i) % MEM_SIZE] = 1;		//  csrc[i]
+		area[(pos + i) % MEM_SIZE] = csrc[i];		//  csrc[i]
 		main->cell[(pos + i) % MEM_SIZE].player = player;
 		i++;
 	}
