@@ -1,0 +1,3 @@
+/Users/bpole/CLionProjects/corewat_team/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/bpole/CLionProjects/corewat_team/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/bpole/CLionProjects/corewat_team/cmake-build-debug/CMakeFiles/corewat_team.dir

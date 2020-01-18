@@ -1,0 +1,118 @@
+cmake_minimum_required(VERSION 3.15)
+project(corewat_team C)
+
+set(CMAKE_C_STANDARD 11)
+
+include_directories(corewar/includes)
+include_directories(includes)
+include_directories(libft/ft_printf/includes)
+include_directories(libft/includes)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lmlx -framework OpenGL -framework AppKit -L")
+
+add_executable(corewat_team
+        corewar/includes/corewar.h
+        corewar/src/game/game.c
+        corewar/src/instructions/functions/inst_13_16.c
+        corewar/src/instructions/functions/inst_1_5.c
+        corewar/src/instructions/functions/inst_6_8.c
+        corewar/src/instructions/functions/inst_9_12.c
+        corewar/src/instructions/helps.c
+        corewar/src/memory/memory_rw.c
+        corewar/src/reader/check_file_content.c
+        corewar/src/reader/is_valid.c
+        corewar/src/reader/params.c
+        corewar/src/reader/player.c
+        corewar/src/init.c
+        corewar/src/main.c
+        includes/op.h
+        libft/ft_printf/includes/libft.h
+        libft/ft_printf/src/long_arithmetic/big_int_print.c
+        libft/ft_printf/src/long_arithmetic/la_helps.c
+        libft/ft_printf/src/long_arithmetic/multiplication.c
+        libft/ft_printf/src/long_arithmetic/pow_mult.c
+        libft/ft_printf/src/long_arithmetic/read_long_long.c
+        libft/ft_printf/src/buffer.c
+        libft/ft_printf/src/ft_itoa_base.c
+        libft/ft_printf/src/ft_printf.c
+        libft/ft_printf/src/get_fl.c
+        libft/ft_printf/src/get_format.c
+        libft/ft_printf/src/get_format_list.c
+        libft/ft_printf/src/pf_helps.c
+        libft/ft_printf/src/pf_helps1.c
+        libft/ft_printf/src/print_conv_cp.c
+        libft/ft_printf/src/print_conv_di.c
+        libft/ft_printf/src/print_conv_float.c
+        libft/ft_printf/src/print_conv_pouxx.c
+        libft/ft_printf/src/print_conv_s.c
+        libft/ft_printf/src/print_format.c
+        libft/gnl/get_next_line.c
+        libft/includes/ft_printf.h
+        libft/includes/ft_printf_lib.h
+        libft/includes/get_next_line.h
+        libft/includes/libft.h
+        libft/includes/long_arithmetic.h
+        libft/file_get_content.c
+        libft/ft_atoi.c
+        libft/ft_bzero.c
+        libft/ft_explode.c
+        libft/ft_fstrncpy.c
+        libft/ft_isalnum.c
+        libft/ft_isalpha.c
+        libft/ft_isascii.c
+        libft/ft_isdigit.c
+        libft/ft_isprint.c
+        libft/ft_itoa.c
+        libft/ft_lstadd.c
+        libft/ft_lstcutelem.c
+        libft/ft_lstdel.c
+        libft/ft_lstdelone.c
+        libft/ft_lstiter.c
+        libft/ft_lstmap.c
+        libft/ft_lstnew.c
+        libft/ft_memalloc.c
+        libft/ft_memccpy.c
+        libft/ft_memchr.c
+        libft/ft_memcmp.c
+        libft/ft_memcpy.c
+        libft/ft_memdel.c
+        libft/ft_memmove.c
+        libft/ft_memset.c
+        libft/ft_putchar.c
+        libft/ft_putchar_fd.c
+        libft/ft_putendl.c
+        libft/ft_putendl_fd.c
+        libft/ft_putnbr.c
+        libft/ft_putnbr_fd.c
+        libft/ft_putstr.c
+        libft/ft_putstr_fd.c
+        libft/ft_putstrn.c
+        libft/ft_strcat.c
+        libft/ft_strchr.c
+        libft/ft_strclr.c
+        libft/ft_strcmp.c
+        libft/ft_strcpy.c
+        libft/ft_strdel.c
+        libft/ft_strdup.c
+        libft/ft_strequ.c
+        libft/ft_striter.c
+        libft/ft_striteri.c
+        libft/ft_strjoin.c
+        libft/ft_strlcat.c
+        libft/ft_strlen.c
+        libft/ft_strmap.c
+        libft/ft_strmapi.c
+        libft/ft_strncat.c
+        libft/ft_strncmp.c
+        libft/ft_strncpy.c
+        libft/ft_strnequ.c
+        libft/ft_strnew.c
+        libft/ft_strnstr.c
+        libft/ft_strrchr.c
+        libft/ft_strsplit.c
+        libft/ft_strstr.c
+        libft/ft_strsub.c
+        libft/ft_strtrim.c
+        libft/ft_tolower.c
+        libft/ft_toupper.c
+        libft/smart_malloc.c corewar/src/visual/render.c corewar/src/visual/render_inst.c corewar/src/visual/print_memory.c corewar/src/visual/corewar_loop.c corewar/src/visual/control.c)
