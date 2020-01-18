@@ -8,7 +8,6 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 	rev_endian(&val, 4);
 	if (-val <= main->players && -val >= 0)
 	{
-		p();
 		main->player[-val].current_lives += 1;
 		cursor->last_live_cycle = main->cycles_count;
 		main->player[-val].all_lives = main->cycles_count;
@@ -35,9 +34,10 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 4, &regnum, 1);
 	if (!regnum || regnum > 16)
 			return ;
-	memory_read(area, cursor->pos + addr % IDX_MOD,
+	memory_read(area, (cursor->pos + addr) % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];
+	printf("ff\n");
 }
 
 void	st(t_main *main, t_cursor *cursor, char *area)
