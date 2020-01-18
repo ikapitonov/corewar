@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
-void p(void) {printf("HELLO\n");}
+void p(void) {ft_printf("HELLO\n");}
 //./corewar -n 10 ../vm_champs/champs/jumper.cor
 
 void			die(const char *reason)
@@ -96,6 +96,8 @@ int				main(int ac, char *av[])
 		while (main->cursor && main->cycle_to_die > 0)
 		{
 			game_exec(main);
+			//print_memory(main->area, MEM_SIZE);
+			//ft_printf("\n");
 		}
 	}
 	// int	i = 0;

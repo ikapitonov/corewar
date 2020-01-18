@@ -16,17 +16,27 @@ int		check_arg_types(char *types, char command)
 {
 	int		count;
 
+	// for (int i = 0; i < 3; i++)
+	// 	ft_printf("%d\n", types[i]);
 	if (!g_instr[command].is_code_type)
 		return (0);
 	count = 0;
-	while (types[count] && count < 4)
-		count++;
-	if (count != g_instr[command].count_args)
-		return (1);
-	count = -1;
-	while (++count < 3)
-		if (!(types[count] & g_instr[command].args[count]))
+	// while (types[count] && count < 3)
+	// 	count++;
+	// if (count != g_instr[command].count_args)
+	// 	return (1);
+	count = 0;
+	// ft_printf("%s\n", g_instr[command].name);
+	while (count < g_instr[command].count_args)
+	{
+		if (types[count] == T_REG_CODE && !(T_REG & g_instr[command].args[count]))
 			return (1);
+		if (types[count] == T_DIR_CODE && !(T_DIR & g_instr[command].args[count]))
+			return (1);
+		if (types[count] == T_IND_CODE && !(T_IND & g_instr[command].args[count]))
+			return (1);
+		++count;
+	}
 	return (0);
 }
 
@@ -43,13 +53,14 @@ int		get_arg_size(char command, char type)
 
 int		get_arg_types(char command, char *arr, char *area, int pos)
 {
-	char 	types;
+	uint8_t types;
 	int		ret;
 	int 	i;
 
 	ret = 0;
 	memory_read(area, pos + 1, &types, 1);
-	arr[0] = types & 192 >> 6;
+	// ft_printf("getargs %d\n", types);
+	arr[0] = (types & 192) >> 6;
 	arr[1] = (types & 48) >> 4;
 	arr[2] = (types & 12) >> 2;
 	i = -1;

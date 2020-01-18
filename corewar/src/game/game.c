@@ -17,16 +17,18 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	int		len;
 
 	len = get_arg_types(cursor->operation_code - 1, cursor->types, main->area, cursor->pos);
-	printf ("%d\n", cursor->operation_code); 
+	ft_printf ("%d\n", cursor->operation_code);
+	//ft_printf("check: %d\n", check_arg_types(cursor->types, cursor->operation_code - 1));
 	if (!check_arg_types(cursor->types, cursor->operation_code - 1))
 		op_arr[cursor->operation_code - 1](main, cursor, main->area);
 	if (!len)
 		++len;
-	cursor->pos = (cursor->pos + len) % MEM_SIZE;
+	if (cursor->operation_code != 9)	
+		cursor->pos = (cursor->pos + len) % MEM_SIZE;
 	cursor->operation_code = 0;
-	printf ("ss\n"); 
+	//printf ("ss\n"); 
 }
- 
+
 static	int		is_invalid_move(t_main *main, t_cursor *cursor, int32_t tmp)
 {
 	if (tmp < 1 || tmp > COUNT_TOKENS)
@@ -69,7 +71,7 @@ static	int		is_rm_cursor(t_main *main, t_cursor *cursor)
 {
 	return (cursor && cursor->last_live_cycle +
 					main->cycle_to_die <= main->cycles_count
-				&& cursor->last_live_cycle);
+				/*&& cursor->last_live_cycle*/);
 }
 
 static	void	validate_cursors(t_main *main)

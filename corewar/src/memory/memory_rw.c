@@ -44,6 +44,7 @@ void		memory_read(char *area, int pos, void *dst, int size)
 	int		i;
 	char	*cdst;
 
+	//ft_printf("read\n");
 	pos = pos % MEM_SIZE;
 	if (pos < 0)
 		pos += MEM_SIZE;
@@ -61,6 +62,7 @@ void	memory_write(t_main *main, int player, char *area, int pos, void *src, int 
 	int		i;
 	char	*csrc;
 	
+	//ft_printf("write\n");
 	pos = pos % MEM_SIZE;
 	if (pos < 0)
 		pos += MEM_SIZE;

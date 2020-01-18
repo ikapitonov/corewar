@@ -20,7 +20,16 @@ void	zjmp(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 1, &addr, 2);
 	rev_endian(&addr, 2);
 	if (cursor->carry)
+	{
 		cursor->pos += addr % IDX_MOD;
+		if (cursor->pos < 0)
+			cursor->pos += MEM_SIZE;
+		if (addr % IDX_MOD == 0)
+			cursor->pos = (cursor->pos + 2) % MEM_SIZE;
+	}
+	else
+		cursor->pos = (cursor->pos + 2) % MEM_SIZE;
+	//printf ("shift: %d\n", addr % IDX_MOD);
 }
 
 void	ldi(t_main *main, t_cursor *cursor, char *area)

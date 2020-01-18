@@ -6,11 +6,13 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 
 	memory_read(area, cursor->pos + 1, &val, 4);
 	rev_endian(&val, 4);
-	if (-val <= main->players && -val >= 0)
+	val = -val;
+	printf ("val: %d\n", val);
+	if (val < main->players && val >= 0)
 	{
-		main->player[-val].current_lives += 1;
+		main->player[val].current_lives += 1;
 		cursor->last_live_cycle = main->cycles_count;
-		main->player[-val].all_lives = main->cycles_count;
+		main->player[val].all_lives = main->cycles_count;
 	}
 }
 
@@ -19,6 +21,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		regnum;
 	int16_t		addr;
 	
+	ft_printf("ld\n");
 	if (cursor->types[0] == T_DIR_CODE)
 	{
 		memory_read(area, cursor->pos + 6, &regnum, 1);
@@ -44,6 +47,7 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		regnum2;
 	int16_t		addr;
 	
+	ft_printf("st\n");
 	memory_read(area, cursor->pos + 2, &regnum1, 1);
 	if (!regnum1 || regnum1 > 16)
 			return ;
@@ -60,7 +64,7 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 3, &addr, 2);
 	rev_endian(&addr, 2);
 	memory_write(main, main->cell[cursor->pos].player,
-	area, cursor->pos + addr % IDX_MOD, &cursor->reg[regnum1 - 1], 2);
+	area, cursor->pos + addr % IDX_MOD, &cursor->reg[regnum1 - 1], 4);
 }
 
 void	add(t_main *main, t_cursor *cursor, char *area)
