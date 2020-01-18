@@ -12,6 +12,16 @@
 
 #include "../includes/asm.h"
 
+int				is_disassembly(int ac, char *av[])
+{
+	size_t	len;
+
+	if (ac != 2)
+		return (0);
+	len = ft_strlen(av[1]);
+	return (len <= 4 || ft_strcmp(av[1] + len - 4, ".cor") ? 0 : 1);
+}
+
 char			*get_filename(char *filename)
 {
 	char	*str;

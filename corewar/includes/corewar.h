@@ -167,7 +167,7 @@ void    			aff(t_main *main, t_cursor *cursor, char *area);
 
 
 
-void				check_file_content(t_main *main, t_read *reader);
+void				check_file_content(t_main *main, t_readf *reader);
 void				init_area(t_main *main);
 void				init_cursors(t_main *main);
 

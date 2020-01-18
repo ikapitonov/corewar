@@ -26,9 +26,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static	char	*join_exec(t_join *list, size_t length)
+static	char	*join_exec(t_joinf *list, size_t length)
 {
-	t_join	*tmp;
+	t_joinf	*tmp;
 	char	*content;
 	size_t	all;
 
@@ -71,19 +71,19 @@ static	char	*my_strdup(const char *s1, size_t size)
 
 static	void	*new_join(char *str, size_t len)
 {
-	t_join	*new;
+	t_joinf	*new;
 
-	new = (t_join*)smart_malloc(sizeof(t_join));
+	new = (t_joinf*)smart_malloc(sizeof(t_joinf));
 	new->str = my_strdup(str, len);
 	new->length = len;
 	new->next = NULL;
 	return ((void*)new);
 }
 
-void			file_get_content(t_read *new, int ch)
+void			file_get_content(t_readf *new, int ch)
 {
-	t_join	*list;
-	t_join	*last;
+	t_joinf	*list;
+	t_joinf	*last;
 	char	reader[1000 + 1];
 	int		tmp;
 	size_t	len;
