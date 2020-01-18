@@ -44,7 +44,9 @@ SRC				= src/main.c \
 				  src/parser/components/token/registr.c \
 				  src/parser/components/token/direct.c \
 				  src/parser/components/token/indirect.c \
-				  src/parser/components/token/label.c
+				  src/parser/components/token/label.c\
+				\
+				src/disassembly/disassembly.c
 
 LIB =			  ../libft/libft.a
 

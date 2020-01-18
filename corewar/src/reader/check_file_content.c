@@ -64,7 +64,7 @@ static	void	check_null(char *str)
 	}
 }
 
-void			check_file_content(t_main *main, t_read *reader)
+void			check_file_content(t_main *main, t_readf *reader)
 {
 	char	*str;
 

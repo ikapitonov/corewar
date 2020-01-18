@@ -33,14 +33,15 @@ int				main(int ac, char *av[])
 	int		res;
 	int		ch;
 
+	if (is_disassembly(ac, av))
+	{
+		disassembly(av[1]);
+		return (0);
+	}
 	if (ac < 2 || ac > 3 || !(res = check_args(ac, av)))
-	{
 		die("Usage: ./asm [-a] <your_sourcefile.s>");
-	}
 	if ((ch = open(av[res], O_RDONLY)) == -1)
-	{
 		die(ft_strjoin("Can't read source file ", av[res]));
-	}
 	main = init(ch);
 	if (ac > 2)
 		main->a_flag = 1;

@@ -87,7 +87,7 @@ static	void	check_double(t_main *main, int n)
 
 void			init_player(t_main *main, int ch, int n)
 {
-	t_read	content;
+	t_readf	content;
 
 	file_get_content(&content, ch);
 	if (!content.str)

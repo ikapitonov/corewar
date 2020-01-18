@@ -85,6 +85,7 @@ void				pars_error(const char *str, t_read *reader);
 void				*init(int ch);
 int					check_args(int ac, char *av[]);
 char				*get_filename(char *filename);
+int					is_disassembly(int ac, char *av[]);
 
 void				name_or_comment(t_main *main);
 char				*full_string(t_main *main, t_read *reader,
@@ -126,6 +127,8 @@ char				set_arg_types(char *type);
 void				write_to_file(t_main *main);
 void				print_code_info(t_main *main, t_token *token, t_mark **marks, int i);
 void				coder(t_main *main);
+
+void				disassembly(char *filename);
 
 void p(void);
 #endif
