@@ -64,7 +64,6 @@ void	op_fork(t_main *main, t_cursor *cursor, char *area)
 	rev_endian(&addr, 2);
 	new = (t_cursor*)smart_malloc(sizeof(t_cursor));
 	cursor_copy_and_add(main, cursor, new, addr % IDX_MOD);
-	main->move = 2;
 }
 
 void	lfork(t_main *main, t_cursor *cursor, char *area)

@@ -33,9 +33,10 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 4, &regnum, 1);
 	if (!regnum || regnum > 16)
 			return ;
-	memory_read(area, cursor->pos + addr % IDX_MOD,
+	memory_read(area, (cursor->pos + addr) % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];
+	printf("ff\n");
 }
 
 void	st(t_main *main, t_cursor *cursor, char *area)

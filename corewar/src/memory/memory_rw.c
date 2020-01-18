@@ -25,7 +25,7 @@ void		rev_endian(void *val, int size)
 		tmp = p[size - i - 1];
 		p[size - i - 1] = p[i];
 		p[i] = tmp;
-		i++; 
+		i++;
 	}
 }
 
