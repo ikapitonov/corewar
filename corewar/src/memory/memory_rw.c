@@ -44,6 +44,9 @@ void		memory_read(char *area, int pos, void *dst, int size)
 	int		i;
 	char	*cdst;
 
+	pos = pos % MEM_SIZE;
+	if (pos < 0)
+		pos += MEM_SIZE;
 	cdst = (char *)dst;
 	i = 0;
 	while (i < size)
@@ -58,8 +61,11 @@ void	memory_write(t_main *main, int player, char *area, int pos, void *src, int 
 	int		i;
 	char	*csrc;
 	
-	i = 0;
+	pos = pos % MEM_SIZE;
+	if (pos < 0)
+		pos += MEM_SIZE;
 	csrc = (char *)src;
+	i = 0;
 	while (i < size)
 	{
 		area[(pos + i) % MEM_SIZE] = 1;		//  csrc[i]

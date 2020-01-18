@@ -14,13 +14,14 @@
 
 static	void	asm_functions(t_main *main, t_cursor *cursor)
 {
-	// СЮДА ВСЕГДА ПРИДЕТ ПРАВИЛЬНЫЙ КОД ОПЕРАЦИИ (1 - 16)
-	// вызов функций ассембли  и мы ЗДЕСЬ ДВИГАЕМ ПОЗИЦИЮ КАРЕТКИ
-	// cursor->pos должен сдвинуться
-	main->move = 0;
-	if (cursor->operation_code > 0 && cursor->operation_code < 17)
+	int		len;
+
+	len = get_arg_types(cursor->operation_code - 1, cursor->types, main->area, cursor->pos);
+	if (!check_arg_types(cursor->types, cursor->operation_code - 1))
 		op_arr[cursor->operation_code - 1](main, cursor, main->area);
-	cursor->pos = (cursor->pos + 1 + main->move) % MEM_SIZE;
+	if (!len)
+		++len;
+	cursor->pos = (cursor->pos + len) % MEM_SIZE;
 	cursor->operation_code = 0;
 }
  

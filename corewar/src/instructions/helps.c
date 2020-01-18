@@ -16,24 +16,46 @@ int		check_arg_types(char *types, char command)
 {
 	int		count;
 
+	if (!g_instr[command].is_code_type)
+		return (0);
 	count = 0;
 	while (types[count] && count < 4)
 		count++;
 	if (count != g_instr[command].count_args)
 		return (1);
-	count = 0;
-	while (count < 3)
-		if (!types[count] & g_instr[command].args[count])
+	count = -1;
+	while (++count < 3)
+		if (!(types[count] & g_instr[command].args[count]))
 			return (1);
 	return (0);
 }
 
-void	get_arg_types(char *typesarr, char *area, int pos)
+int		get_arg_size(char command, char type)
 {
-	char types;
+	if (type == T_REG_CODE)
+		return (1);
+	if (type == T_DIR_CODE)
+		return (g_instr[command].size_dir ? 2 : 4);
+	if (type == T_IND_CODE)
+		return (2);
+	return (0);
+}
 
-	memory_read(area, pos, &types, 1);
-	typesarr[0] = types & 3;
-	typesarr[1] = (types & 12) >> 2;
-	typesarr[2] = (types & 48) >> 4;
+int		get_arg_types(char command, char *arr, char *area, int pos)
+{
+	char 	types;
+	int		ret;
+	int 	i;
+
+	ret = 0;
+	memory_read(area, pos + 1, &types, 1);
+	arr[0] = types & 192 >> 6;
+	arr[1] = (types & 48) >> 4;
+	arr[2] = (types & 12) >> 2;
+	i = -1;
+	while (++i < 3)
+		ret += get_arg_size(command, arr[i]);
+	if (!g_instr[command].is_code_type)
+		return (g_instr[command].size_dir ? 2 : 4);
+	return (ret);
 }
