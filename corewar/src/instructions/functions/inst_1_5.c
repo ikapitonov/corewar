@@ -12,6 +12,9 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 		cursor->last_live_cycle = main->cycles_count;
 		main->player[-val].all_lives = main->cycles_count;
 	}
+	// main->player[1].current_lives += 1;
+	// cursor->last_live_cycle = main->cycles_count;
+	// main->player[1].all_lives = main->cycles_count;
 	main->move = 4;
 }
 

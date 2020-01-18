@@ -62,31 +62,36 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 	return (cursor_exec(main, cursor));
 }
 
+static	int		is_rm_cursor(t_main *main, t_cursor *cursor)
+{
+	return (cursor && cursor->last_live_cycle +
+					main->cycle_to_die <= main->cycles_count
+				&& cursor->last_live_cycle);
+}
+
 static	void	validate_cursors(t_main *main)
 {
 	t_cursor	*cursor;
-	t_cursor	*tmp;
+	t_cursor	*prev;
 
 	cursor = main->cursor;
-	if (cursor && cursor->last_live_cycle +
-					main->cycle_to_die <= main->cycles_count
-				/*&& cursor->last_live_cycle*/)
+	while (is_rm_cursor(main, cursor))
 	{
-		tmp = cursor;
-		main->cursor = main->cursor->next;
-		free(tmp);
+		main->cursor = cursor->next;
+		free(cursor);
 		cursor = main->cursor;
 	}
+	cursor = main->cursor;
+	prev = cursor;
 	while (cursor)
 	{
-		if (cursor->next && cursor->next->last_live_cycle +
-							main->cycle_to_die <= main->cycles_count
-						/*&& cursor->next->last_live_cycle*/)
+		if (is_rm_cursor(main, cursor))
 		{
-			tmp = cursor->next;
-			cursor->next = cursor->next->next;
-			free(tmp);
+			prev->next = cursor->next;
+			free(cursor);
+			cursor = prev;
 		}
+		prev = cursor;
 		cursor = cursor->next;
 	}
 }
@@ -142,7 +147,8 @@ void			game_exec(t_main *main)
 	main->cycles_count += 1;
 	if (main->current_cycle_to_die == main->cycles_count)
 	{
+		p();
 		validate_exec(main);
-	//	printf("%d %d %d\n", main->cycles_count, main->current_cycle_to_die, main->cycle_to_die);
+		printf("%d %d %d\n", main->cycles_count, main->current_cycle_to_die, main->cycle_to_die);
 	}
 }
