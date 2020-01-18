@@ -70,7 +70,7 @@ static	void	validate_cursors(t_main *main)
 	cursor = main->cursor;
 	if (cursor && cursor->last_live_cycle +
 					main->cycle_to_die <= main->cycles_count
-				&& cursor->last_live_cycle)
+				/*&& cursor->last_live_cycle*/)
 	{
 		tmp = cursor;
 		main->cursor = main->cursor->next;
@@ -81,7 +81,7 @@ static	void	validate_cursors(t_main *main)
 	{
 		if (cursor->next && cursor->next->last_live_cycle +
 							main->cycle_to_die <= main->cycles_count
-						&& cursor->next->last_live_cycle)
+						/*&& cursor->next->last_live_cycle*/)
 		{
 			tmp = cursor->next;
 			cursor->next = cursor->next->next;

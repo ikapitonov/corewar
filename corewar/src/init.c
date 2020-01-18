@@ -112,18 +112,9 @@ void			*init()
 	t_main	*main;
 	
 	main = (t_main*)smart_malloc(sizeof(t_main));
-	
-	main->speed = 1;
-	main->cycle_to_die = 50;   //	test
-	
+	main->cycle_to_die = CYCLE_TO_DIE;
 	main->cell = (t_cell*)smart_malloc(sizeof(t_cell) * MEM_SIZE);
-	main->players = 0;
-	main->cursor = NULL;
-	main->last_cursor = NULL;
-	if (!(main->area = (char*)ft_memalloc(sizeof(char) * (MEM_SIZE + 1))))
-		die("malloc() does not work");
-	main->area[MEM_SIZE] = 0;
-	main->dump = 0;
+	main->area = (char*)smart_malloc(sizeof(char) * (MEM_SIZE + 1));
 	init_players(main);
 	return ((void*)main);
 }
