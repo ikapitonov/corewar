@@ -6,24 +6,12 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 
 	memory_read(area, cursor->pos + 1, &val, 4);
 	rev_endian(&val, 4);
-<<<<<<< HEAD
-	// if (-val <= main->players && -val >= 0)
-	// {
-	// 	main->player[-val].current_lives += 1;
-	// 	cursor->last_live_cycle = main->cycles_count;
-	// 	main->player[-val].all_lives = main->cycles_count;
-	// }
-		main->player[1].current_lives += 1;
-		cursor->last_live_cycle = main->cycles_count;
-		main->player[1].all_lives = main->cycles_count;
-=======
 	if (-val <= main->players && -val >= 0)
 	{
 		main->player[-val].current_lives += 1;
 		cursor->last_live_cycle = main->cycles_count;
 		main->player[-val].all_lives = main->cycles_count;
 	}
->>>>>>> origin/ilya_new
 }
 
 void	ld(t_main *main, t_cursor *cursor, char *area)

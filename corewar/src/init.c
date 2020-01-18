@@ -113,12 +113,8 @@ void			*init()
 	
 	main = (t_main*)smart_malloc(sizeof(t_main));
 	main->cycle_to_die = CYCLE_TO_DIE;
-<<<<<<< HEAD
-	main->cell = (t_cell*)smart_malloc(sizeof(t_cell) * MEM_SIZE + 1);
-=======
 	main->current_cycle_to_die = CYCLE_TO_DIE;
 	main->cell = (t_cell*)smart_malloc(sizeof(t_cell) * (MEM_SIZE + 1));
->>>>>>> origin/ilya_new
 	main->area = (char*)smart_malloc(sizeof(char) * (MEM_SIZE + 1));
 	init_players(main);
 	return ((void*)main);
