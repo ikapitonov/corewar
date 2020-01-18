@@ -1,15 +1,5 @@
 #include "corewar.h"
 
-static void		render_background(t_main *main)
-{
-	int			i;
-	
-	i = 0;
-	ft_bzero(main->data_addr, sizeof(char) * SIZE);
-	while (i < SIZE)
-		((int*)(main->data_addr))[i++] = BACKGROUND;
-}
-
 static void		render_bar(t_main *main)
 {
 	char 		*cycle;
@@ -83,7 +73,6 @@ void			render(t_main *main)
 {
 	int 	i;
 	
-	render_background(main);
 	render_background_inst(main);
 	mlx_put_image_to_window(main->mlx, main->win, main->img, 0, 0);
 	render_inst(main);

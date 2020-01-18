@@ -15,14 +15,14 @@ static void		reset(t_main *main)
 
 static void		speed_control(int key, t_main *main)
 {
-	if (key == NUM_PAD_PLUS)
+	if (key == NUM_PAD_MINUS)
 	{
 		if (main->speed == 0)
 			main->speed = 0;
 		else
 			main->speed--;
 	}
-	if (key == NUM_PAD_MINUS)
+	if (key == NUM_PAD_PLUS)
 		main->speed++;
 }
 

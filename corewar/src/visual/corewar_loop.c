@@ -13,7 +13,6 @@ void	count_coursor(t_main *main)
 	while (cursor)
 	{
 		main->cursors++;
-		//ft_printf("%d\n", cursor->pos);
 		main->cell[cursor->pos].cursor = 1;		// добовляем метки
 		cursor = cursor->next;
 	}
@@ -25,16 +24,18 @@ int				lem_loop_key_hook(t_main *main)
 	static int 		i;
 	
 	str = "RUN";
-	i > main->speed ? i = 0 : i++;
-	if (((!i && main->pause == 1) || main->one_step))
+	i = main->speed;
+	if (main->pause == 1 || main->one_step)
 	{
-		main->one_step = 0;
-		if (main->cursor && main->cycle_to_die > 0)
+		while ((i-- > 0 || main->one_step) && main->cursor && main->cycle_to_die > 0)
+		{
 			game_exec(main);
+			main->one_step = 0;
+		}
 		count_coursor(main);
 		render(main);
-		print_memory(main->area, MEM_SIZE);
-		ft_printf("\n");
+		//print_memory(main->area, MEM_SIZE);
+		//ft_printf("\n");
 	}
 	else
 		render(main);

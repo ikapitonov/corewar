@@ -6,7 +6,7 @@
 /*   By: sjamie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 20:05:53 by sjamie            #+#    #+#             */
-/*   Updated: 2020/01/17 17:00:17 by bpole            ###   ########.fr       */
+/*   Updated: 2020/01/18 00:22:12 by bpole            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,23 @@ int		init_mlx(t_main *main)
 	return (1);
 }
 
+
 int				main(int ac, char *av[]) 
 {
 	t_main	*main;
-
+	
+	
+	//clock_t start = clock();
+	
 	main = init();
+	
+	//main->start = start;
+	
 	insert_params(main, ac, av);
 	if (main->flag_v)
 		init_mlx(main);
 	init_area(main);
 	init_cursors(main);
-	int	i = 0;
-	p();
-	
-	main->speed = 5;
 	
 	if (main->flag_v)
 	{
@@ -97,6 +100,7 @@ int				main(int ac, char *av[])
 			ft_printf("\n");
 		}
 	}
+	// int	i = 0;
 	// cursor = main->cursor;
 	// while (cursor)
 	// {
