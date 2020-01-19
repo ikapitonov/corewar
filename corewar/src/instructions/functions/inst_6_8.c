@@ -23,7 +23,7 @@ int		bop_op(int a, int b, char op)
 	return (0);
 }
 
-void	bop_reg(t_cursor *cursor, char *area, char *mem, char op)
+void	bop_reg(t_cursor *cursor, char *area, uint8_t *mem, char op)
 { 
 	if (cursor->types[1] == T_REG_CODE)
 		{
@@ -53,7 +53,7 @@ void	bop_reg(t_cursor *cursor, char *area, char *mem, char op)
 		cursor->carry = !cursor->reg[mem[3] - 1];
 }
 
-void	bop_dir(t_cursor *cursor, char *area, char *mem, char op)
+void	bop_dir(t_cursor *cursor, char *area, uint8_t *mem, char op)
 {
 	if (cursor->types[1] == T_REG_CODE)
 		{
@@ -83,7 +83,7 @@ void	bop_dir(t_cursor *cursor, char *area, char *mem, char op)
 		cursor->carry = !cursor->reg[mem[6] - 1];
 }
 
-void	bop_ind(t_cursor *cursor, char *area, char *mem, char op)
+void	bop_ind(t_cursor *cursor, char *area, uint8_t *mem, char op)
 {
 	if (cursor->types[1] == T_REG_CODE)
 		{
@@ -115,7 +115,7 @@ void	bop_ind(t_cursor *cursor, char *area, char *mem, char op)
 
 void    and(t_main *main, t_cursor *cursor, char *area)
 {
-	char	mem[15];
+	uint8_t	mem[15];
 	char	op = '&';
 
 	memory_read(area, cursor->pos + 2, mem, 9);
@@ -140,7 +140,7 @@ void    and(t_main *main, t_cursor *cursor, char *area)
 
 void    or(t_main *main, t_cursor *cursor, char *area)
 {
-	char	mem[15];
+	uint8_t	mem[15];
 	char	op = '|';
 
 	memory_read(area, cursor->pos + 2, mem, 9);
@@ -165,7 +165,7 @@ void    or(t_main *main, t_cursor *cursor, char *area)
 
 void    xor(t_main *main, t_cursor *cursor, char *area)
 {
-	char	mem[15];
+	uint8_t	mem[15];
 	char	op = '^';
 
 	memory_read(area, cursor->pos + 2, mem, 9);

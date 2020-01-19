@@ -19,6 +19,7 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	len = get_arg_types(cursor->operation_code - 1, cursor->types, main->area, cursor->pos);
 	ft_printf ("%d\n", cursor->operation_code);
 	//ft_printf("check: %d\n", check_arg_types(cursor->types, cursor->operation_code - 1));
+
 	if (!check_arg_types(cursor->types, cursor->operation_code - 1))
 		op_arr[cursor->operation_code - 1](main, cursor, main->area);
 	if (!len)
@@ -26,7 +27,7 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	if (cursor->operation_code != 9)	
 		cursor->pos = (cursor->pos + len) % MEM_SIZE;
 	cursor->operation_code = 0;
-	//printf ("ss\n"); 
+	//printf ("ss\n");
 }
 
 static	int		is_invalid_move(t_main *main, t_cursor *cursor, int32_t tmp)
