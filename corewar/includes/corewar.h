@@ -92,6 +92,7 @@ typedef struct		s_main
 	int				valids_count;
 	int 			flag_a;
 	int 			flag_v;
+	char			p_index[MAX_PLAYERS + 1];
 	
 	int 			move;
 	t_cell			*cell;
