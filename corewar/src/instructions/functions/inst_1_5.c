@@ -8,11 +8,11 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 	rev_endian(&val, 4);
 	val = -val;
 	printf ("val: %d\n", val);
-	if (val < main->players && val >= 0)
+	if (val < main->players + 1 && val > 0)
 	{
-		main->player[val].current_lives += 1;
+		main->player[main->p_index[val]].current_lives += 1;
+		main->player[main->p_index[val]].all_lives = main->cycles_count;
 		cursor->last_live_cycle = main->cycles_count;
-		main->player[val].all_lives = main->cycles_count;
 	}
 }
 
@@ -73,7 +73,7 @@ void	add(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		reg[3];
 	
 	(void)main;
-	memory_read(area, cursor->pos + 1, reg, 3);
+	memory_read(area, cursor->pos + 2, reg, 3);
 	if (reg[0] > 16 || reg[1] > 16 || reg[2] > 16 ||
 		!reg[0] || !reg[1] || !reg[2])
 		return;
@@ -92,7 +92,7 @@ void	sub(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		reg[3];
 	
 	(void)main;
-	memory_read(area, cursor->pos + 1, reg, 3);
+	memory_read(area, cursor->pos + 2, reg, 3);
 	if (reg[0] > 16 || reg[1] > 16 || reg[2] > 16 ||
 		!reg[0] || !reg[1] || !reg[2])
 		return;

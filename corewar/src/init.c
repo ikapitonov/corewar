@@ -80,15 +80,17 @@ void			init_cursors(t_main *main)
 	int			i;
 	
 	i = 0;
+	main->p_index[0] = -1;
 	constant = MEM_SIZE / main->players;
 	while (i < main->players)
 	{
 		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
 		cursor->pos = i * constant;
-		cursor->reg[0] = -i;
 		rev_endian(&cursor->reg[0], 4);
 		cursor->next = main->cursor;
 		main->cursor = cursor;
+		main->p_index[main->player[i].id] = i;
+		cursor->reg[0] = -(main->player[i].id);
 		++i;
 	}
 }

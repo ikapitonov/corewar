@@ -25,145 +25,160 @@ void			zjmp(t_main *main, t_cursor *cursor, char *area)
 		if (cursor->pos < 0)
 			cursor->pos += MEM_SIZE;
 		if (addr % IDX_MOD == 0)
-			cursor->pos = (cursor->pos + 2) % MEM_SIZE;
+			cursor->pos = (cursor->pos + 3) % MEM_SIZE;
 	}
 	else
-		cursor->pos = (cursor->pos + 2) % MEM_SIZE;
-	//printf ("shift: %d\n", addr % IDX_MOD);
+		cursor->pos = (cursor->pos + 3) % MEM_SIZE;
 }
 
-static	void	ldi_lldi(t_cursor *cursor, char *mem, int32_t *val, int f)
+static	void	ldi_lldi(t_cursor *cursor, char *area, char *mem, int f)
 {
 	int32_t	addr;
 
-	mem += mem[19];
 	if (cursor->types[1] == T_REG_CODE)
 	{
-		if (mem[0] > 16 || mem[0] < 1)
+		if (*(mem + mem[20]) > 16 || *(mem + mem[20]) < 1)
 			return ;
-		val[1] = cursor->reg[mem[0] - 1];
-		mem += 1;
+		memory_read((char *)&cursor->reg[*(mem + mem[20]) - 1], 0, mem + 12, 4);
+		rev_endian(mem + 12, 4);
+		mem[11] = mem[mem[20] + 1];
 	}
-	else if (cursor->types[1] == T_IND_CODE)
+	else if (cursor->types[1] == T_DIR_CODE)
 	{
-		memory_read(mem, 0, &val[1], IND_SIZE);
-		rev_endian(&val[1], 4);
-		mem += 2;		
+		memory_read(mem + mem[20], 0, mem + 12, IND_SIZE);
+		rev_endian(mem + 12, 2);
+		((int *)(mem + 12))[0] = *(short *)(mem + 12);
+		mem[11] = mem[mem[20] + 2];
 	}
 	else
 		return ;
-	if (mem[0] > 16 || mem[0] < 1)
+	if (mem[11] > 16 || mem[11] < 1)
 		return ;
-		addr = f ? addr = (cursor->pos + val[0] + val[1]) : 
-		(cursor->pos + val[0] + val[1]) % IDX_MOD;
-	cursor->reg[mem[0] - 1] = addr;
+	if (!f)
+		addr = (*(int *)(mem + 12) + *(int *)(mem + 16)) % IDX_MOD;
+	else
+		addr = (*(int *)(mem + 12) + *(int *)(mem + 16));
+	memory_read(area, cursor->pos + addr, &cursor->reg[mem[11] - 1], 4);
+	printf("addr1: %d addr2: %d\n", *(int *)(mem + 16), *(int *)(mem + 12));
 }
 
 void			ldi(t_main *main, t_cursor *cursor, char *area)
 {
-	int32_t	val[3];
-	char	mem[20];
+	char	mem[21];
 
-	ft_bzero(val, 3 * 4);
+	ft_bzero(mem, 20);
 	memory_read(area, cursor->pos + 2, mem, 9);
 	if (cursor->types[0] == T_REG_CODE)
 	{
 		if (mem[0] > 16 || mem[0] < 1)
 			return ;
-		val[0] = cursor->reg[mem[0] - 1];
-		mem[19] = 1;
+		memory_read((char *)&cursor->reg[mem[0] - 1], 0, mem + 16, 4);
+		rev_endian(mem + 16, 4);
+		mem[20] = 1;
 	}
 	if (cursor->types[0] == T_DIR_CODE)
 	{
-		memory_read(mem, 0, &val[0], 2);
-		rev_endian(&val[0], 4);
-		mem[19] = 2;
+		memory_read(mem, 0, mem + 16, 2);
+		rev_endian(mem + 16, 2);
+		((int *)(mem + 16))[0] = *(short *)(mem + 16);
+		mem[20] = 2;
 	}
 	if (cursor->types[0] == T_IND_CODE)
 	{
-		memory_read(mem, 0, &val[0], IND_SIZE);
-		rev_endian(&val[0], 4);
-		mem[19] = 2;
+		memory_read(mem, 0, mem + 16, IND_SIZE);
+		rev_endian(mem + 16, 2);
+		((int *)(mem + 16))[0] = *(short *)(mem + 16);
+		memory_read(area, cursor->pos + *(int *)(mem + 16) % IDX_MOD, mem + 16, 4);
+		rev_endian(mem + 16, 4);
+		mem[20] = 2;
 	}
-	ldi_lldi(cursor, mem, val, 0);
+	ldi_lldi(cursor, area, mem, 0);
 }
 
 void			lldi(t_main *main, t_cursor *cursor, char *area)
 {
-	int32_t	val[3];
-	char	mem[20];
+	char	mem[21];
 
-	ft_bzero(val, 3 * 4);
+	ft_bzero(mem, 20);
 	memory_read(area, cursor->pos + 2, mem, 9);
 	if (cursor->types[0] == T_REG_CODE)
 	{
 		if (mem[0] > 16 || mem[0] < 1)
 			return ;
-		val[0] = cursor->reg[mem[0] - 1];
-		mem[19] = 1;
+		memory_read((char *)&cursor->reg[mem[0] - 1], 0, mem + 16, 4);
+		rev_endian(mem + 16, 4);
+		mem[20] = 1;
 	}
 	if (cursor->types[0] == T_DIR_CODE)
 	{
-		memory_read(mem, 0, &val[0], 2);
-		rev_endian(&val[0], 4);
-		mem[19] = 2;
+		memory_read(mem, 0, mem + 16, 2);
+		rev_endian(mem + 16, 2);
+		mem[20] = 2;
 	}
 	if (cursor->types[0] == T_IND_CODE)
 	{
-		memory_read(mem, 0, &val[0], IND_SIZE);
-		rev_endian(&val[0], 4);
-		mem[19] = 2;
+		memory_read(mem, 0, mem + 16, IND_SIZE);
+		rev_endian(mem + 16, 2);
+		memory_read(area, cursor->pos + *(int *)(mem + 16) % IDX_MOD, mem + 16, 4);
+		rev_endian(mem + 16, 4);
+		mem[20] = 2;
 	}
-	ldi_lldi(cursor, mem, val, 1);
+	ldi_lldi(cursor, area, mem, 1);
 }
 
-static	void	t_sti(t_cursor *cursor, char *mem, int32_t *val)
+static void		t_sti(t_main *main, t_cursor *cursor, char *area, char *mem)
 {
-	mem += mem[19];
+	int addr;
+
+	if (mem[0] > 16 || mem[0] < 1)
+		return ;
 	if (cursor->types[2] == T_REG_CODE)
 	{
-		if (mem[0] > 16 || mem[0] < 1)
+		if (mem[mem[20]] > 16 || mem[mem[20]] < 1)
 			return ;
-		val[2] = cursor->reg[mem[0] - 1];
+		memory_read((char *)&cursor->reg[mem[mem[20]] - 1], 0, mem + 12, 4);
+		rev_endian(mem + 12, 4);
 	}
-	else if (cursor->types[2] == T_IND_CODE)
+	else if (cursor->types[2] == T_DIR_CODE)
 	{
-		memory_read(mem, 0, &val[2], 2);
-		rev_endian(&val[1], 4);
+		memory_read(mem, mem[20], mem + 12, 2);
+		rev_endian(mem + 12, 2);
 	}
 	else
 		return ;
-	cursor->reg[val[0] - 1] = (cursor->pos +  val[1] + val[2]) % IDX_MOD;
+	addr = cursor->pos + (*(int *)(mem + 12) + *(int *)(mem + 16)) % IDX_MOD;
+	printf("1: %d 2: %d\n", *(int *)(mem + 16), *(int *)(mem + 12));
+	//printf("reg: %d\n", mem[0]);
+	memory_write(main, main->cell[cursor->pos].player,  area, cursor->pos + addr, &cursor->reg[mem[0] - 1], 4);
 }
 
 void			sti(t_main *main, t_cursor *cursor, char *area)
 {
-	int32_t	val[3];
-	char	mem[20];
+	char	mem[21];
 
-	ft_bzero(val, 3 * 4);
+	ft_bzero(mem, 21);
 	memory_read(area, cursor->pos + 2, mem, 9);
-	if (mem[0] > 16 || mem[0] < 1)
-		return ;
-	val[0] = mem[0];
 	if (cursor->types[1] == T_REG_CODE)
 	{
 		if (mem[1] > 16 || mem[1] < 1)
 			return ;
-		val[1] = cursor->reg[mem[1] - 1];
-		mem[19] = 1 + 1;
+		memory_read((char *)&cursor->reg[mem[1] - 1], 0, mem + 16, 4);
+		rev_endian(mem + 16, 4);
+		mem[20] = 1 + 1;
 	}
 	if (cursor->types[1] == T_DIR_CODE)
 	{
-		memory_read(mem, 1, &val[1], 2);
-		rev_endian(&val[1], 4);
-		mem[19] = 2 + 1;
+		memory_read(mem, 1, mem + 16, 2);
+		rev_endian(mem + 16, 2);
+		mem[20] = 2 + 1;
 	}
 	if (cursor->types[1] == T_IND_CODE)
 	{
-		memory_read(mem, 1, &val[1], IND_SIZE);
-		rev_endian(&val[1], 4);
-		mem[19] = 2 + 1;
+		memory_read(mem, 1, mem + 16, IND_SIZE);
+		rev_endian(mem + 16, 2);
+		memory_read(area, cursor->pos + *(int *)(mem + 16) % IDX_MOD, mem + 16, 4);
+		rev_endian(mem + 16, 4);
+		mem[20] = 2 + 1;
 	}
-	t_sti(cursor, mem, val);
+	t_sti(main, cursor, area, mem);
 }

@@ -45,12 +45,14 @@ OBJ = $(patsubst %.c,%.o,$(SRC))
 
 FRAEM = -lmlx -framework OpenGL -framework AppKit
 
-all: $(LIB) $(NAME)
+all: lib $(NAME)
 
 $(NAME): $(OBJ) $(LIB)
 	$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(FRAEM) -L ../libft -lft
 
 $(LIB):
+
+lib:
 	make -C ../libft
 
 clean:

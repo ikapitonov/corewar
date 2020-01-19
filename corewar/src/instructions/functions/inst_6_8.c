@@ -46,7 +46,7 @@ void	bop_reg(t_cursor *cursor, char *area, uint8_t *mem, char op)
 		if (mem[3] > 16 || !mem[3])
 			return;
 		rev_endian (mem + 1, 2);
-		memory_read(area, cursor->pos + *(short *)(mem + 1) / IDX_MOD,
+		memory_read(area, cursor->pos + *(short *)(mem + 1) % IDX_MOD,
 		mem + 4, 4);
 		cursor->reg[mem[3] - 1] = bop_op(*(int *)(mem + 4),
 		cursor->reg[mem[0] - 1], op);
@@ -76,7 +76,7 @@ void	bop_dir(t_cursor *cursor, char *area, uint8_t *mem, char op)
 		if (mem[6] > 16 || !mem[6])
 			return;
 		rev_endian (mem + 4, 2);
-		memory_read(area, cursor->pos + *(short *)(mem + 1) / IDX_MOD,
+		memory_read(area, cursor->pos + *(short *)(mem + 4) % IDX_MOD,
 		mem + 7, 4);
 		cursor->reg[mem[6] - 1] = bop_op(*(int *)(mem),
 		*(int *)(mem + 7), op);
@@ -106,7 +106,7 @@ void	bop_ind(t_cursor *cursor, char *area, uint8_t *mem, char op)
 		if (mem[4] > 16 || !mem[4])
 			return;
 		rev_endian (mem + 2, 2);
-		memory_read(area, cursor->pos + *(short *)(mem + 2) / IDX_MOD,
+		memory_read(area, cursor->pos + *(short *)(mem + 2) % IDX_MOD,
 		mem + 11, 4);
 		cursor->reg[mem[4] - 1] = bop_op(*(int *)(mem + 7),
 		*(int *)(mem + 11), op);
@@ -132,7 +132,7 @@ void    and(t_main *main, t_cursor *cursor, char *area)
 	if (cursor->types[0] == T_IND_CODE)
 	{
 		rev_endian (mem, 2);
-		memory_read(area, cursor->pos + *(short *)(mem) / IDX_MOD,
+		memory_read(area, cursor->pos + *(short *)(mem) % IDX_MOD,
 		mem + 7, 4);
 		bop_ind(cursor, area, mem, op);
 	}
@@ -157,7 +157,7 @@ void    or(t_main *main, t_cursor *cursor, char *area)
 	if (cursor->types[0] == T_IND_CODE)
 	{
 		rev_endian (mem, 2);
-		memory_read(area, cursor->pos + *(short *)(mem) / IDX_MOD,
+		memory_read(area, cursor->pos + *(short *)(mem) % IDX_MOD,
 		mem + 7, 4);
 		bop_ind(cursor, area, mem, op);
 	}
@@ -182,7 +182,7 @@ void    xor(t_main *main, t_cursor *cursor, char *area)
 	if (cursor->types[0] == T_IND_CODE)
 	{
 		rev_endian (mem, 2);
-		memory_read(area, cursor->pos + *(short *)(mem) / IDX_MOD,
+		memory_read(area, cursor->pos + *(short *)(mem) % IDX_MOD,
 		mem + 7, 4);
 		bop_ind(cursor, area, mem, op);
 	}

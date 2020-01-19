@@ -40,7 +40,7 @@
 # define NUM_PAD_PLUS		69
 # define NUM_PAD_MINUS		78
 
-# define REG_SYMBOL "Lls+-&|^JlsFllFa"
+# define REG_SYMBOL "Lls+-&|^JlSFllFa"
 
 # define COUNT_TOKENS 16
 # define MAX_INT 2147483647
@@ -92,7 +92,7 @@ typedef struct		s_main
 	int				valids_count;
 	int 			flag_a;
 	int 			flag_v;
-	
+	char			p_index[MAX_PLAYERS + 1];
 	int 			move;
 	t_cell			*cell;
 	int 			speed;

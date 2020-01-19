@@ -38,15 +38,17 @@ void	print_memory(const void *addr, size_t size)
 		write(1, s + tab[i] / 16, 1);
 		write(1, s + tab[i] % 16, 1);
 		i ++;
+		if (!(i % 64))
+			write(1, "\n", 1);
 		if (i && i % 2 == 0)
 			write(1, " ", 1);
-		if (i && i % 64 == 0)
-			put_ascii(tab, i - 64, i);
+		// if (i && i % 64 == 0)
+		// 	put_ascii(tab, i - 64, i);
 	}
 	res = i - i / 16 * 16;
 	if (i % 16)
 	{
 		put_sps(i % 16);
-		put_ascii(tab, i - res, i);
+	//	put_ascii(tab, i - res, i);
 	}
 }

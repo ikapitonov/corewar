@@ -66,7 +66,9 @@ int		get_arg_types(char command, char *arr, char *area, int pos)
 	i = -1;
 	while (++i < 3)
 		ret += get_arg_size(command, arr[i]);
-	if (!g_instr[command].is_code_type)
-		return (g_instr[command].size_dir ? 2 : 4);
-	return (ret);
+	if (g_instr[command].is_code_type)
+		ret++;
+	else
+		ret = g_instr[command].size_dir ? 2 : 4;
+	return (ret + 1);
 }
