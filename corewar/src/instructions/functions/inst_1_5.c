@@ -7,6 +7,7 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 1, &val, 4);
 	rev_endian(&val, 4);
 	val = -val;
+	main->lives_count += 1;
 	if (val < main->players + 1 && val > 0)
 	{
 		main->player[main->p_index[val]].current_lives += 1;

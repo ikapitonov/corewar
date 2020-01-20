@@ -25,7 +25,7 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	if (!len)
 		++len;
 	if (cursor->operation_code != 9)	
-		cursor->pos = (cursor->pos + len) % MEM_SIZE;
+		cursor->pos = (cursor->pos + len) % MEM_SZ;
 	cursor->operation_code = 0;
 	//printf ("ss\n");
 }
@@ -35,7 +35,7 @@ static	int		is_invalid_move(t_main *main, t_cursor *cursor, int32_t tmp)
 	if (tmp < 1 || tmp > COUNT_TOKENS)
 	{
 		cursor->operation_code = 0;
-		cursor->pos = (cursor->pos + 1) % MEM_SIZE;
+		cursor->pos = (cursor->pos + 1) % MEM_SZ;
 		return (1);
 	}
 	return (0);
@@ -47,6 +47,8 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 
 	if (cursor->cycles_to_wait && --cursor->cycles_to_wait)
 		return ;
+	// if (cursor->cycles_to_wait && cursor->cycles_to_wait)
+	// 	return ;
 	tmp = memory_read_rev_endian(main->area, cursor->pos, 1);
 	if (cursor->operation_code)
 	{
@@ -55,7 +57,7 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 		if (tmp != cursor->operation_code)
 		{
 			cursor->operation_code = 0;
-			cursor->pos = (cursor->pos + 1) % MEM_SIZE;
+			cursor->pos = (cursor->pos + 1) % MEM_SZ;
 			return ;
 		}
 		asm_functions(main, cursor);
@@ -72,7 +74,7 @@ static	int		is_rm_cursor(t_main *main, t_cursor *cursor)
 {
 	return (cursor && cursor->last_live_cycle +
 					main->cycle_to_die <= main->cycles_count
-				/*&& cursor->last_live_cycle*/);
+				&& cursor->last_live_cycle);
 }
 
 void		aa (int num)
@@ -125,11 +127,11 @@ static	void	validate_exec(t_main *main)
 	int		i;
 
 	i = 0;
-	count = 0;
+	count = main->lives_count;
+	main->lives_count = 0;
 	validate_cursors(main);
 	while (i < main->players)
 	{
-		count += main->player[i].current_lives;
 		main->player[i].current_lives = 0;
 		++i;
 	}
@@ -149,6 +151,7 @@ void			game_exec(t_main *main)
 {
 	t_cursor	*cursor;
 
+	main->cycles_count += 1;
 	cursor = main->cursor;
 	while (cursor)
 	{
@@ -156,7 +159,6 @@ void			game_exec(t_main *main)
 		cursor_exec(main, cursor);
 		cursor = cursor->next;
 	}
-	main->cycles_count += 1;
 	if (main->current_cycle_to_die == main->cycles_count)
 	{
 		validate_exec(main);

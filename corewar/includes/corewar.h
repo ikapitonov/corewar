@@ -42,6 +42,7 @@
 
 # define REG_SYMBOL "Lls+-&|^JlSFllFa"
 
+# define MEM_SZ (MEM_SIZE - 1) 
 # define COUNT_TOKENS 16
 # define MAX_INT 2147483647
 # define MAX_SHORT 32767
