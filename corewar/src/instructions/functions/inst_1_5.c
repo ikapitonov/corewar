@@ -7,7 +7,6 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 1, &val, 4);
 	rev_endian(&val, 4);
 	val = -val;
-	ft_printf ("val: %d\n", val);
 	if (val < main->players + 1 && val > 0)
 	{
 		main->player[main->p_index[val]].current_lives += 1;
@@ -21,7 +20,6 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		regnum;
 	int16_t		addr;
 	
-	ft_printf("ld\n");
 	if (cursor->types[0] == T_DIR_CODE)
 	{
 		memory_read(area, cursor->pos + 6, &regnum, 1);
@@ -47,7 +45,6 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		regnum2;
 	int16_t		addr;
 	
-	ft_printf("st\n");
 	memory_read(area, cursor->pos + 2, &regnum1, 1);
 	if (!regnum1 || regnum1 > 16)
 			return ;

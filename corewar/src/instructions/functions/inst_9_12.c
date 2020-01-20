@@ -59,7 +59,6 @@ static	void	ldi_lldi(t_cursor *cursor, char *area, char *mem, int f)
 	else
 		addr = (*(int *)(mem + 12) + *(int *)(mem + 16));
 	memory_read(area, cursor->pos + addr, &cursor->reg[mem[11] - 1], 4);
-	printf("addr1: %d addr2: %d\n", *(int *)(mem + 16), *(int *)(mem + 12));
 }
 
 void			ldi(t_main *main, t_cursor *cursor, char *area)
