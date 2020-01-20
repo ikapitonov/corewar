@@ -7,7 +7,7 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 1, &val, 4);
 	rev_endian(&val, 4);
 	val = -val;
-	printf ("val: %d\n", val);
+	ft_printf ("val: %d\n", val);
 	if (val < main->players + 1 && val > 0)
 	{
 		main->player[main->p_index[val]].current_lives += 1;
@@ -36,7 +36,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 4, &regnum, 1);
 	if (!regnum || regnum > 16)
 			return ;
-	memory_read(area, (cursor->pos + addr) % IDX_MOD,
+	memory_read(area, cursor->pos + addr % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];
 }

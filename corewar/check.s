@@ -2,9 +2,10 @@
 .comment "en fait C forker !"
 
 start:
-    ld %-5, r2
-    ld %-5, r3
-    st r2, :end
-    ldi :end, %2, r4
-    st r4, 20
+    sti r1, %:live1, %1
+
+live1:
+    live %100
+    ld %0, r2
+    zjmp %:live1
 end:

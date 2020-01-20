@@ -86,11 +86,11 @@ void			init_cursors(t_main *main)
 	{
 		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
 		cursor->pos = i * constant;
-		rev_endian(&cursor->reg[0], 4);
 		cursor->next = main->cursor;
 		main->cursor = cursor;
 		main->p_index[main->player[i].id] = i;
 		cursor->reg[0] = -(main->player[i].id);
+		rev_endian(&cursor->reg[0], 4);
 		++i;
 	}
 }

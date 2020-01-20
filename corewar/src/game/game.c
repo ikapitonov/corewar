@@ -147,6 +147,7 @@ void			game_exec(t_main *main)
 	cursor = main->cursor;
 	while (cursor)
 	{
+		ft_printf ("r1: %d\n", cursor->reg[0]);
 		cursor_exec(main, cursor);
 		cursor = cursor->next;
 	}
@@ -155,6 +156,6 @@ void			game_exec(t_main *main)
 	{
 		p();
 		validate_exec(main);
-		printf("%d %d %d\n", main->cycles_count, main->current_cycle_to_die, main->cycle_to_die);
+		//printf("%d %d %d\n", main->cycles_count, main->current_cycle_to_die, main->cycle_to_die);
 	}
 }
