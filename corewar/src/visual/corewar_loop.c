@@ -35,8 +35,8 @@ int				lem_loop_key_hook(t_main *main)
 		}
 		count_coursor(main);
 		render(main);
-		print_memory(main->area, MEM_SIZE);
-		ft_printf("\n");
+		// print_memory(main->area, MEM_SIZE);
+		// ft_printf("\n");
 	}
 	else
 		render(main);

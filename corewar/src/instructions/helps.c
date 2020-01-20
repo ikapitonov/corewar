@@ -20,7 +20,6 @@ int		check_arg_types(char *types, char command)
 	// 	ft_printf("%d\n", types[i]);
 	if (!g_instr[command].is_code_type)
 		return (0);
-	count = 0;
 	// while (types[count] && count < 3)
 	// 	count++;
 	// if (count != g_instr[command].count_args)
@@ -29,11 +28,11 @@ int		check_arg_types(char *types, char command)
 	// ft_printf("%s\n", g_instr[command].name);
 	while (count < g_instr[command].count_args)
 	{
-		if (types[count] == T_REG_CODE && !(T_REG & g_instr[command].args[count]))
+		if (!types[count] || (types[count] == T_REG_CODE && !(T_REG & g_instr[command].args[count])))
 			return (1);
-		if (types[count] == T_DIR_CODE && !(T_DIR & g_instr[command].args[count]))
+		if (!types[count] || (types[count] == T_DIR_CODE && !(T_DIR & g_instr[command].args[count])))
 			return (1);
-		if (types[count] == T_IND_CODE && !(T_IND & g_instr[command].args[count]))
+		if (!types[count] || (types[count] == T_IND_CODE && !(T_IND & g_instr[command].args[count])))
 			return (1);
 		++count;
 	}

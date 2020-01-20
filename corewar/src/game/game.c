@@ -17,7 +17,7 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	int		len;
 
 	len = get_arg_types(cursor->operation_code - 1, cursor->types, main->area, cursor->pos);
-	ft_printf ("%d\n", cursor->operation_code);
+//	ft_printf ("%d\n", cursor->operation_code);
 	//ft_printf("check: %d\n", check_arg_types(cursor->types, cursor->operation_code - 1));
 
 	if (!check_arg_types(cursor->types, cursor->operation_code - 1))
@@ -73,6 +73,11 @@ static	int		is_rm_cursor(t_main *main, t_cursor *cursor)
 	return (cursor && cursor->last_live_cycle +
 					main->cycle_to_die <= main->cycles_count
 				/*&& cursor->last_live_cycle*/);
+}
+
+void		aa (int num)
+{
+	printf("%d\n", num);
 }
 
 static	void	validate_cursors(t_main *main)
@@ -147,14 +152,13 @@ void			game_exec(t_main *main)
 	cursor = main->cursor;
 	while (cursor)
 	{
-		ft_printf ("r1: %d\n", cursor->reg[0]);
+		// ft_printf ("r1: %d\n", cursor->reg[0]);
 		cursor_exec(main, cursor);
 		cursor = cursor->next;
 	}
 	main->cycles_count += 1;
 	if (main->current_cycle_to_die == main->cycles_count)
 	{
-		p();
 		validate_exec(main);
 		//printf("%d %d %d\n", main->cycles_count, main->current_cycle_to_die, main->cycle_to_die);
 	}

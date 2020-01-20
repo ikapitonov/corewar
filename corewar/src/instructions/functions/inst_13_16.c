@@ -60,7 +60,7 @@ void	op_fork(t_main *main, t_cursor *cursor, char *area)
 	t_cursor	*new;
 	int16_t		addr;
 
-	memory_read(area, cursor->pos + 2, &addr, 2);
+	memory_read(area, cursor->pos + 1, &addr, 2);
 	rev_endian(&addr, 2);
 	new = (t_cursor*)smart_malloc(sizeof(t_cursor));
 	cursor_copy_and_add(main, cursor, new, cursor->pos + addr % IDX_MOD);
@@ -71,7 +71,7 @@ void	lfork(t_main *main, t_cursor *cursor, char *area)
 	t_cursor	*new;
 	int16_t		addr;
 	
-	memory_read(area, cursor->pos + 2, &addr, 2);
+	memory_read(area, cursor->pos + 1, &addr, 2);
 	rev_endian(&addr, 2);
 	new = (t_cursor*)smart_malloc(sizeof(t_cursor));
 	cursor_copy_and_add(main, cursor, new, cursor->pos + addr);
