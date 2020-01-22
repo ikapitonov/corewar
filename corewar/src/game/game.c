@@ -74,7 +74,7 @@ static int		is_rm_cursor(t_main *main, t_cursor *cursor)
 {
 	return (cursor && cursor->last_live_cycle +
 					main->cycle_to_die <= main->cycles_count
-				&& cursor->last_live_cycle);
+				/*&& cursor->last_live_cycle*/);
 }
 
 static	void	validate_cursors(t_main *main)

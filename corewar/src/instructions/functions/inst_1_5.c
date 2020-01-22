@@ -8,11 +8,11 @@ void    live(t_main *main, t_cursor *cursor, char *area)
 	rev_endian(&val, 4);
 	val = -val;
 	main->lives_count += 1;
+	cursor->last_live_cycle = main->cycles_count;
 	if (val < main->players + 1 && val > 0)
 	{
 		main->player[main->p_index[val]].current_lives += 1;
 		main->player[main->p_index[val]].all_lives = main->cycles_count;
-		cursor->last_live_cycle = main->cycles_count;
 	}
 }
 
