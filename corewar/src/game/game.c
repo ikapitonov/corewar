@@ -25,7 +25,7 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 	if (!len)
 		++len;
 	if (cursor->operation_code != 9)	
-		cursor->pos = (cursor->pos + len) % MEM_SZ;
+		cursor->pos = (cursor->pos + len) % MEM_SIZE;
 	cursor->operation_code = 0;
 	//printf ("ss\n");
 }
@@ -35,7 +35,7 @@ static	int		is_invalid_move(t_main *main, t_cursor *cursor, int32_t tmp)
 	if (tmp < 1 || tmp > COUNT_TOKENS)
 	{
 		cursor->operation_code = 0;
-		cursor->pos = (cursor->pos + 1) % MEM_SZ;
+		cursor->pos = (cursor->pos + 1) % MEM_SIZE;
 		return (1);
 	}
 	return (0);
@@ -57,7 +57,7 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 		if (tmp != cursor->operation_code)
 		{
 			cursor->operation_code = 0;
-			cursor->pos = (cursor->pos + 1) % MEM_SZ;
+			cursor->pos = (cursor->pos + 1) % MEM_SIZE;
 			return ;
 		}
 		asm_functions(main, cursor);
@@ -70,16 +70,11 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 	return (cursor_exec(main, cursor));
 }
 
-static	int		is_rm_cursor(t_main *main, t_cursor *cursor)
+static int		is_rm_cursor(t_main *main, t_cursor *cursor)
 {
 	return (cursor && cursor->last_live_cycle +
 					main->cycle_to_die <= main->cycles_count
 				&& cursor->last_live_cycle);
-}
-
-void		aa (int num)
-{
-	printf("%d\n", num);
 }
 
 static	void	validate_cursors(t_main *main)
@@ -98,6 +93,8 @@ static	void	validate_cursors(t_main *main)
 	prev = cursor;
 	while (cursor)
 	{
+// if (main->cycles_count > 5000)
+// 	ft_printf ("cd: %d llc: %d rm: %d\n", cursor->last_live_cycle + main->cycle_to_die, cursor->last_live_cycle, is_rm_cursor(main, cursor));
 		if (is_rm_cursor(main, cursor))
 		{
 			prev->next = cursor->next;

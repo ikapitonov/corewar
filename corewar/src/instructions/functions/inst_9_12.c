@@ -25,10 +25,10 @@ void			zjmp(t_main *main, t_cursor *cursor, char *area)
 		if (cursor->pos < 0)
 			cursor->pos += MEM_SIZE;
 		if (addr % IDX_MOD == 0)
-			cursor->pos = (cursor->pos + 3) % MEM_SZ;
+			cursor->pos = (cursor->pos + 3) % MEM_SIZE;
 	}
 	else
-		cursor->pos = (cursor->pos + 3) % MEM_SZ;
+		cursor->pos = (cursor->pos + 3) % MEM_SIZE;
 }
 
 static	void	ldi_lldi(t_cursor *cursor, char *area, char *mem, int f)

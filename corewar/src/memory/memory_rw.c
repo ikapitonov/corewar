@@ -45,14 +45,14 @@ void		memory_read(char *area, int pos, void *dst, int size)
 	char	*cdst;
 
 	//ft_printf("read\n");
-	pos = pos % MEM_SZ;
+	pos = pos % MEM_SIZE;
 	if (pos < 0)
-		pos += MEM_SZ;
+		pos += MEM_SIZE;
 	cdst = (char *)dst;
 	i = 0;
 	while (i < size)
 	{
-		cdst[i] = area[(pos + i) % MEM_SZ];
+		cdst[i] = area[(pos + i) % MEM_SIZE];
 		i++;
 	}
 }
@@ -63,15 +63,15 @@ void	memory_write(t_main *main, int player, char *area, int pos, void *src, int 
 	char	*csrc;
 	
 	//ft_printf("write\n");
-	pos = pos % MEM_SZ;
+	pos = pos % MEM_SIZE;
 	if (pos < 0)
-		pos += MEM_SZ;
+		pos += MEM_SIZE;
 	csrc = (char *)src;
 	i = 0;
 	while (i < size)
 	{
-		area[(pos + i) % MEM_SZ] = csrc[i];		//  csrc[i]
-		main->cell[(pos + i) % MEM_SZ].player = player;
+		area[(pos + i) % MEM_SIZE] = csrc[i];		//  csrc[i]
+		main->cell[(pos + i) % MEM_SIZE].player = player;
 		i++;
 	}
 }

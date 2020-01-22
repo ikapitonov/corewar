@@ -50,7 +50,7 @@
 # define DUMP "dump"
 # define DUMP_LEN 4
 # define HEADER_VAR 16
-# define MIN_PLAYERS 2
+# define MIN_PLAYERS 1
 
 # define T_REG_CODE 1
 # define T_DIR_CODE 2
