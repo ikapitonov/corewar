@@ -45,8 +45,7 @@ void			cursor_copy_and_add(t_main *main, t_cursor *current, t_cursor *cursor, in
 	while (++i < REG_NUMBER)
 		cursor->reg[i] = current->reg[i];
 	cursor->pos = addr;
-	cursor->command = current->command;
-	cursor->cycles = current->cycles;
+	cursor->last_live_cycle = current->last_live_cycle;
 	i = -1;
 	while (++i < 3)
 		cursor->types[i] = current->types[i];

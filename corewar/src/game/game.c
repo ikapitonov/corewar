@@ -52,14 +52,16 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 	tmp = memory_read_rev_endian(main->area, cursor->pos, 1);
 	if (cursor->operation_code)
 	{
-		if (is_invalid_move(main, cursor, tmp))
-			return ;
-		if (tmp != cursor->operation_code)
-		{
-			cursor->operation_code = 0;
-			cursor->pos = (cursor->pos + 1) % MEM_SIZE;
-			return ;
-		}
+		// if (is_invalid_move(main, cursor, tmp))
+		// 	return ;
+		// if (tmp != cursor->operation_code)
+		// {
+		// 	cursor->operation_code = 0;
+		// 	cursor->pos = (cursor->pos + 1) % MEM_SIZE;
+		// 	return ;
+		// }
+		if (is_invalid_move(main, cursor, cursor->operation_code))
+				return ;
 		asm_functions(main, cursor);
 		return ;
 	}
