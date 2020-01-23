@@ -176,6 +176,7 @@ void			ft_add_exec(t_readf content, int fd, int *i)
 {
 	write(fd, "add ", 4);
 	(*i)++;
+    (*i)++;
 	ft_t_reg_exec(content, fd, i);
 	write(fd, ", ", 2);
 	ft_t_reg_exec(content, fd, i);
@@ -188,6 +189,7 @@ void			ft_sub_exec(t_readf content, int fd, int *i)
 {
 	write(fd, "sub ", 4);
 	(*i)++;
+    (*i)++;
 	ft_t_reg_exec(content, fd, i);
 	write(fd, ", ", 2);
 	ft_t_reg_exec(content, fd, i);
@@ -376,7 +378,6 @@ void			ft_lldi_exec(t_readf content, int fd, int *i)
 	(*i)++;
 	data.str[0] = content.str[*i];
 	(*i)++;
-
 	if (data.arr->a7 == 0 && data.arr->a6 == 1)
 		ft_t_reg_exec(content, fd, i);
 	else if (data.arr->a7 == 1 && data.arr->a6 == 1)
@@ -410,7 +411,7 @@ void			ft_aff_exec(t_readf content, int fd, int *i)
 	write(fd, "\n", 1);
 }
 
-int				ft_exec_commands(t_readf content, int fd, int *i)
+void			ft_exec_commands(t_readf content, int fd, int *i)
 {
 	if(content.str[*i] == 1)
 		ft_live_exec(content, fd, i);
@@ -483,7 +484,7 @@ void			disassembly(char *filename)
 	file_get_content(&content, ch);
 	if (!content.str || !content.size)
 		die("Empty file");
-	if (fd = open("disasm.s", O_WRONLY | O_CREAT | O_TRUNC, 0600) == -1)
+	if ((fd = open("disasm.s", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
 		die(ft_strjoin("Can't read source file ", "disasm.s"));
 	fd = 1;
 	read_name(content, fd);
