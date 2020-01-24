@@ -71,7 +71,6 @@ int				main(int ac, char *av[])
 {
 	t_main	*main;
 	int		i;
-	
 	//clock_t start = clock();
 	
 	main = init();
