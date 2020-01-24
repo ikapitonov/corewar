@@ -95,8 +95,8 @@ int				main(int ac, char *av[])
 		ft_putstr("Introducing contestants...\n");
 		i = 0;
 		while (++i <= main->players)
-			ft_printf("* Player 1, weighing %d bytes, \"%s\" (\"%s\") !\n",
-			main->player[main->p_index[i]].code_size,
+			ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+			i, main->player[main->p_index[i]].code_size,
 			main->player[main->p_index[i]].name, main->player[main->p_index[i]].comment);
 		while (main->cursor && main->cycle_to_die > 0)
 		{
