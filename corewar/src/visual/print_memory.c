@@ -35,13 +35,14 @@ void	print_memory(const void *addr, size_t size)
 	tab = (unsigned char*)addr;
 	while (i < size)
 	{
+		if (!(i % 64))
+			ft_printf("%#06p : ", (uint64_t)i);
 		write(1, s + tab[i] / 16, 1);
 		write(1, s + tab[i] % 16, 1);
 		i ++;
+		write(1, " ", 1);
 		if (!(i % 64))
 			write(1, "\n", 1);
-		if (i && i % 2 == 0)
-			write(1, " ", 1);
 		// if (i && i % 64 == 0)
 		// 	put_ascii(tab, i - 64, i);
 	}

@@ -70,7 +70,7 @@ int		init_mlx(t_main *main)
 int				main(int ac, char *av[]) 
 {
 	t_main	*main;
-	
+	int		i;
 	
 	//clock_t start = clock();
 	
@@ -93,11 +93,20 @@ int				main(int ac, char *av[])
 	}
 	else
 	{
+		ft_putstr("Introducing contestants...\n");
+		i = 0;
+		while (++i <= main->players)
+			ft_printf("* Player 1, weighing %d bytes, \"%s\" (\"%s\") !\n",
+			main->player[main->p_index[i]].code_size,
+			main->player[main->p_index[i]].name, main->player[main->p_index[i]].comment);
 		while (main->cursor && main->cycle_to_die > 0)
 		{
 			game_exec(main);
-			print_memory(main->area, MEM_SIZE);
-			ft_printf("\n");
+			if (main->dump && main->cycles_count == main->dump)
+			{
+				print_memory(main->area, MEM_SIZE);
+				exit(0);
+			}
 		}
 	}
 	// int	i = 0;
