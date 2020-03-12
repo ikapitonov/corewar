@@ -50,7 +50,7 @@ void			name_or_comment(t_main *main)
 
 	reader = main->reader;
 	line = reader->arr[reader->i] + reader->j;
-	len = (int) ft_strlen(NAME_CMD_STRING);
+	len = (int)ft_strlen(NAME_CMD_STRING);
 	if (ft_strnequ(line, NAME_CMD_STRING, len))
 	{
 		if (main->name)
@@ -58,7 +58,7 @@ void			name_or_comment(t_main *main)
 		reader->j += len;
 		return (parse_string(main, reader, 0));
 	}
-	len = (int) ft_strlen(COMMENT_CMD_STRING);
+	len = (int)ft_strlen(COMMENT_CMD_STRING);
 	if (ft_strnequ(line, COMMENT_CMD_STRING, len))
 	{
 		if (main->comment)

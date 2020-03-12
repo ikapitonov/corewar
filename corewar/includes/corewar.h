@@ -44,8 +44,8 @@
 
 # define MEM_SZ (MEM_SIZE - 1) 
 # define COUNT_TOKENS 16
-# define MAX_INT 2147483647
-# define MAX_SHORT 32767
+# define MAX_INT 4294967295
+# define MAX_SHORT 65535
 
 # define DUMP "dump"
 # define DUMP_LEN 4

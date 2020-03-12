@@ -46,7 +46,7 @@ static	void	*new_join(char *str)
 	return ((void*)new);
 }
 
-char            *file_get_contents(int ch)
+char			*file_get_contents(int ch)
 {
 	t_join	*list;
 	t_join	*last;

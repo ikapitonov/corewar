@@ -14,18 +14,18 @@
 
 static	int		is_token(char *line, int position)
 {
-	int     i;
+	int		i;
 
-    i = 0;
-    while (i < COUNT_TOKENS)
-    {
-        if (!ft_strncmp(line, g_instr[i].name, position))
-        {
-            return (i);
-        }
-        ++i;
-    }
-    return (-1);
+	i = 0;
+	while (i < COUNT_TOKENS)
+	{
+		if (!ft_strncmp(line, g_instr[i].name, position))
+		{
+			return (i);
+		}
+		++i;
+	}
+	return (-1);
 }
 
 static	void	clean_after_arg(t_read *reader)
@@ -34,33 +34,32 @@ static	void	clean_after_arg(t_read *reader)
 
 	line = reader->arr[reader->i];
 	trim_str(reader->arr[reader->i], &reader->j);
-	// while (args_exception(line[reader->j]))
-	// 	reader->j += 1;
 	if (line[reader->j] == SEPARATOR_CHAR)
 		reader->j += 1;
 }
 
-static  void    token_info(t_main *main, t_read *reader, int index, t_token *token)
+static	void	token_info(t_main *main, t_read *reader,
+							int index, t_token *token)
 {
 	char	*line;
-    int     i;
+	int		i;
 
 	i = 0;
 	while (i < g_instr[index].count_args)
 	{
 		trim_str(reader->arr[reader->i], &reader->j);
 		line = reader->arr[reader->i] + reader->j;
-        if (*line == 'r')
+		if (*line == 'r')
 			save_registr(reader, token, i, index);
-        else if ((*line == '-' && ft_isdigit(line[1]))
+		else if ((*line == '-' && ft_isdigit(line[1]))
 			|| ft_isdigit(*line) || *line == LABEL_CHAR)
-        	save_indirect(reader, token, i, index);
-        else if (*line == DIRECT_CHAR)
-            save_direct(reader, token, i, index);
-        else
-            pars_error("Invalid argument", reader);
+			save_indirect(reader, token, i, index);
+		else if (*line == DIRECT_CHAR)
+			save_direct(reader, token, i, index);
+		else
+			pars_error("Invalid argument", reader);
 		clean_after_arg(reader);
-        ++i;
+		++i;
 	}
 	if (i != g_instr[index].count_args)
 		pars_error("Few arguments", reader);
@@ -69,19 +68,19 @@ static  void    token_info(t_main *main, t_read *reader, int index, t_token *tok
 void			get_token(t_main *main, t_read *reader, int tmp)
 {
 	t_token	*token;
-    int     index;
+	int		index;
 
 	if (!main->name || !main->comment)
 		pars_error("Undefined Champion name or comment", reader);
-    if ((index = is_token(reader->arr[reader->i] + reader->j, tmp)) == -1)
+	if ((index = is_token(reader->arr[reader->i] + reader->j, tmp)) == -1)
 	{
 		(reader->arr[reader->i] + reader->j)[tmp] = 0;
-        pars_error(ft_strjoin("Invalid instruction: ",
+		pars_error(ft_strjoin("Invalid instruction: ",
 					reader->arr[reader->i] + reader->j), reader);
 	}
 	token = new_token(index);
-    reader->j += tmp;
-    token_info(main, reader, index, token);
+	reader->j += tmp;
+	token_info(main, reader, index, token);
 	valid_endline(reader);
 	if (main->last_token)
 	{

@@ -3,3 +3,4 @@
 CMakeLists.txt
 cmake-build-debug
 .idea
+asm/42-corewar
