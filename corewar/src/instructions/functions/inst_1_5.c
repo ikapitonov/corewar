@@ -37,9 +37,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 			return ;
 	memory_read(area, cursor->pos + addr % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
-	ft_printf("%d\n", cursor->reg[regnum - 1]);
 	cursor->carry = !cursor->reg[regnum - 1];
-	ft_printf("%d\n", cursor->carry);
 }
 
 void	st(t_main *main, t_cursor *cursor, char *area)

@@ -123,6 +123,8 @@ int				main(int ac, char *av[])
 				exit(0);
 			}
 		}
+		if (main->cursor)
+			game_exec(main);
 		print_winner(main);
 	}
 	// int	i = 0;

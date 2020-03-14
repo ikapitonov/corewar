@@ -6,7 +6,7 @@
 #    By: sjamie <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/12 19:57:44 by sjamie            #+#    #+#              #
-#    Updated: 2020/01/17 17:37:09 by bpole            ###   ########.fr        #
+#    Updated: 2020/03/14 18:31:46 by matruman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME			= corewar
 CC				= gcc
 HEADER			= includes/
 
-CFLAGS			= -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
+CFLAGS			= -O2 -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
