@@ -20,7 +20,10 @@ static	int		needle_token(t_read *reader, int start)
 	while (is_empty(line[reader->j]))
 		reader->j += 1;
 	if (is_comment(line[reader->j]) && (reader->i += 1))
+	{
+		reader->j = 0;
 		return (needle_token(reader, start));
+	}
 	if (!line[reader->j])
 	{
 		reader->j = 0;

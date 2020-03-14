@@ -490,7 +490,6 @@ void			disassembly(char *filename)
 	read_name(content, fd);
 	read_comment(content, fd);
 	read_exec_code(content, fd);
-
 	if (close(ch) == -1)
 	{
 		die(ft_strjoin("Can't close source file ", filename));

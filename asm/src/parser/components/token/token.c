@@ -28,13 +28,13 @@ static	int		is_token(char *line, int position)
 	return (-1);
 }
 
-static	void	clean_after_arg(t_read *reader)
+static	void	clean_after_arg(t_read *reader, int last)
 {
 	char	*line;
 
 	line = reader->arr[reader->i];
 	trim_str(reader->arr[reader->i], &reader->j);
-	if (line[reader->j] == SEPARATOR_CHAR)
+	if (last && line[reader->j] == SEPARATOR_CHAR)
 		reader->j += 1;
 }
 
@@ -58,8 +58,8 @@ static	void	token_info(t_main *main, t_read *reader,
 			save_direct(reader, token, i, index);
 		else
 			pars_error("Invalid argument", reader);
-		clean_after_arg(reader);
 		++i;
+		clean_after_arg(reader, i != g_instr[index].count_args);
 	}
 	if (i != g_instr[index].count_args)
 		pars_error("Few arguments", reader);

@@ -16,7 +16,7 @@ static	void	check_max_index(int i, int flag, int length, t_read *reader)
 {
 	char	*str;
 
-	if (i < length)
+	if (i < length - 1)
 		return ;
 	if (flag)
 		str = "Champion comment ";
