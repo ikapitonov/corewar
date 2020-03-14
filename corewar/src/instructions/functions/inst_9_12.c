@@ -24,21 +24,19 @@ void			zjmp(t_main *main, t_cursor *cursor, char *area)
 		cursor->pos += addr % IDX_MOD;
 		if (cursor->pos < 0)
 			cursor->pos += MEM_SIZE;
-		if (addr % IDX_MOD == 0)
-			cursor->pos = (cursor->pos + 3) % MEM_SIZE;
 	}
 	else
 		cursor->pos = (cursor->pos + 3) % MEM_SIZE;
 }
 
-static	void	ldi_lldi(t_cursor *cursor, char *area, char *mem, int f)
+static int		ldi_lldi(t_cursor *cursor, char *area, char *mem, int f)
 {
 	int32_t	addr;
 
 	if (cursor->types[1] == T_REG_CODE)
 	{
 		if (mem[mem[20]] > 16 || mem[mem[20]] < 1)
-			return ;
+			return -1;
 		((int *)(mem + 12))[0] = cursor->reg[mem[mem[20]] - 1];
 		rev_endian(mem + 12, 4);
 		mem[11] = mem[mem[20] + 1];
@@ -51,14 +49,15 @@ static	void	ldi_lldi(t_cursor *cursor, char *area, char *mem, int f)
 		mem[11] = mem[mem[20] + 2];
 	}
 	else
-		return ;
+		return -1;
 	if (mem[11] > 16 || mem[11] < 1)
-		return ;
+		return -1;
 	if (!f)
 		addr = (*(int *)(mem + 12) + *(int *)(mem + 16)) % IDX_MOD;
 	else
 		addr = (*(int *)(mem + 12) + *(int *)(mem + 16));
 	memory_read(area, cursor->pos + addr, &cursor->reg[mem[11] - 1], 4);
+	return (cursor->reg[mem[11] - 1] == 0);
 }
 
 void			ldi(t_main *main, t_cursor *cursor, char *area)
@@ -122,7 +121,8 @@ void			lldi(t_main *main, t_cursor *cursor, char *area)
 		rev_endian(mem + 16, 4);
 		mem[20] = 2;
 	}
-	ldi_lldi(cursor, area, mem, 1);
+	mem[0] = ldi_lldi(cursor, area, mem, 1);
+	cursor->carry = mem[0] < 0 ? cursor->carry : mem[0];
 }
 
 static void		t_sti(t_main *main, t_cursor *cursor, char *area, char *mem)

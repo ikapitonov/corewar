@@ -37,7 +37,9 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 			return ;
 	memory_read(area, cursor->pos + addr % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
+	ft_printf("%d\n", cursor->reg[regnum - 1]);
 	cursor->carry = !cursor->reg[regnum - 1];
+	ft_printf("%d\n", cursor->carry);
 }
 
 void	st(t_main *main, t_cursor *cursor, char *area)
@@ -49,7 +51,7 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 2, &regnum1, 1);
 	if (!regnum1 || regnum1 > 16)
 			return ;
-	if (cursor->types[2] == T_REG_CODE)
+	if (cursor->types[1] == T_REG_CODE)
 	{
 		memory_read(area, cursor->pos + 3, &regnum2, 1);
 		if (regnum2 > 16 || !regnum2)

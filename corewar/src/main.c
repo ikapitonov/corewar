@@ -66,6 +66,22 @@ int		init_mlx(t_main *main)
 	return (1);
 }
 
+void			print_winner(t_main *main)
+{
+	int		winner;
+	int		i;
+
+	winner = main->players;
+	i = main->players;
+	while(i)
+	{
+		if(main->player[main->p_index[i]].all_lives >
+		main->player[main->p_index[winner]].all_lives)
+		winner = i;
+		i--;
+	}
+	ft_printf("Contestant %d, \"%s\", has won !\n", winner, main->player[main->p_index[winner]].name);
+}
 
 int				main(int ac, char *av[]) 
 {
@@ -107,6 +123,7 @@ int				main(int ac, char *av[])
 				exit(0);
 			}
 		}
+		print_winner(main);
 	}
 	// int	i = 0;
 	// cursor = main->cursor;

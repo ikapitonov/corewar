@@ -1,8 +1,8 @@
 .name "Check !"
 .comment "en fait C forker !"
 
-gobepc: st r1, :buff
-	st r6,-4
-	ld :buff,r1
-    st r1, 100
-buff:
+ldi %-4, r9, r6
+zjmp %6
+st r1, 0
+live %-1
+st r6, 5
