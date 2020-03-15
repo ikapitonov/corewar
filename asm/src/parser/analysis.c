@@ -35,7 +35,7 @@ static	void	check_names(t_main *main)
 
 void			valid_endline(t_read *reader)
 {
-	char	*line; 
+	char	*line;
 	char	c;
 
 	line = reader->arr[reader->i];

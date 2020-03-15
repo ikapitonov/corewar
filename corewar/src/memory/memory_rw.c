@@ -25,7 +25,7 @@ void		rev_endian(void *val, int size)
 		tmp = p[size - i - 1];
 		p[size - i - 1] = p[i];
 		p[i] = tmp;
-		i++; 
+		i++;
 	}
 }
 
@@ -44,6 +44,10 @@ void		memory_read(char *area, int pos, void *dst, int size)
 	int		i;
 	char	*cdst;
 
+	//ft_printf("read\n");
+	pos = pos % MEM_SIZE;
+	if (pos < 0)
+		pos += MEM_SIZE;
 	cdst = (char *)dst;
 	i = 0;
 	while (i < size)
@@ -58,11 +62,15 @@ void	memory_write(t_main *main, int player, char *area, int pos, void *src, int 
 	int		i;
 	char	*csrc;
 	
-	i = 0;
+	//ft_printf("write\n");
+	pos = pos % MEM_SIZE;
+	if (pos < 0)
+		pos += MEM_SIZE;
 	csrc = (char *)src;
+	i = 0;
 	while (i < size)
 	{
-		area[(pos + i) % MEM_SIZE] = 1;		//  csrc[i]
+		area[(pos + i) % MEM_SIZE] = csrc[i];		//  csrc[i]
 		main->cell[(pos + i) % MEM_SIZE].player = player;
 		i++;
 	}

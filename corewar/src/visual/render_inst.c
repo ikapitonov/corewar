@@ -18,7 +18,7 @@ static void		drow_sqw(t_main *main, int x, int y, unsigned long cell)
 			color = colors[main->cell[cell].player];
 			if (main->cell[cell].cursor)
 				color |= CURSOR;
-			if (0 < x + w && x + w < WIDTH && 0 < y + h && y + h < HEIGHT)
+			if (i > 0 && i < SIZE)
 				((int *)(main->data_addr))[i] = color;
 			w--;
 		}

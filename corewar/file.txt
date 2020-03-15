@@ -1,0 +1,5 @@
+Usage: ./corewar [-a] [-v] [-n <num>] <champion.cor> <...>
+ 	   -a        : Prints output from "aff" (Default is to hide it)
+ 	   -v        : Visualization
+ 	   -n  <num> : Set <num> of the next player
+

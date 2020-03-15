@@ -24,6 +24,7 @@ int				lem_loop_key_hook(t_main *main)
 	static int 		i;
 	
 	str = "RUN";
+	//p();
 	i = main->speed;
 	if (main->pause == 1 || main->one_step)
 	{
@@ -34,8 +35,8 @@ int				lem_loop_key_hook(t_main *main)
 		}
 		count_coursor(main);
 		render(main);
-		//print_memory(main->area, MEM_SIZE);
-		//ft_printf("\n");
+		// print_memory(main->area, MEM_SIZE);
+		// ft_printf("\n");
 	}
 	else
 		render(main);
@@ -43,5 +44,6 @@ int				lem_loop_key_hook(t_main *main)
 		str = "PAUSE";
 	mlx_string_put(main->mlx, main->win,
 				   WIDTH - 350, 50, TEXT_COLOR, str);
+	//ft_putstr("dfdf\n");
 	return (0);
 }

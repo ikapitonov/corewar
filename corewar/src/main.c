@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
-void p(void) {printf("HELLO\n");}
+void p(void) {ft_printf("HELLO\n");}
 //./corewar -n 10 ../vm_champs/champs/jumper.cor
 
 void			die(const char *reason)
@@ -66,12 +66,27 @@ int		init_mlx(t_main *main)
 	return (1);
 }
 
+void			print_winner(t_main *main)
+{
+	int		winner;
+	int		i;
+
+	winner = main->players;
+	i = main->players;
+	while(i)
+	{
+		if(main->player[main->p_index[i]].all_lives >
+		main->player[main->p_index[winner]].all_lives)
+		winner = i;
+		i--;
+	}
+	ft_printf("Contestant %d, \"%s\", has won !\n", winner, main->player[main->p_index[winner]].name);
+}
 
 int				main(int ac, char *av[]) 
 {
 	t_main	*main;
-	
-	
+	int		i;
 	//clock_t start = clock();
 	
 	main = init();
@@ -93,12 +108,24 @@ int				main(int ac, char *av[])
 	}
 	else
 	{
+		ft_putstr("Introducing contestants...\n");
+		i = 0;
+		while (++i <= main->players)
+			ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+			i, main->player[main->p_index[i]].code_size,
+			main->player[main->p_index[i]].name, main->player[main->p_index[i]].comment);
 		while (main->cursor && main->cycle_to_die > 0)
 		{
 			game_exec(main);
-			print_memory(main->area, MEM_SIZE);
-			ft_printf("\n");
+			if (main->dump && main->cycles_count == main->dump)
+			{
+				print_memory(main->area, MEM_SIZE);
+				exit(0);
+			}
 		}
+		if (main->cursor)
+			game_exec(main);
+		print_winner(main);
 	}
 	// int	i = 0;
 	// cursor = main->cursor;

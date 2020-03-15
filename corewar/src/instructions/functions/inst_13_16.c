@@ -32,7 +32,7 @@ void	lld(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 4, &regnum, 1);
 	if (!regnum || regnum > 16)
 		return ;
-	memory_read(area, addr - cursor->pos,
+	memory_read(area, cursor->pos + addr,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];
 }
@@ -45,8 +45,7 @@ void			cursor_copy_and_add(t_main *main, t_cursor *current, t_cursor *cursor, in
 	while (++i < REG_NUMBER)
 		cursor->reg[i] = current->reg[i];
 	cursor->pos = addr;
-	cursor->command = current->command;
-	cursor->cycles = current->cycles;
+	cursor->last_live_cycle = current->last_live_cycle;
 	i = -1;
 	while (++i < 3)
 		cursor->types[i] = current->types[i];
@@ -59,14 +58,11 @@ void	op_fork(t_main *main, t_cursor *cursor, char *area)
 {
 	t_cursor	*new;
 	int16_t		addr;
-	
-	ft_printf("1\n");
-	memory_read(area, cursor->pos + 2, &addr, 2);
+
+	memory_read(area, cursor->pos + 1, &addr, 2);
 	rev_endian(&addr, 2);
 	new = (t_cursor*)smart_malloc(sizeof(t_cursor));
-	cursor_copy_and_add(main, cursor, new, addr % IDX_MOD);
-	ft_printf("2\n");
-	main->move = 2;
+	cursor_copy_and_add(main, cursor, new, cursor->pos + addr % IDX_MOD);
 }
 
 void	lfork(t_main *main, t_cursor *cursor, char *area)
@@ -74,7 +70,7 @@ void	lfork(t_main *main, t_cursor *cursor, char *area)
 	t_cursor	*new;
 	int16_t		addr;
 	
-	memory_read(area, cursor->pos + 2, &addr, 2);
+	memory_read(area, cursor->pos + 1, &addr, 2);
 	rev_endian(&addr, 2);
 	new = (t_cursor*)smart_malloc(sizeof(t_cursor));
 	cursor_copy_and_add(main, cursor, new, cursor->pos + addr);

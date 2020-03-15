@@ -25,7 +25,7 @@ void	rev_endian(void *val, int size)
 		tmp = p[size - i - 1];
 		p[size - i - 1] = p[i];
 		p[i] = tmp;
-		i++; 
+		i++;
 	}
 }
 
@@ -65,6 +65,19 @@ void	write_to_file(t_main *main)
 	fd = open(main->filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd < 0)
 		die("Cannot open file for writing");
-	ft_printf("Writing output to file %s\n", main->filename);
+	ft_printf("Writing output program to %s\n", main->filename);
 	write(fd, main->buffer.buff, main->buffer.used);
+}
+
+void	print_marks(int pos, t_token *token, t_mark **marks)
+{
+	int		i;
+
+	i = 0;
+	while (marks[i] && (marks[i]->token != token ||
+	(!token && marks[i]->mark)))
+		i++;
+	if (!marks[i])
+		return ;
+	recursive_mark_print(marks, pos, i);
 }

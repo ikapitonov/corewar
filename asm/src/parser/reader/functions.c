@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/asm.h"	
+#include "../../../includes/asm.h"
 
 int				int_strchr(char *str)
 {

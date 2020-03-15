@@ -12,17 +12,17 @@
 
 #include "../../includes/asm.h"
 
-extern  t_op g_instr[];
-
 int		find_mark(t_main *main, char *need, int pos)
 {
-	t_mark	*mark = main->mark;
+	t_mark	*mark;
+
+	mark = main->mark;
 	while (mark && !ft_strequ(mark->name, need))
 		mark = mark->next;
 	if (!mark)
 		die("Mark error");
-	 while (mark->mark)
-	 	mark = mark->mark;
+	while (mark->mark)
+		mark = mark->mark;
 	if (mark->token)
 		return (mark->token->pos - pos);
 	return (main->last_token->pos + main->last_token->len - pos);
@@ -57,7 +57,7 @@ char	set_arg_types(char *type)
 			code[i] = 2;
 		else if (type[i] == T_IND)
 			code[i] = 3;
-		res = res | (code[i] << (6 - i * 2)); 
+		res = res | (code[i] << (6 - i * 2));
 		i++;
 	}
 	return (res);
@@ -86,7 +86,7 @@ int		set_args(int arg, void *pos, int command, int type)
 	return (4);
 }
 
-void		coder(t_main *main)
+void	coder(t_main *main)
 {
 	t_token		*token;
 	char		command[12];

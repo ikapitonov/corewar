@@ -40,8 +40,9 @@
 # define NUM_PAD_PLUS		69
 # define NUM_PAD_MINUS		78
 
-# define REG_SYMBOL "Lls+-&|^JlsFllFa"
+# define REG_SYMBOL "Lls+-&|^JlSFllFa"
 
+# define MEM_SZ (MEM_SIZE - 1) 
 # define COUNT_TOKENS 16
 # define MAX_INT 2147483647
 # define MAX_SHORT 32767
@@ -49,7 +50,7 @@
 # define DUMP "dump"
 # define DUMP_LEN 4
 # define HEADER_VAR 16
-# define MIN_PLAYERS 2
+# define MIN_PLAYERS 1
 
 # define T_REG_CODE 1
 # define T_DIR_CODE 2
@@ -92,7 +93,7 @@ typedef struct		s_main
 	int				valids_count;
 	int 			flag_a;
 	int 			flag_v;
-	
+	char			p_index[MAX_PLAYERS + 1];
 	int 			move;
 	t_cell			*cell;
 	int 			speed;
@@ -122,7 +123,7 @@ typedef struct		s_cursor
 	struct s_cursor	*next;
 }					t_cursor;
 
-typedef void	(*t_op_func) (t_main *main, t_cursor *cursor, char *area);
+typedef void		(*t_op_func) (t_main *main, t_cursor *cursor, char *area);
 extern 				t_op_func op_arr[];
 
 void				*init();
@@ -139,10 +140,10 @@ void				valid_filename(char *filename);
 void				valid_file_size(char *str, int size);
 
 void				memory_read(char *area, int pos, void *dst, int size);
-void	memory_write(t_main *main, int player, char *area, int pos, void *src, int size);
+void				memory_write(t_main *main, int player, char *area, int pos, void *src, int size);
 void				rev_endian(void *val, int size);
 int32_t				memory_read_rev_endian(char *area, int pos, int size);
-void				get_arg_types(char *typesarr, char *area, int pos);
+int					get_arg_types(char command, char *arr, char *area, int pos);
 int					check_arg_types(char *types, char command);
 
 
@@ -171,12 +172,12 @@ void				check_file_content(t_main *main, t_readf *reader);
 void				init_area(t_main *main);
 void				init_cursors(t_main *main);
 
-int				lem_hook_keydown(int key, t_main *main);
-int				lem_loop_key_hook(t_main *main);
-void			render(t_main *main);
-void			print_memory(const void *addr, size_t size);
-void			render_background_inst(t_main *main);
-void			render_inst(t_main *main);
+int					lem_hook_keydown(int key, t_main *main);
+int					lem_loop_key_hook(t_main *main);
+void				render(t_main *main);
+void				print_memory(const void *addr, size_t size);
+void				render_background_inst(t_main *main);
+void				render_inst(t_main *main);
 
 # define START_NAME 4
 # define START_COMMENT (4 + PROG_NAME_LENGTH + 8)

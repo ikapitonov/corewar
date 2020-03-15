@@ -14,16 +14,22 @@
 
 static	void	asm_functions(t_main *main, t_cursor *cursor)
 {
-	// СЮДА ВСЕГДА ПРИДЕТ ПРАВИЛЬНЫЙ КОД ОПЕРАЦИИ (1 - 16)
-	// вызов функций ассембли  и мы ЗДЕСЬ ДВИГАЕМ ПОЗИЦИЮ КАРЕТКИ
-	// cursor->pos должен сдвинуться
-	main->move = 0;
-	if (cursor->operation_code > 0 && cursor->operation_code < 17)
+	int		len;
+
+	len = get_arg_types(cursor->operation_code - 1, cursor->types, main->area, cursor->pos);
+//	ft_printf ("%d\n", cursor->operation_code);
+	//ft_printf("check: %d\n", check_arg_types(cursor->types, cursor->operation_code - 1));
+
+	if (!check_arg_types(cursor->types, cursor->operation_code - 1))
 		op_arr[cursor->operation_code - 1](main, cursor, main->area);
-	cursor->pos = (cursor->pos + 1 + main->move) % MEM_SIZE;
+	if (!len)
+		++len;
+	if (cursor->operation_code != 9)	
+		cursor->pos = (cursor->pos + len) % MEM_SIZE;
 	cursor->operation_code = 0;
+	//printf ("ss\n");
 }
- 
+
 static	int		is_invalid_move(t_main *main, t_cursor *cursor, int32_t tmp)
 {
 	if (tmp < 1 || tmp > COUNT_TOKENS)
@@ -41,17 +47,21 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 
 	if (cursor->cycles_to_wait && --cursor->cycles_to_wait)
 		return ;
+	// if (cursor->cycles_to_wait && cursor->cycles_to_wait)
+	// 	return ;
 	tmp = memory_read_rev_endian(main->area, cursor->pos, 1);
 	if (cursor->operation_code)
 	{
-		if (is_invalid_move(main, cursor, tmp))
-			return ;
-		if (tmp != cursor->operation_code)
-		{
-			cursor->operation_code = 0;
-			cursor->pos = (cursor->pos + 1) % MEM_SIZE;
-			return ;
-		}
+		// if (is_invalid_move(main, cursor, tmp))
+		// 	return ;
+		// if (tmp != cursor->operation_code)
+		// {
+		// 	cursor->operation_code = 0;
+		// 	cursor->pos = (cursor->pos + 1) % MEM_SIZE;
+		// 	return ;
+		// }
+		if (is_invalid_move(main, cursor, cursor->operation_code))
+				return ;
 		asm_functions(main, cursor);
 		return ;
 	}
@@ -62,31 +72,38 @@ static	void	cursor_exec(t_main *main, t_cursor *cursor)
 	return (cursor_exec(main, cursor));
 }
 
+static int		is_rm_cursor(t_main *main, t_cursor *cursor)
+{
+	return (cursor && cursor->last_live_cycle +
+					main->cycle_to_die <= main->cycles_count
+				/*&& cursor->last_live_cycle*/);
+}
+
 static	void	validate_cursors(t_main *main)
 {
 	t_cursor	*cursor;
-	t_cursor	*tmp;
+	t_cursor	*prev;
 
 	cursor = main->cursor;
-	if (cursor && cursor->last_live_cycle +
-					main->cycle_to_die <= main->cycles_count
-				/*&& cursor->last_live_cycle*/)
+	while (is_rm_cursor(main, cursor))
 	{
-		tmp = cursor;
-		main->cursor = main->cursor->next;
-		free(tmp);
+		main->cursor = cursor->next;
+		free(cursor);
 		cursor = main->cursor;
 	}
+	cursor = main->cursor;
+	prev = cursor;
 	while (cursor)
 	{
-		if (cursor->next && cursor->next->last_live_cycle +
-							main->cycle_to_die <= main->cycles_count
-						/*&& cursor->next->last_live_cycle*/)
+// if (main->cycles_count > 5000)
+// 	ft_printf ("cd: %d llc: %d rm: %d\n", cursor->last_live_cycle + main->cycle_to_die, cursor->last_live_cycle, is_rm_cursor(main, cursor));
+		if (is_rm_cursor(main, cursor))
 		{
-			tmp = cursor->next;
-			cursor->next = cursor->next->next;
-			free(tmp);
+			prev->next = cursor->next;
+			free(cursor);
+			cursor = prev;
 		}
+		prev = cursor;
 		cursor = cursor->next;
 	}
 }
@@ -109,11 +126,11 @@ static	void	validate_exec(t_main *main)
 	int		i;
 
 	i = 0;
-	count = 0;
+	count = main->lives_count;
+	main->lives_count = 0;
 	validate_cursors(main);
 	while (i < main->players)
 	{
-		count += main->player[i].current_lives;
 		main->player[i].current_lives = 0;
 		++i;
 	}
@@ -133,16 +150,17 @@ void			game_exec(t_main *main)
 {
 	t_cursor	*cursor;
 
+	main->cycles_count += 1;
 	cursor = main->cursor;
 	while (cursor)
 	{
+		// ft_printf ("r1: %d\n", cursor->reg[0]);
 		cursor_exec(main, cursor);
 		cursor = cursor->next;
 	}
-	main->cycles_count += 1;
 	if (main->current_cycle_to_die == main->cycles_count)
 	{
 		validate_exec(main);
-	//	printf("%d %d %d\n", main->cycles_count, main->current_cycle_to_die, main->cycle_to_die);
+		//printf("%d %d %d\n", main->cycles_count, main->current_cycle_to_die, main->cycle_to_die);
 	}
 }

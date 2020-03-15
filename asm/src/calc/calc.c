@@ -16,7 +16,7 @@ static	void	cacl_exec(t_token *token)
 {
 	int		res;
 	int		i;
-	
+
 	res = g_instr[token->instruct].is_code_type ? 2 : 1;
 	i = 0;
 	while (i < 3)
@@ -51,11 +51,4 @@ void			calc(t_main *main)
 		prev = token;
 		token = token->next;
 	}
-
-	// token = main->token;
-	// while (token)
-	// {
-	// 	printf("%d  (%d)\n", token->pos, token->len);
-	// 	token = token->next;
-	// }
 }

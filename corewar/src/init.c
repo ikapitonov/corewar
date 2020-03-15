@@ -80,14 +80,17 @@ void			init_cursors(t_main *main)
 	int			i;
 	
 	i = 0;
+	main->p_index[0] = -1;
 	constant = MEM_SIZE / main->players;
 	while (i < main->players)
 	{
 		cursor = (t_cursor*)smart_malloc(sizeof(t_cursor));
 		cursor->pos = i * constant;
-		cursor->reg[0] = main->player[i].id;
 		cursor->next = main->cursor;
 		main->cursor = cursor;
+		main->p_index[main->player[i].id] = i;
+		cursor->reg[0] = -(main->player[i].id);
+		rev_endian(&cursor->reg[0], 4);
 		++i;
 	}
 }
@@ -113,7 +116,8 @@ void			*init()
 	
 	main = (t_main*)smart_malloc(sizeof(t_main));
 	main->cycle_to_die = CYCLE_TO_DIE;
-	main->cell = (t_cell*)smart_malloc(sizeof(t_cell) * MEM_SIZE);
+	main->current_cycle_to_die = CYCLE_TO_DIE;
+	main->cell = (t_cell*)smart_malloc(sizeof(t_cell) * (MEM_SIZE + 1));
 	main->area = (char*)smart_malloc(sizeof(char) * (MEM_SIZE + 1));
 	init_players(main);
 	return ((void*)main);

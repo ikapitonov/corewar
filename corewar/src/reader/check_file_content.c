@@ -16,7 +16,8 @@ static	void	check_magic_header(char *str)
 {
 	int32_t	res;
 
-	memory_read(str, 0, &res, 4);
+	res = *(int *)str;
+	//memory_read(str, 0, &res, 4);
 	rev_endian(&res, 4);
 	if (res != COREWAR_EXEC_MAGIC)
 		die("Invalid constant \"COREWAR_EXEC_MAGIC\"");
@@ -28,7 +29,8 @@ static	void	check_code_size(t_main *main, char *str, int size)
 	int		tmp;
 
 	str += START_NAME + PROG_NAME_LENGTH + NULL_SIZE;
-	memory_read(str, 0, &res, 4);
+	res = *(int *)str;
+	//memory_read(str, 0, &res, 4);
 	rev_endian(&res, 4);
 	main->player[main->players].code_size = res;
 	tmp = size - START_COMMENT - COMMENT_LENGTH - NULL_SIZE;

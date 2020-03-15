@@ -12,9 +12,9 @@
 
 #include "../../includes/asm.h"
 
-void    *sm_realloc(void *ptr, size_t size)
+void	*sm_realloc(void *ptr, size_t size)
 {
-	void    *new;
+	void	*new;
 
 	if (!(new = realloc(ptr, size)))
 		die("Cannot allocate memory in realloc");
@@ -34,7 +34,7 @@ void	buffer_resize(t_buffer *buffer)
 	buffer->size = (buffer->size * 3) / 2;
 }
 
-void	buffer_add(t_buffer	*buffer, char *str, int size)
+void	buffer_add(t_buffer *buffer, char *str, int size)
 {
 	if (size < buffer->size - buffer->used)
 	{
@@ -47,4 +47,11 @@ void	buffer_add(t_buffer	*buffer, char *str, int size)
 		buffer_resize(buffer);
 		buffer_add(buffer, str, size);
 	}
+}
+
+void	recursive_mark_print(t_mark **marks, int pos, int i)
+{
+	if (i - 1 >= 0 && marks[i - 1]->mark)
+		recursive_mark_print(marks, pos, i - 1);
+	ft_printf("%-11d:    %s:\n", pos, marks[i]->name);
 }

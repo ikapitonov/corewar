@@ -86,7 +86,7 @@ void			insert_params(t_main *main, int count_args, char *params[])
 {
 	int		i;
 	
-	if (count_args < 3)
+	if (count_args < 2)
 		help();
 	i = 0;
 	while (++i < count_args)
