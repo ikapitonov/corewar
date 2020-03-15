@@ -62,7 +62,7 @@ static	void	token_info(t_main *main, t_read *reader,
 		clean_after_arg(reader, i != g_instr[index].count_args);
 	}
 	if (i != g_instr[index].count_args)
-		pars_error("Few arguments", reader);
+		pars_error("Few arguments", main->reader);
 }
 
 void			get_token(t_main *main, t_read *reader, int tmp)

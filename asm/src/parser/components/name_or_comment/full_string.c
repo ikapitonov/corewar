@@ -61,6 +61,6 @@ char			*full_string(t_main *main, t_read *reader,
 		reader->j += 1;
 	}
 	str[i] = 0;
-	reader->j += 1;
+	main->reader->j += 1;
 	return (ft_strdup(str));
 }

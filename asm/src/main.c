@@ -26,6 +26,19 @@ Program size : %d bytes\nName : \"%s\"\nComment : \"%s\"\n\n",
 	print_code_info(main, 0, 0, 0);
 }
 
+static	void	setter(t_main *main, int ac, char *av[], int res)
+{
+	if (ac > 2)
+		main->a_flag = 1;
+	else
+		main->filename = get_filename(av[res]);
+}
+
+static	void	help(void)
+{
+	die("Usage: ./asm [-a] <your_sourcefile.s> OR <your_binaryfile.cor>");
+}
+
 int				main(int ac, char *av[])
 {
 	t_main	*main;
@@ -38,15 +51,15 @@ int				main(int ac, char *av[])
 		exit(0);
 		return (0);
 	}
-	if (ac < 2 || ac > 3 || !(res = check_args(ac, av)))
-		die("Usage: ./asm [-a] <your_sourcefile.s> OR <your_binaryfile.cor>");
+	if (ac < 2 || ac > 3)
+		help();
+	res = check_args(ac, av);
+	if (!res)
+		help();
 	if ((ch = open(av[res], O_RDONLY)) == -1)
 		die(ft_strjoin("Can't read source file ", av[res]));
 	main = init(ch);
-	if (ac > 2)
-		main->a_flag = 1;
-	else
-		main->filename = get_filename(av[res]);
+	setter(main, ac, av, res);
 	if (close(ch) == -1)
 		die(ft_strjoin("Can't close source file ", av[res]));
 	common(main);

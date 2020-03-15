@@ -14,7 +14,7 @@ NAME			= asm
 
 CC				= gcc
 HEADER			= includes/
-CFLAGS			= -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
+CFLAGS			= -I $(HEADER) -Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
