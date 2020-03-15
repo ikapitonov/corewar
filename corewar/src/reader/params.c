@@ -17,6 +17,7 @@ void			help(void)
 	die("Usage: ./corewar [-a] [-v] [-n <num>] <champion.cor> <...>\n \
 		-a        : Prints output from \"aff\" (Default is to hide it)\n \
 		-v        : Visualization\n \
+		-s        : Start Visualization with speed on\n \
 		-n  <num> : Set <num> of the next player\n");
 }
 

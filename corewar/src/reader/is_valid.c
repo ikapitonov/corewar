@@ -61,5 +61,10 @@ int				parse_flag_a_v(t_main *main, char *param)
 		main->flag_v = 1;
 		return (1);
 	}
+	else if (!ft_strcmp(param, "-s"))
+	{
+		main->starter = 1;
+		return (1);
+	}
 	return (0);
 }

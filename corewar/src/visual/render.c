@@ -77,8 +77,6 @@ static void		render_menu(t_main *main)
 			TEXT_COLOR, "Move one step - \"Space\"");
 	mlx_string_put(main->mlx, main->win, WIDTH - 380, HEIGHT - 80,
 			TEXT_COLOR, "Speed - Press +/-");
-	mlx_string_put(main->mlx, main->win, WIDTH - 380, HEIGHT - 60,
-			TEXT_COLOR, "Reset - \"R\"");
 }
 
 void			render(t_main *main)

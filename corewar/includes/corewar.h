@@ -107,6 +107,7 @@ typedef struct		s_main
 	int				bits_per_pixel;
 	int				size_line;
 	int				endian;
+	int				starter;
 }					t_main;
 
 typedef struct		s_cursor

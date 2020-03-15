@@ -60,6 +60,11 @@ int				main(int ac, char *av[])
 
 	main = init();
 	insert_params(main, ac, av);
+	if (main->starter)
+	{
+		main->speed = 1;
+		main->pause = 1;
+	}
 	if (main->flag_v)
 		init_mlx(main);
 	init_area(main);
@@ -72,8 +77,7 @@ int				main(int ac, char *av[])
 		mlx_loop(main->mlx);
 	}
 	else
-	{
 		start_game(main);
-	}
+	exit(0);
 	return (0);
 }
