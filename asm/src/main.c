@@ -6,7 +6,7 @@
 /*   By: sjamie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 16:27:19 by sjamie            #+#    #+#             */
-/*   Updated: 2020/01/03 16:27:20 by sjamie           ###   ########.fr       */
+/*   Updated: 2020/03/15 16:36:10 by matruman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				main(int ac, char *av[])
 		return (0);
 	}
 	if (ac < 2 || ac > 3 || !(res = check_args(ac, av)))
-		die("Usage: ./asm [-a] <your_sourcefile.s>");
+		die("Usage: ./asm [-a] <your_sourcefile.s> OR <your_binaryfile.cor>");
 	if ((ch = open(av[res], O_RDONLY)) == -1)
 		die(ft_strjoin("Can't read source file ", av[res]));
 	main = init(ch);
