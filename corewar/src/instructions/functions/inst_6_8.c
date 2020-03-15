@@ -26,94 +26,94 @@ int		bop_op(int a, int b, char op)
 void	bop_reg(t_cursor *cursor, char *area, uint8_t *mem, char op)
 { 
 	if (cursor->types[1] == T_REG_CODE)
-		{
-			if (mem[1] > 16 || mem[2] > 16 || !mem[1] || !mem[2])
-				return ;
-			cursor->reg[mem[2] - 1] = bop_op(cursor->reg[mem[0] - 1],
-			cursor->reg[mem[1] - 1], op);
-			cursor->carry = !cursor->reg[mem[2] - 1];
-			return;
-		}
-		if (cursor->types[1] == T_DIR_CODE)
-		{
-			if (mem[5] > 16 || !mem[5])
-				return;
-			cursor->reg[mem[5] - 1] = bop_op(*(int *)(mem + 1),
-			cursor->reg[mem[0] - 1], op);
-			cursor->carry = !cursor->reg[mem[5] - 1];
-			return;
-		}
-		if (mem[3] > 16 || !mem[3])
-			return;
-		rev_endian (mem + 1, 2);
-		memory_read(area, cursor->pos + *(short *)(mem + 1) % IDX_MOD,
-		mem + 4, 4);
-		cursor->reg[mem[3] - 1] = bop_op(*(int *)(mem + 4),
+	{
+		if (mem[1] > 16 || mem[2] > 16 || !mem[1] || !mem[2])
+			return ;
+		cursor->reg[mem[2] - 1] = bop_op(cursor->reg[mem[0] - 1],
+		cursor->reg[mem[1] - 1], op);
+		cursor->carry = !cursor->reg[mem[2] - 1];
+		return ;
+	}
+	if (cursor->types[1] == T_DIR_CODE)
+	{
+		if (mem[5] > 16 || !mem[5])
+			return ;
+		cursor->reg[mem[5] - 1] = bop_op(*(int *)(mem + 1),
 		cursor->reg[mem[0] - 1], op);
-		cursor->carry = !cursor->reg[mem[3] - 1];
+		cursor->carry = !cursor->reg[mem[5] - 1];
+		return;
+	}
+	if (mem[3] > 16 || !mem[3])
+		return ;
+	rev_endian (mem + 1, 2);
+	memory_read(area, cursor->pos + *(short *)(mem + 1) % IDX_MOD,
+	mem + 4, 4);
+	cursor->reg[mem[3] - 1] = bop_op(*(int *)(mem + 4),
+	cursor->reg[mem[0] - 1], op);
+	cursor->carry = !cursor->reg[mem[3] - 1];
 }
 
 void	bop_dir(t_cursor *cursor, char *area, uint8_t *mem, char op)
 {
 	if (cursor->types[1] == T_REG_CODE)
-		{
-			if (mem[4] > 16 || mem[5] > 16 || !mem[4] || !mem[5])
-				return ;
-			cursor->reg[mem[5] - 1] = bop_op(*(int *)(mem),
-			 cursor->reg[mem[4] - 1], op);
-			cursor->carry = !cursor->reg[mem[5] - 1];
-			return;
-		}
-		if (cursor->types[1] == T_DIR_CODE)
-		{
-			if (mem[8] > 16 || !mem[8])
-				return;
-			cursor->reg[mem[8] - 1] = bop_op(*(int *)(mem),
-			*(int *)(mem + 4), op);
-			cursor->carry = !cursor->reg[mem[8] - 1];
-			return;
-		}
-		if (mem[6] > 16 || !mem[6])
-			return;
-		rev_endian (mem + 4, 2);
-		memory_read(area, cursor->pos + *(short *)(mem + 4) % IDX_MOD,
-		mem + 7, 4);
-		cursor->reg[mem[6] - 1] = bop_op(*(int *)(mem),
-		*(int *)(mem + 7), op);
-		cursor->carry = !cursor->reg[mem[6] - 1];
+	{
+		if (mem[4] > 16 || mem[5] > 16 || !mem[4] || !mem[5])
+			return ;
+		cursor->reg[mem[5] - 1] = bop_op(*(int *)(mem),
+			cursor->reg[mem[4] - 1], op);
+		cursor->carry = !cursor->reg[mem[5] - 1];
+		return ;
+	}
+	if (cursor->types[1] == T_DIR_CODE)
+	{
+		if (mem[8] > 16 || !mem[8])
+			return ;
+		cursor->reg[mem[8] - 1] = bop_op(*(int *)(mem),
+		*(int *)(mem + 4), op);
+		cursor->carry = !cursor->reg[mem[8] - 1];
+		return ;
+	}
+	if (mem[6] > 16 || !mem[6])
+		return ;
+	rev_endian (mem + 4, 2);
+	memory_read(area, cursor->pos + *(short *)(mem + 4) % IDX_MOD,
+	mem + 7, 4);
+	cursor->reg[mem[6] - 1] = bop_op(*(int *)(mem),
+	*(int *)(mem + 7), op);
+	cursor->carry = !cursor->reg[mem[6] - 1];
 }
 
 void	bop_ind(t_cursor *cursor, char *area, uint8_t *mem, char op)
 {
 	if (cursor->types[1] == T_REG_CODE)
-		{
-			if (mem[2] > 16 || mem[3] > 16 || !mem[2] || !mem[3])
-				return ;
-			cursor->reg[mem[3] - 1] = bop_op(*(int *)(mem + 7),
-			cursor->reg[mem[2] - 1], op);
-			cursor->carry = !cursor->reg[mem[3] - 1];
-			return;
-		}
-		if (cursor->types[1] == T_DIR_CODE)
-		{
-			if (mem[6] > 16 || !mem[6])
-				return;
-			cursor->reg[mem[6] - 1] = bop_op(*(int *)(mem + 7),
-			*(int *)(mem + 2), op);
-			cursor->carry = !cursor->reg[mem[6] - 1];
-			return;
-		}
-		if (mem[4] > 16 || !mem[4])
-			return;
-		rev_endian (mem + 2, 2);
-		memory_read(area, cursor->pos + *(short *)(mem + 2) % IDX_MOD,
-		mem + 11, 4);
-		cursor->reg[mem[4] - 1] = bop_op(*(int *)(mem + 7),
-		*(int *)(mem + 11), op);
-		cursor->carry = !cursor->reg[mem[4] - 1];
+	{
+		if (mem[2] > 16 || mem[3] > 16 || !mem[2] || !mem[3])
+			return ;
+		cursor->reg[mem[3] - 1] = bop_op(*(int *)(mem + 7),
+		cursor->reg[mem[2] - 1], op);
+		cursor->carry = !cursor->reg[mem[3] - 1];
+		return;
+	}
+	if (cursor->types[1] == T_DIR_CODE)
+	{
+		if (mem[6] > 16 || !mem[6])
+			return ;
+		cursor->reg[mem[6] - 1] = bop_op(*(int *)(mem + 7),
+		*(int *)(mem + 2), op);
+		cursor->carry = !cursor->reg[mem[6] - 1];
+		return ;
+	}
+	if (mem[4] > 16 || !mem[4])
+		return ;
+	rev_endian (mem + 2, 2);
+	memory_read(area, cursor->pos + *(short *)(mem + 2) % IDX_MOD,
+	mem + 11, 4);
+	cursor->reg[mem[4] - 1] = bop_op(*(int *)(mem + 7),
+	*(int *)(mem + 11), op);
+	cursor->carry = !cursor->reg[mem[4] - 1];
 }
 
-void    and(t_main *main, t_cursor *cursor, char *area)
+void	and(t_main *main, t_cursor *cursor, char *area)
 {
 	uint8_t	mem[15];
 	char	op = '&';
@@ -138,7 +138,7 @@ void    and(t_main *main, t_cursor *cursor, char *area)
 	}
 }
 
-void    or(t_main *main, t_cursor *cursor, char *area)
+void	or(t_main *main, t_cursor *cursor, char *area)
 {
 	uint8_t	mem[15];
 	char	op = '|';
@@ -163,7 +163,7 @@ void    or(t_main *main, t_cursor *cursor, char *area)
 	}
 }
 
-void    xor(t_main *main, t_cursor *cursor, char *area)
+void	xor(t_main *main, t_cursor *cursor, char *area)
 {
 	uint8_t	mem[15];
 	char	op = '^';

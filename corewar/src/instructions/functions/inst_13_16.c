@@ -41,6 +41,9 @@ void			cursor_copy_and_add(t_main *main, t_cursor *current, t_cursor *cursor, in
 {
 	int			i;
 	
+	addr = addr % MEM_SIZE;
+	if (addr < 0)
+		addr += MEM_SIZE;
 	i = -1;
 	while (++i < REG_NUMBER)
 		cursor->reg[i] = current->reg[i];

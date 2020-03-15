@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inst_1_5.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: matruman <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/15 18:20:53 by matruman          #+#    #+#             */
+/*   Updated: 2020/03/15 18:20:56 by matruman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-void    live(t_main *main, t_cursor *cursor, char *area)
+void	live(t_main *main, t_cursor *cursor, char *area)
 {
 	int32_t	val;
 
@@ -20,7 +32,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 {
 	uint8_t		regnum;
 	int16_t		addr;
-	
+
 	if (cursor->types[0] == T_DIR_CODE)
 	{
 		memory_read(area, cursor->pos + 6, &regnum, 1);
@@ -34,7 +46,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	rev_endian(&addr, 2);
 	memory_read(area, cursor->pos + 4, &regnum, 1);
 	if (!regnum || regnum > 16)
-			return ;
+		return ;
 	memory_read(area, cursor->pos + addr % IDX_MOD,
 				&cursor->reg[regnum - 1], 4);
 	cursor->carry = !cursor->reg[regnum - 1];
@@ -45,10 +57,10 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		regnum1;
 	uint8_t		regnum2;
 	int16_t		addr;
-	
+
 	memory_read(area, cursor->pos + 2, &regnum1, 1);
 	if (!regnum1 || regnum1 > 16)
-			return ;
+		return ;
 	if (cursor->types[1] == T_REG_CODE)
 	{
 		memory_read(area, cursor->pos + 3, &regnum2, 1);
@@ -57,7 +69,7 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 		cursor->reg[regnum2 - 1] = cursor->reg[regnum1 - 1];
 		return ;
 	}
-	if (regnum1 > 16 ||	!regnum1)
+	if (regnum1 > 16 || !regnum1)
 		return ;
 	memory_read(area, cursor->pos + 3, &addr, 2);
 	rev_endian(&addr, 2);
@@ -69,12 +81,12 @@ void	add(t_main *main, t_cursor *cursor, char *area)
 {
 	int32_t		val[2];
 	uint8_t		reg[3];
-	
+
 	(void)main;
 	memory_read(area, cursor->pos + 2, reg, 3);
 	if (reg[0] > 16 || reg[1] > 16 || reg[2] > 16 ||
 		!reg[0] || !reg[1] || !reg[2])
-		return;
+		return ;
 	val[0] = cursor->reg[reg[0] - 1];
 	val[1] = cursor->reg[reg[1] - 1];
 	rev_endian(&val[0], REG_SIZE);
@@ -88,12 +100,12 @@ void	sub(t_main *main, t_cursor *cursor, char *area)
 {
 	int32_t		val[2];
 	uint8_t		reg[3];
-	
+
 	(void)main;
 	memory_read(area, cursor->pos + 2, reg, 3);
 	if (reg[0] > 16 || reg[1] > 16 || reg[2] > 16 ||
 		!reg[0] || !reg[1] || !reg[2])
-		return;
+		return ;
 	val[0] = cursor->reg[reg[0] - 1];
 	val[1] = cursor->reg[reg[1] - 1];
 	rev_endian(&val[0], REG_SIZE);
