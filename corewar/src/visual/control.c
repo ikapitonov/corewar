@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   control.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bpole <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/15 21:04:13 by bpole             #+#    #+#             */
+/*   Updated: 2020/03/15 21:05:40 by bpole            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static void		put_pause(t_main *main)
@@ -6,11 +18,6 @@ static void		put_pause(t_main *main)
 		main->pause = 1;
 	else
 		main->pause = 0;
-}
-
-static void		reset(t_main *main)
-{
-
 }
 
 static void		speed_control(int key, t_main *main)
