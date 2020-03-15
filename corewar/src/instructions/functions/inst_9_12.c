@@ -35,9 +35,9 @@ static int		ldi_lldi(t_cursor *cursor, char *area, char *mem, int f)
 
 	if (cursor->types[1] == T_REG_CODE)
 	{
-		if (mem[mem[20]] > 16 || mem[mem[20]] < 1)
+		if (mem[(int)mem[20]] > 16 || mem[(int)mem[20]] < 1)
 			return -1;
-		((int *)(mem + 12))[0] = cursor->reg[mem[mem[20]] - 1];
+		((int *)(mem + 12))[0] = cursor->reg[(int)mem[(int)mem[20]] - 1];
 		rev_endian(mem + 12, 4);
 		mem[11] = mem[mem[20] + 1];
 	}
@@ -64,6 +64,7 @@ void			ldi(t_main *main, t_cursor *cursor, char *area)
 {
 	char	mem[21];
 
+	(void)main;
 	ft_bzero(mem, 20);
 	memory_read(area, cursor->pos + 2, mem, 9);
 	if (cursor->types[0] == T_REG_CODE)
@@ -96,6 +97,7 @@ void			lldi(t_main *main, t_cursor *cursor, char *area)
 {
 	char	mem[21];
 
+	(void)main;
 	ft_bzero(mem, 20);
 	memory_read(area, cursor->pos + 2, mem, 9);
 	if (cursor->types[0] == T_REG_CODE)
@@ -133,9 +135,9 @@ static void		t_sti(t_main *main, t_cursor *cursor, char *area, char *mem)
 		return ;
 	if (cursor->types[2] == T_REG_CODE)
 	{
-		if (mem[mem[20]] > 16 || mem[mem[20]] < 1)
+		if (mem[(int)mem[20]] > 16 || mem[(int)mem[20]] < 1)
 			return ;
-		((int *)(mem + 12))[0] = cursor->reg[mem[mem[20]] - 1];
+		((int *)(mem + 12))[0] = cursor->reg[mem[(int)mem[20]] - 1];
 		rev_endian(mem + 12, 4);
 	}
 	else if (cursor->types[2] == T_DIR_CODE)

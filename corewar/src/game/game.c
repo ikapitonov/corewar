@@ -29,6 +29,7 @@ static	void	asm_functions(t_main *main, t_cursor *cursor)
 
 static	int		is_invalid_move(t_main *main, t_cursor *cursor, int32_t tmp)
 {
+	(void)main;
 	if (tmp < 1 || tmp > COUNT_TOKENS)
 	{
 		cursor->operation_code = 0;

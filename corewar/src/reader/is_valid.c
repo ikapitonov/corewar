@@ -41,6 +41,7 @@ void			valid_file_size(char *str, int size)
 {
 	int		res;
 
+	(void)str;
 	res = PROG_NAME_LENGTH + COMMENT_LENGTH + HEADER_VAR;
 	if (size < res)
 		die("Content from file so small");

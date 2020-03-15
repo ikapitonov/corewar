@@ -37,9 +37,9 @@ static	void	start_game(t_main *main)
 	i = 0;
 	while (++i <= main->players)
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-		i, main->player[main->p_index[i]].code_size,
-		main->player[main->p_index[i]].name,
-		main->player[main->p_index[i]].comment);
+		i, main->player[(int)main->p_index[i]].code_size,
+		main->player[(int)main->p_index[i]].name,
+		main->player[(int)main->p_index[i]].comment);
 	while (main->cursor && main->cycle_to_die > 0)
 	{
 		game_exec(main);

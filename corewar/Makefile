@@ -15,7 +15,7 @@ NAME			= corewar
 CC				= gcc
 HEADER			= includes/
 
-CFLAGS			= -O2 -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
+CFLAGS			= -O2 -I $(HEADER) -Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \

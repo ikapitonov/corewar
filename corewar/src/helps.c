@@ -21,13 +21,13 @@ void			print_winner(t_main *main)
 	i = main->players;
 	while (i)
 	{
-		if (main->player[main->p_index[i]].all_lives >
-			main->player[main->p_index[winner]].all_lives)
+		if (main->player[(int)main->p_index[i]].all_lives >
+			main->player[(int)main->p_index[winner]].all_lives)
 			winner = i;
 		i--;
 	}
 	ft_printf("Contestant %d, \"%s\", has won !\n", winner,
-			main->player[main->p_index[winner]].name);
+			main->player[(int)main->p_index[winner]].name);
 }
 
 void			die(const char *reason)

@@ -10,7 +10,7 @@ static void		put_pause(t_main *main)
 
 static void		reset(t_main *main)
 {
-
+	(void)main;
 }
 
 static void		speed_control(int key, t_main *main)
