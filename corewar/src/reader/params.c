@@ -15,9 +15,9 @@
 void			help(void)
 {
 	die("Usage: ./corewar [-a] [-v] [-n <num>] <champion.cor> <...>\n \
-	   -a        : Prints output from \"aff\" (Default is to hide it)\n \
-	   -v        : Visualization\n \
-	   -n  <num> : Set <num> of the next player\n");
+		-a        : Prints output from \"aff\" (Default is to hide it)\n \
+		-v        : Visualization\n \
+		-n  <num> : Set <num> of the next player\n");
 }
 
 static	void	insert_player(t_main *main, char *player, int n)
@@ -40,17 +40,18 @@ static	void	insert_player(t_main *main, char *player, int n)
 }
 
 static	void	insert_flag(t_main *main, int count_args,
-							  char *params[], int i)
+								char *params[], int i)
 {
 	int		res;
-	
-	if (params[i][0] && !ft_strncmp(params[i] + 1, DUMP, DUMP_LEN) && !params[i][5]
+
+	if (params[i][0] && !ft_strncmp(params[i] + 1,
+		DUMP, DUMP_LEN) && !params[i][5]
 		&& is_number(count_args, params, i) && !main->dump)
 	{
 		main->dump = valid_number(params[i + 1]);
 	}
 	else if (params[i][0] && *(params[i] + 1) == 'n' && !params[i][2]
-			 && is_number(count_args, params, i) && i + 2 < count_args)
+			&& is_number(count_args, params, i) && i + 2 < count_args)
 	{
 		if ((res = valid_number(params[i + 1])) > MAX_PLAYERS)
 			help();
@@ -67,25 +68,10 @@ static	void	analysis(t_main *main)
 	calc_ids(main);
 }
 
-int 	parse_flag_a_v(t_main *main, char *param)
-{
-	if (!ft_strcmp(param, "-a"))
-	{
-		main->flag_a = 1;
-		return (1);
-	}
-	else if (!ft_strcmp(param, "-v"))
-	{
-		main->flag_v = 1;
-		return (1);
-	}
-	return (0);
-}
-
 void			insert_params(t_main *main, int count_args, char *params[])
 {
 	int		i;
-	
+
 	if (count_args < 2)
 		help();
 	i = 0;

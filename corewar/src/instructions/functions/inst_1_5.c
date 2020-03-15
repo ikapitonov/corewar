@@ -23,8 +23,8 @@ void	live(t_main *main, t_cursor *cursor, char *area)
 	cursor->last_live_cycle = main->cycles_count;
 	if (val < main->players + 1 && val > 0)
 	{
-		main->player[main->p_index[val]].current_lives += 1;
-		main->player[main->p_index[val]].all_lives = main->cycles_count;
+		main->player[(int)main->p_index[val]].current_lives += 1;
+		main->player[(int)main->p_index[val]].all_lives = main->cycles_count;
 	}
 }
 
@@ -33,6 +33,7 @@ void	ld(t_main *main, t_cursor *cursor, char *area)
 	uint8_t		regnum;
 	int16_t		addr;
 
+	(void)main;
 	if (cursor->types[0] == T_DIR_CODE)
 	{
 		memory_read(area, cursor->pos + 6, &regnum, 1);

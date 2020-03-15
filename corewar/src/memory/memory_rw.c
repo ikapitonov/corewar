@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void		rev_endian(void *val, int size)
+void			rev_endian(void *val, int size)
 {
 	char	*p;
 	char	tmp;
@@ -29,7 +29,7 @@ void		rev_endian(void *val, int size)
 	}
 }
 
-int32_t		memory_read_rev_endian(char *area, int pos, int size)
+int32_t			memory_read_rev_endian(char *area, int pos, int size)
 {
 	int32_t	res;
 
@@ -39,12 +39,11 @@ int32_t		memory_read_rev_endian(char *area, int pos, int size)
 	return (res);
 }
 
-void		memory_read(char *area, int pos, void *dst, int size)
+void			memory_read(char *area, int pos, void *dst, int size)
 {
 	int		i;
 	char	*cdst;
 
-	//ft_printf("read\n");
 	pos = pos % MEM_SIZE;
 	if (pos < 0)
 		pos += MEM_SIZE;
@@ -57,12 +56,12 @@ void		memory_read(char *area, int pos, void *dst, int size)
 	}
 }
 
-void	memory_write(t_main *main, int player, char *area, int pos, void *src, int size)
+void			memory_write(t_main *main, int player, char *area,
+								int pos, void *src, int size)
 {
 	int		i;
 	char	*csrc;
-	
-	//ft_printf("write\n");
+
 	pos = pos % MEM_SIZE;
 	if (pos < 0)
 		pos += MEM_SIZE;
@@ -70,7 +69,7 @@ void	memory_write(t_main *main, int player, char *area, int pos, void *src, int 
 	i = 0;
 	while (i < size)
 	{
-		area[(pos + i) % MEM_SIZE] = csrc[i];		//  csrc[i]
+		area[(pos + i) % MEM_SIZE] = csrc[i];
 		main->cell[(pos + i) % MEM_SIZE].player = player;
 		i++;
 	}

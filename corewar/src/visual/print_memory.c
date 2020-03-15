@@ -38,12 +38,11 @@ void	put_sps(unsigned long i)
 
 void	print_memory(const void *addr, size_t size)
 {
-	char			s[16];
+	static char		s[16] = "0123456789abcdef";
 	unsigned char	*tab;
 	unsigned long	i;
 	unsigned long	res;
 
-	s = "0123456789abcdef";
 	i = 0;
 	tab = (unsigned char*)addr;
 	while (i < size)

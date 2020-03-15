@@ -19,7 +19,7 @@ static	void	push_stack(t_main *main, int *stack)
 
 	i = 0;
 	while (i < MAX_PLAYERS + 1)
-	{	
+	{
 		stack[i] = -1;
 		++i;
 	}
@@ -92,11 +92,11 @@ void			init_player(t_main *main, int ch, int n)
 	file_get_content(&content, ch);
 	if (!content.str)
 		die("Empty file");
-	valid_file_size(content.str, (int) content.size);
+	valid_file_size(content.str, (int)content.size);
 	check_file_content(main, &content);
 	main->player[main->players].content = content.str;
-	main->player[main->players].file_size = (int) content.size;
-	main->player[main->players].code_size = (int) content.size -
+	main->player[main->players].file_size = (int)content.size;
+	main->player[main->players].code_size = (int)content.size -
 		(PROG_NAME_LENGTH + COMMENT_LENGTH + HEADER_VAR);
 	if (n)
 		check_double(main, n);

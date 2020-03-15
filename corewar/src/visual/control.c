@@ -40,7 +40,7 @@ int				lem_hook_keydown(int key, t_main *main)
 	if (key == MAIN_PAD_P)
 		put_pause(main);
 	if (key == MAIN_PAD_R)
-		reset(main);
+		;
 	if (key == MAIN_PAD_SPACE)
 		main->one_step = 1;
 	if (key == NUM_PAD_MINUS || key == NUM_PAD_PLUS)
