@@ -83,18 +83,24 @@ unsigned long long			get_unsigned(long long value);
 t_float						*get_fl(t_format_list *format_list);
 int							print_format_list(t_format_list *format_list,
 													t_buffer *buffer);
-int							print_conv_di(t_format_list *format_list, t_buffer *buffer);
-int							print_conv_pouxx(t_format_list *format_list, t_buffer *buffer);
-int							print_conv_cp(t_format_list *format_list, t_buffer *buffer);
-int							print_conv_s(t_format_list *format_list, t_buffer *buffer);
-int							print_conv_float(t_format_list *format_list, t_buffer *buffer);
+int							print_conv_di(t_format_list *format_list,
+											t_buffer *buffer);
+int							print_conv_pouxx(t_format_list *format_list,
+											t_buffer *buffer);
+int							print_conv_cp(t_format_list *format_list,
+											t_buffer *buffer);
+int							print_conv_s(t_format_list *format_list,
+											t_buffer *buffer);
+int							print_conv_float(t_format_list *format_list,
+											t_buffer *buffer);
 char						*add_prefix(char *str, int count, char c);
 char						*add_suffix(char *str, int count, char c);
 void						ft_strcap(char *str);
 void						free_format_list(t_format_list *list);
 void						pf_buffer_init(t_buffer *buffer, int size);
 void						buffer_chadd(t_buffer *buffer, char c);
-int							pf_buffer_add(t_buffer	*buffer, const char *str, size_t size);
+int							pf_buffer_add(t_buffer	*buffer, const char *str,
+											size_t size);
 int							ft_printf(const char *format, ...);
 
 #endif

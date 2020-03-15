@@ -12,7 +12,7 @@
 
 #include "ft_printf_lib.h"
 
-void		pf_buffer_init(t_buffer *buffer, int size)
+void			pf_buffer_init(t_buffer *buffer, int size)
 {
 	buffer->buff = (char *)malloc(size + 1);
 	buffer->used = 0;
@@ -32,7 +32,7 @@ static int		ft_min(size_t a, size_t b)
 	return (b);
 }
 
-void	buffer_chadd(t_buffer *buffer, char c)
+void			buffer_chadd(t_buffer *buffer, char c)
 {
 	if (buffer->used == buffer->size)
 		buffer_resize(buffer);
@@ -40,7 +40,7 @@ void	buffer_chadd(t_buffer *buffer, char c)
 	buffer->used++;
 }
 
-int		pf_buffer_add(t_buffer *buffer, const char *str, size_t size)
+int				pf_buffer_add(t_buffer *buffer, const char *str, size_t size)
 {
 	size_t	s;
 	size_t	min;

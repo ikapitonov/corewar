@@ -111,5 +111,4 @@ void	print_code_info(t_main *main, t_token *token, t_mark **marks, int i)
 	}
 	print_marks(main->last_token->pos + main->last_token->len,
 	NULL, marks);
-	//free_mark_array();
 }

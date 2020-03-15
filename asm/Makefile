@@ -46,7 +46,12 @@ SRC				= src/main.c \
 				  src/parser/components/token/indirect.c \
 				  src/parser/components/token/label.c\
 				\
-				src/disassembly/disassembly.c
+				src/disassembly/disassembly.c\
+				src/disassembly/instructions_1.c\
+                src/disassembly/instructions_2.c\
+                src/disassembly/instructions_3.c\
+                src/disassembly/instructions_4.c\
+                src/disassembly/name_comments.c\
 
 LIB =			  ../libft/libft.a
 
