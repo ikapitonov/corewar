@@ -47,3 +47,18 @@ void			valid_file_size(char *str, int size)
 	if (size > res + CHAMP_MAX_SIZE)
 		die("Content from file too long");
 }
+
+int				parse_flag_a_v(t_main *main, char *param)
+{
+	if (!ft_strcmp(param, "-a"))
+	{
+		main->flag_a = 1;
+		return (1);
+	}
+	else if (!ft_strcmp(param, "-v"))
+	{
+		main->flag_v = 1;
+		return (1);
+	}
+	return (0);
+}

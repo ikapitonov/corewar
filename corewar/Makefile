@@ -19,6 +19,7 @@ CFLAGS			= -O2 -I $(HEADER) #-Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
+				  src/helps.c \
 				  src/memory/memory_rw.c \
 				  src/reader/params.c \
 				  src/reader/is_valid.c \
@@ -37,7 +38,8 @@ SRC				= src/main.c \
 				  src/visual/render.c \
 				  src/visual/render_inst.c \
 				  \
-				  src/game/game.c
+				  src/game/game.c \
+				  src/game/helps.c
 
 LIB =			  ../libft/libft.a
 
