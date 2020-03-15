@@ -12,26 +12,6 @@
 
 #include "../../includes/asm.h"
 
-void	recursive_mark_print(t_mark **marks, int pos, int i)
-{
-	if (i - 1 >= 0 && marks[i - 1]->mark)
-		recursive_mark_print(marks, pos, i - 1);
-	ft_printf("%-11d:    %s:\n", pos, marks[i]->name);
-}
-
-void    print_marks(int pos, t_token *token, t_mark **marks)
-{
-	int		i;
-
-	i = 0;
-	while (marks[i] && (marks[i]->token != token ||
-	(!token && marks[i]->mark)))
-		i++;
-	if (!marks[i])
-		return ;
-	recursive_mark_print(marks, pos, i);
-}
-
 t_mark	**get_mark_array(t_mark *start)
 {
 	int		count;
@@ -67,7 +47,6 @@ int		print_arg(int arg, char type, char *mark)
 		if (mark)
 			return (ft_printf("%%:%-16s", mark));
 		return (ft_printf("%%%-17d", arg));
-		
 	}
 	if (mark)
 		return (ft_printf(":%-17s", mark));
@@ -103,7 +82,7 @@ void	print_command(t_token *token)
 	if (g_instr[token->instruct].is_code_type)
 		ft_printf("\n%20s%-4hhu%-6hhu", "", token->instruct + 1,
 		set_arg_types(token->type));
-	else	
+	else
 		ft_printf("\n%20s%-10hhu", "", token->instruct + 1);
 }
 

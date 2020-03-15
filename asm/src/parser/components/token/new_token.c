@@ -41,8 +41,8 @@ void			*new_token(int index)
 
 	i = 0;
 	token = (t_token*)smart_malloc(sizeof(t_token));
-    token->len = 0;
-    token->pos = 0;
+	token->len = 0;
+	token->pos = 0;
 	token->instruct = index;
 	token->next = NULL;
 	token->set_index = 0;

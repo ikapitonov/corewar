@@ -16,14 +16,14 @@ static	void	check_max_index(int i, int flag, int length, t_read *reader)
 {
 	char	*str;
 
-	if (i < length)
+	if (i < length - 1)
 		return ;
 	if (flag)
 		str = "Champion comment ";
 	else
 		str = "Champion name ";
-	pars_error(ft_strjoin(str, ft_strjoin("too long: Max length ",
-				ft_itoa(length))), reader);
+	pars_error(ft_sprintf("%s%s%d", str, "too long: Max length ",
+				length), reader);
 }
 
 static	void	next_line(t_read *reader, int *i, char *str)
@@ -33,7 +33,7 @@ static	void	next_line(t_read *reader, int *i, char *str)
 	{
 		reader->i -= 1;
 		pars_error("Invalid string", reader);
-	}	
+	}
 	str[*i] = '\n';
 	*i += 1;
 	reader->j = 0;

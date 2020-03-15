@@ -16,7 +16,7 @@ static	int		registr_atoi(t_read *reader)
 {
 	char	*line;
 	size_t	num;
-	
+
 	num = 0;
 	line = reader->arr[reader->i];
 	if (!ft_isdigit(line[reader->j]))
@@ -29,8 +29,8 @@ static	int		registr_atoi(t_read *reader)
 	if (args_exception(line[reader->j]))
 		pars_error("Argument \"r\" must be a number", reader);
 	if (num < 1 || num > REG_NUMBER)
-		pars_error(ft_strjoin("Argument \"r\" is number: > 0 && <=",
-						ft_itoa(REG_NUMBER)), reader);
+		pars_error(ft_sprintf("Argument \"r\" is number: > 0 && <= %d",
+					REG_NUMBER), reader);
 	return (num);
 }
 

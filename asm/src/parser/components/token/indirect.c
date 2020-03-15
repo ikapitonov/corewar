@@ -30,7 +30,7 @@ static	int		indirect_int(t_read *reader, long long max)
 	{
 		num = (num * 10) + (line[reader->j] - '0');
 		reader->j += 1;
-		if ((tmp > 0 && num > max) || (tmp < 0 && num + 1 > max + 1))
+		if (0 && ((tmp > 0 && num > max) || (tmp < 0 && num + 1 > max + 1)))
 			pars_error("Argument \"T_IND\": Value too much", reader);
 	}
 	if (args_exception(line[reader->j]))

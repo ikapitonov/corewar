@@ -8,7 +8,7 @@ label1:
 label2:
 label3:
 entry:
-	sti		r1, %:beegees_gen, %1
+	sti		r19, %:beegees_gen, %1
 	sti		r1, %:beegees, %1
 	sti		r1, %:cc_spawn, %1
 	sti		r1, %:wall, %1
