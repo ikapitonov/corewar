@@ -26,6 +26,7 @@ void			print_winner(t_main *main)
 			winner = i;
 		i--;
 	}
+	main->winner = winner;
 	ft_printf("Contestant %d, \"%s\", has won !\n", winner,
 			main->player[(int)main->p_index[winner]].name);
 }

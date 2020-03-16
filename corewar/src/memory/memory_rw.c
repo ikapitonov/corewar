@@ -39,6 +39,12 @@ int32_t			memory_read_rev_endian(char *area, int pos, int size)
 	return (res);
 }
 
+void			memory_rread(char *area, int pos, void *dst, int size)
+{
+	memory_read(area, pos, dst, size);
+	rev_endian(dst, size);
+}
+
 void			memory_read(char *area, int pos, void *dst, int size)
 {
 	int		i;
@@ -56,8 +62,7 @@ void			memory_read(char *area, int pos, void *dst, int size)
 	}
 }
 
-void			memory_write(t_main *main, int player, char *area,
-								int pos, void *src, int size)
+void			memory_write(t_main *main, int player, int pos, void *src)
 {
 	int		i;
 	char	*csrc;
@@ -67,9 +72,9 @@ void			memory_write(t_main *main, int player, char *area,
 		pos += MEM_SIZE;
 	csrc = (char *)src;
 	i = 0;
-	while (i < size)
+	while (i < DIR_SIZE)
 	{
-		area[(pos + i) % MEM_SIZE] = csrc[i];
+		main->area[(pos + i) % MEM_SIZE] = csrc[i];
 		main->cell[(pos + i) % MEM_SIZE].player = player;
 		i++;
 	}

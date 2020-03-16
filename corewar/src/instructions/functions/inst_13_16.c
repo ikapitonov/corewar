@@ -16,7 +16,7 @@ void	lld(t_main *main, t_cursor *cursor, char *area)
 {
 	uint8_t		regnum;
 	int16_t		addr;
-	
+
 	(void)main;
 	if (cursor->types[0] == T_DIR_CODE)
 	{
@@ -37,10 +37,11 @@ void	lld(t_main *main, t_cursor *cursor, char *area)
 	cursor->carry = !cursor->reg[regnum - 1];
 }
 
-void			cursor_copy_and_add(t_main *main, t_cursor *current, t_cursor *cursor, int16_t addr)
+void	cursor_copy_and_add(t_main *main, t_cursor *current,
+							t_cursor *cursor, int16_t addr)
 {
 	int			i;
-	
+
 	addr = addr % MEM_SIZE;
 	if (addr < 0)
 		addr += MEM_SIZE;
@@ -72,7 +73,7 @@ void	lfork(t_main *main, t_cursor *cursor, char *area)
 {
 	t_cursor	*new;
 	int16_t		addr;
-	
+
 	memory_read(area, cursor->pos + 1, &addr, 2);
 	rev_endian(&addr, 2);
 	new = (t_cursor*)smart_malloc(sizeof(t_cursor));
@@ -82,7 +83,7 @@ void	lfork(t_main *main, t_cursor *cursor, char *area)
 void	aff(t_main *main, t_cursor *cursor, char *area)
 {
 	int32_t	val;
-	
+
 	if (main->flag_a)
 	{
 		memory_read(area, cursor->pos + 2, &val, 4);

@@ -30,6 +30,17 @@ void			count_coursor(t_main *main)
 	}
 }
 
+static void		check_finish_game(t_main *main)
+{
+	if ((!main->cursor || main->cycle_to_die <= 0) && !main->finish)
+	{
+		if (main->cursor)
+			game_exec(main);
+		print_winner(main);
+		main->finish += 1;
+	}
+}
+
 int				lem_loop_key_hook(t_main *main)
 {
 	char		*str;
@@ -45,6 +56,7 @@ int				lem_loop_key_hook(t_main *main)
 			game_exec(main);
 			main->one_step = 0;
 		}
+		check_finish_game(main);
 		count_coursor(main);
 		render(main);
 	}

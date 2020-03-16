@@ -108,6 +108,8 @@ typedef struct		s_main
 	int				size_line;
 	int				endian;
 	int				starter;
+	int				finish;
+	int				winner;
 }					t_main;
 
 typedef struct		s_cursor
@@ -141,8 +143,8 @@ void				valid_filename(char *filename);
 void				valid_file_size(char *str, int size);
 
 void				memory_read(char *area, int pos, void *dst, int size);
-void				memory_write(t_main *main, int player, char *area,
-									int pos, void *src, int size);
+void				memory_rread(char *area, int pos, void *dst, int size);
+void				memory_write(t_main *main, int player, int pos, void *src);
 void				rev_endian(void *val, int size);
 int32_t				memory_read_rev_endian(char *area, int pos, int size);
 int					get_arg_types(char command, char *arr, char *area, int pos);
@@ -166,6 +168,11 @@ void				lld(t_main *main, t_cursor *cursor, char *area);
 void				lldi(t_main *main, t_cursor *cursor, char *area);
 void				lfork(t_main *main, t_cursor *cursor, char *area);
 void				aff(t_main *main, t_cursor *cursor, char *area);
+
+void				bop_reg(t_cursor *c, char *area, uint8_t *m, char op);
+void				bop_dir(t_cursor *c, char *area, uint8_t *m, char op);
+void				bop_ind(t_cursor *c, char *area, uint8_t *m, char op);
+int					ldi_lldi(t_cursor *c, char *area, char *m, int f);
 
 void				print_winner(t_main *main);
 

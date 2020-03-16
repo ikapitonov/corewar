@@ -14,7 +14,10 @@
 
 void			help(void)
 {
-	die("Usage: ./corewar [-a] [-v] [-n <num>] <champion.cor> <...>\n \
+	die("Usage: ./corewar [-dump <num_cycle>] [-a] [-v] [-n <num>] \
+<champion.cor> <...>\n \
+		-dump     : Prints dump of memory on cycle with number <num_cycle> \
+and exits\n \
 		-a        : Prints output from \"aff\" (Default is to hide it)\n \
 		-v        : Visualization\n \
 		-s        : Start Visualization with speed on\n \

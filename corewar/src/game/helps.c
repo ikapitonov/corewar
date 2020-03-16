@@ -18,7 +18,7 @@ void			validate_cursors(t_main *main)
 	t_cursor	*prev;
 
 	cursor = main->cursor;
-	while (is_rm_cursor(main, cursor))
+	while (cursor && is_rm_cursor(main, cursor))
 	{
 		main->cursor = cursor->next;
 		free(cursor);
@@ -79,6 +79,6 @@ void			validate_exec(t_main *main)
 
 int				is_rm_cursor(t_main *main, t_cursor *cursor)
 {
-	return (cursor && cursor->last_live_cycle +
-					main->cycle_to_die <= main->cycles_count);
+	return (main->cycle_to_die < 0 || (cursor && cursor->last_live_cycle +
+					main->cycle_to_die <= main->cycles_count));
 }

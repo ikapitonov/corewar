@@ -79,6 +79,17 @@ static void		render_menu(t_main *main)
 			TEXT_COLOR, "Speed - Press +/-");
 }
 
+static void		render_winner(t_main *main)
+{
+	static int	color[4] = {CELL_PLAY_1, CELL_PLAY_2, CELL_PLAY_3, CELL_PLAY_4};
+
+	mlx_string_put(main->mlx, main->win, WIDTH - 430, HEIGHT - 400,
+			TEXT_COLOR, "WINNER IS");
+	mlx_string_put(main->mlx, main->win, WIDTH - 430 + 100, HEIGHT - 400,
+		color[(int)main->p_index[main->winner]],
+		main->player[(int)main->p_index[main->winner]].name);
+}
+
 void			render(t_main *main)
 {
 	int			i;
@@ -87,6 +98,8 @@ void			render(t_main *main)
 	mlx_put_image_to_window(main->mlx, main->win, main->img, 0, 0);
 	render_inst(main);
 	render_bar(main);
+	if (main->finish)
+		render_winner(main);
 	i = -1;
 	while (++i < main->players)
 		render_plyer_info(main, i);

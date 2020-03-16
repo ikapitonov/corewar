@@ -75,7 +75,7 @@ void	st(t_main *main, t_cursor *cursor, char *area)
 	memory_read(area, cursor->pos + 3, &addr, 2);
 	rev_endian(&addr, 2);
 	memory_write(main, main->cell[cursor->pos].player,
-	area, cursor->pos + addr % IDX_MOD, &cursor->reg[regnum1 - 1], 4);
+	cursor->pos + addr % IDX_MOD, &cursor->reg[regnum1 - 1]);
 }
 
 void	add(t_main *main, t_cursor *cursor, char *area)

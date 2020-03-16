@@ -13,9 +13,10 @@
 NAME			= corewar
 
 CC				= gcc
-HEADER			= includes/
+HEADER_DIR		= includes
+HEADER			= includes/corewar.h
 
-CFLAGS			= -O2 -I $(HEADER) -Wall -Werror -Wextra -O2 -O3
+CFLAGS			= -I $(HEADER_DIR) -Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
@@ -30,6 +31,7 @@ SRC				= src/main.c \
 				  src/instructions/functions/inst_6_8.c \
 				  src/instructions/functions/inst_9_12.c \
 				  src/instructions/functions/inst_13_16.c \
+				  src/instructions/functions/helps.c \
 				  src/instructions/helps.c \
 				  \
 				  src/visual/control.c \
@@ -44,6 +46,9 @@ SRC				= src/main.c \
 LIB =			  ../libft/libft.a
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
+
+%.o: %.c $(HEADER)
+	gcc -c -I $(HEADER_DIR) $< -o $@
 
 FRAEM = -lmlx -framework OpenGL -framework AppKit
 
