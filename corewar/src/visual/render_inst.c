@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_inst.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bpole <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/15 21:24:39 by bpole             #+#    #+#             */
+/*   Updated: 2020/03/15 21:43:39 by bpole            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-static void		drow_sqw(t_main *main, int x, int y, unsigned long cell)
+static void			drow_sqw(t_main *main, int x, int y, unsigned long cell)
 {
-	int 	w;
-	int 	h;
-	int			i;
-	int 	color;
-	int 	colors[5] = {CELL_DEF, CELL_PLAY_1, CELL_PLAY_2, CELL_PLAY_3, CELL_PLAY_4};
-	
+	int				w;
+	int				h;
+	int				i;
+	int				color;
+	static int		colors[5] =
+	{CELL_DEF, CELL_PLAY_1, CELL_PLAY_2, CELL_PLAY_3, CELL_PLAY_4};
+
 	h = 16;
 	while (h)
 	{
@@ -26,19 +39,19 @@ static void		drow_sqw(t_main *main, int x, int y, unsigned long cell)
 	}
 }
 
-void		render_background_inst(t_main *main)
+void				render_background_inst(t_main *main)
 {
-	int		i;
-	int		x;
-	int		y;
-	
+	int				i;
+	int				x;
+	int				y;
+
 	i = 0;
 	x = 30;
 	y = 30;
 	while (i < MEM_SIZE)
 	{
 		drow_sqw(main, x - 3, y + 2, i);
-		i ++;
+		i++;
 		x += 20;
 		if (i && i % LEN == 0)
 		{
@@ -50,12 +63,12 @@ void		render_background_inst(t_main *main)
 
 void				render_inst(t_main *main)
 {
-	char 			str[2];
+	char			str[2];
 	unsigned char	*tab;
 	unsigned long	i;
-	int x;
-	int y;
-	
+	int				x;
+	int				y;
+
 	i = 0;
 	x = 30;
 	y = 30;
@@ -67,14 +80,12 @@ void				render_inst(t_main *main)
 			str[0] = REG_SYMBOL[tab[i] - 1];
 		else
 			str[0] = '\0';
-		mlx_string_put(main->mlx, main->win, x, y,
-					   TEXT_COLOR, str);
-		i ++;
+		mlx_string_put(main->mlx, main->win, x, y, TEXT_COLOR, str);
+		i++;
 		x += 20;
 		if (i && i % LEN == 0)
-		{
 			y += 20;
+		if (i && i % LEN == 0)
 			x = 30;
-		}
 	}
 }

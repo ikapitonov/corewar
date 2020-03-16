@@ -107,6 +107,7 @@ void	and(t_main *main, t_cursor *cursor, char *area)
 	char	op;
 
 	op = '&';
+	(void)main;
 	memory_read(area, cursor->pos + 2, mem, 9);
 	if (cursor->types[0] == T_REG_CODE)
 	{
@@ -133,6 +134,7 @@ void	or(t_main *main, t_cursor *cursor, char *area)
 	char	op;
 
 	op = '|';
+	(void)main;
 	memory_read(area, cursor->pos + 2, mem, 9);
 	if (cursor->types[0] == T_REG_CODE)
 	{
@@ -159,6 +161,7 @@ void	xor(t_main *main, t_cursor *cursor, char *area)
 	char	op;
 
 	op = '^';
+	(void)main;
 	memory_read(area, cursor->pos + 2, mem, 9);
 	if (cursor->types[0] == T_REG_CODE)
 	{

@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   corewar_loop.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bpole <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/15 21:06:09 by bpole             #+#    #+#             */
+/*   Updated: 2020/03/15 21:11:39 by bpole            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-void	count_coursor(t_main *main)
+void			count_coursor(t_main *main)
 {
 	t_cursor	*cursor;
-	int 		i;
-	
+	int			i;
+
 	i = -1;
-	while (++i < MEM_SIZE)        //  удаляем метки пребывания курсоров в ячейках
+	while (++i < MEM_SIZE)
 		main->cell[i].cursor = 0;
 	cursor = main->cursor;
 	main->cursors = 0;
 	while (cursor)
 	{
 		main->cursors++;
-		main->cell[cursor->pos].cursor = 1;		// добовляем метки
+		main->cell[cursor->pos].cursor = 1;
 		cursor = cursor->next;
 	}
 }
@@ -21,29 +33,26 @@ void	count_coursor(t_main *main)
 int				lem_loop_key_hook(t_main *main)
 {
 	char		*str;
-	static int 		i;
-	
+	static int	i;
+
 	str = "RUN";
-	//p();
 	i = main->speed;
 	if (main->pause == 1 || main->one_step)
 	{
-		while ((i-- > 0 || main->one_step) && main->cursor && main->cycle_to_die > 0)
+		while ((i-- > 0 || main->one_step) &&
+				main->cursor && main->cycle_to_die > 0)
 		{
 			game_exec(main);
 			main->one_step = 0;
 		}
 		count_coursor(main);
 		render(main);
-		// print_memory(main->area, MEM_SIZE);
-		// ft_printf("\n");
 	}
 	else
 		render(main);
 	if (main->pause == 0)
 		str = "PAUSE";
 	mlx_string_put(main->mlx, main->win,
-				   WIDTH - 350, 50, TEXT_COLOR, str);
-	//ft_putstr("dfdf\n");
+			WIDTH - 350, 50, TEXT_COLOR, str);
 	return (0);
 }

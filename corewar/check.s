@@ -1,4 +1,65 @@
 .name "Check !"
 .comment "en fait C forker !"
 
-live %1
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+and %1, %1, r5
+ld %0, r5
+zjmp %500

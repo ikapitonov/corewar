@@ -41,9 +41,30 @@ void			valid_file_size(char *str, int size)
 {
 	int		res;
 
+	(void)str;
 	res = PROG_NAME_LENGTH + COMMENT_LENGTH + HEADER_VAR;
 	if (size < res)
 		die("Content from file so small");
 	if (size > res + CHAMP_MAX_SIZE)
 		die("Content from file too long");
+}
+
+int				parse_flag_a_v(t_main *main, char *param)
+{
+	if (!ft_strcmp(param, "-a"))
+	{
+		main->flag_a = 1;
+		return (1);
+	}
+	else if (!ft_strcmp(param, "-v"))
+	{
+		main->flag_v = 1;
+		return (1);
+	}
+	else if (!ft_strcmp(param, "-s"))
+	{
+		main->starter = 1;
+		return (1);
+	}
+	return (0);
 }
