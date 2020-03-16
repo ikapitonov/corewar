@@ -59,7 +59,7 @@ LIB =			  ../libft/libft.a
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
 %.o: %.c $(HEADER)
-	gcc -c -I $(HEADER_DIR) $< -o $@
+	gcc -c $(CFLAGS) $< -o $@
 
 all: lib $(NAME)
 
