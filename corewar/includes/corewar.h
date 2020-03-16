@@ -150,6 +150,8 @@ int32_t				memory_read_rev_endian(char *area, int pos, int size);
 int					get_arg_types(char command, char *arr, char *area, int pos);
 int					check_arg_types(char *types, char command);
 
+void				sort_p_index(t_main *main);
+
 void				game_exec(t_main *main);
 
 void				live(t_main *main, t_cursor *cursor, char *area);

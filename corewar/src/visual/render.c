@@ -86,8 +86,8 @@ static void		render_winner(t_main *main)
 	mlx_string_put(main->mlx, main->win, WIDTH - 430, HEIGHT - 400,
 			TEXT_COLOR, "WINNER IS");
 	mlx_string_put(main->mlx, main->win, WIDTH - 430 + 100, HEIGHT - 400,
-		color[(int)main->p_index[main->winner]],
-		main->player[(int)main->p_index[main->winner]].name);
+		color[main->winner],
+		main->player[main->winner].name);
 }
 
 void			render(t_main *main)

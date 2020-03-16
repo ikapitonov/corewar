@@ -34,12 +34,12 @@ static	void	start_game(t_main *main)
 	int		i;
 
 	ft_putstr("Introducing contestants...\n");
-	i = 0;
-	while (++i <= main->players)
+	i = -1;
+	while (++i < main->players)
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-		i, main->player[(int)main->p_index[i]].code_size,
-		main->player[(int)main->p_index[i]].name,
-		main->player[(int)main->p_index[i]].comment);
+		i + 1, main->player[i].code_size,
+		main->player[i].name,
+		main->player[i].comment);
 	while (main->cursor && main->cycle_to_die > 0)
 	{
 		game_exec(main);
@@ -60,13 +60,14 @@ int				main(int ac, char *av[])
 
 	main = init();
 	insert_params(main, ac, av);
+	sort_p_index(main);
 	if (main->starter)
 	{
 		main->speed = 1;
 		main->pause = 1;
 	}
 	if (main->flag_v)
-		init_mlx(main);	
+		init_mlx(main);
 	init_cursors(main);
 	init_area(main);
 	if (main->flag_v)

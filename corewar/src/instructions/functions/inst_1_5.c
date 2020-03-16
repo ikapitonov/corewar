@@ -23,8 +23,8 @@ void	live(t_main *main, t_cursor *cursor, char *area)
 	cursor->last_live_cycle = main->cycles_count;
 	if (val < main->players + 1 && val > 0)
 	{
-		main->player[(int)main->p_index[val]].current_lives += 1;
-		main->player[(int)main->p_index[val]].all_lives = main->cycles_count;
+		main->player[val - 1].current_lives += 1;
+		main->player[val - 1].all_lives = main->cycles_count;
 	}
 }
 

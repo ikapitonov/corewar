@@ -62,19 +62,17 @@ void			init_area(t_main *main)
 	int		start;
 	int		size;
 	int		i;
-	int		tmp;
 
 	constant = MEM_SIZE / main->players;
 	start = START_COMMENT + COMMENT_LENGTH + NULL_SIZE;
 	i = 0;
 	while (i < main->players)
 	{
-		tmp = main->p_index[i + 1];
-		if (main->player[tmp].code_size)
+		if (main->player[i].code_size)
 		{
-			size = main->player[tmp].code_size;
+			size = main->player[i].code_size;
 			ft_memcpy(main->area + (i * constant),
-						main->player[tmp].content + start, size);
+						main->player[i].content + start, size);
 			put_player_in_sell(main, i * constant, size, i + 1);
 		}
 		++i;
@@ -88,7 +86,6 @@ void			init_cursors(t_main *main)
 	int			i;
 
 	i = 0;
-	main->p_index[0] = -1;
 	constant = MEM_SIZE / main->players;
 	while (i < main->players)
 	{
@@ -96,7 +93,6 @@ void			init_cursors(t_main *main)
 		cursor->pos = i * constant;
 		cursor->next = main->cursor;
 		main->cursor = cursor;
-		main->p_index[main->player[i].id] = i;
 		cursor->reg[0] = -(main->player[i].id);
 		rev_endian(&cursor->reg[0], 4);
 		++i;
