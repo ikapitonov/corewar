@@ -51,10 +51,19 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		  ft_printf/src/long_arithmetic/read_long_long.c
 
 CC = gcc
-HEADER = includes/
-CFLAGS = -Wall -Wextra -Werror -I $(HEADER)
+HEADER_DIR	=	includes/
+HEADER		=	includes/libft.h\
+				includes/ft_printf.h\
+				includes/ft_printf_lib.h\
+				includes/long_arithmetic.h\
+				includes/get_next_line.h
+
+CFLAGS = -Wall -Wextra -Werror -I $(HEADER_DIR)
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
+
+%.o: %.c $(HEADER)
+	gcc -c -I $(HEADER_DIR) $< -o $@
 
 all: $(NAME)
 

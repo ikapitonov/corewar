@@ -14,7 +14,7 @@ NAME			= corewar
 
 CC				= gcc
 HEADER_DIR		= includes
-HEADER			= includes/corewar.h
+HEADER			= includes/corewar.h ../includes/op.h
 
 CFLAGS			= -I $(HEADER_DIR) -Wall -Werror -Wextra -O2 -O3
 

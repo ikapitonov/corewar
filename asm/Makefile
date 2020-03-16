@@ -13,8 +13,9 @@
 NAME			= asm
 
 CC				= gcc
-HEADER			= includes/
-CFLAGS			= -I $(HEADER) -Wall -Werror -Wextra -O2 -O3
+HEADER_DIR		= includes/
+HEADER			= includes/asm.h ../includes/op.h
+CFLAGS			= -I $(HEADER_DIR) -Wall -Werror -Wextra -O2 -O3
 
 SRC				= src/main.c \
 				  src/init.c \
@@ -56,6 +57,9 @@ SRC				= src/main.c \
 LIB =			  ../libft/libft.a
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
+
+%.o: %.c $(HEADER)
+	gcc -c -I $(HEADER_DIR) $< -o $@
 
 all: lib $(NAME)
 
