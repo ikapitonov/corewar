@@ -62,17 +62,19 @@ void			init_area(t_main *main)
 	int		start;
 	int		size;
 	int		i;
+	int		tmp;
 
 	constant = MEM_SIZE / main->players;
 	start = START_COMMENT + COMMENT_LENGTH + NULL_SIZE;
 	i = 0;
 	while (i < main->players)
 	{
-		if (main->player[i].code_size)
+		tmp = main->p_index[i + 1];
+		if (main->player[tmp].code_size)
 		{
-			size = main->player[i].code_size;
+			size = main->player[tmp].code_size;
 			ft_memcpy(main->area + (i * constant),
-						main->player[i].content + start, size);
+						main->player[tmp].content + start, size);
 			put_player_in_sell(main, i * constant, size, i + 1);
 		}
 		++i;

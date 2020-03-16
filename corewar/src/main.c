@@ -66,9 +66,9 @@ int				main(int ac, char *av[])
 		main->pause = 1;
 	}
 	if (main->flag_v)
-		init_mlx(main);
-	init_area(main);
+		init_mlx(main);	
 	init_cursors(main);
+	init_area(main);
 	if (main->flag_v)
 	{
 		mlx_key_hook(main->win, lem_hook_keydown, main);
